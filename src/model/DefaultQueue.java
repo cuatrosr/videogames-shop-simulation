@@ -91,4 +91,19 @@ public class DefaultQueue<T> implements Queue<T>{
         sb.append(")");
         return sb.toString();
     }
+    /**
+     * Reverses the Queue,such that the frontmost element is now at the back. <br>
+     * @return The reversed Queue, such that the unreversed Queue is still accessible with `front()`. <br>
+     */
+    public DefaultQueue<T> reverse() {
+        DefaultStack<T> aux = new DefaultStack<>();
+        DefaultQueue<T> reversed = new DefaultQueue<>();
+        while (!isEmpty()) {
+            aux.push(dequeue());
+        }
+        while (!aux.isEmpty()) {
+            reversed.enqueue(aux.pop());
+        }
+        return reversed;
+    }
 }

@@ -82,7 +82,7 @@ public class DefaultStack<T> implements Stack<T>{
 
     /**
      * Reverses the Stack,such that the topmost element is now at the bottom. <br>
-     * @return
+     * @return The reversed Stack, such that the unreversed Stack is still accessible with `top()`. <br>
      */
     public DefaultStack<T> reverse() {
         DefaultStack<T> reversed = new DefaultStack<>();

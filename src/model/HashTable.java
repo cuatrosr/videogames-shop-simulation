@@ -21,7 +21,7 @@ public interface HashTable<K, V> {
 
     abstract public void delete(K key);
 
-    abstract public void retrieve(K key);
+    abstract public void search(K key);
 
     abstract public boolean isEmpty();
 
