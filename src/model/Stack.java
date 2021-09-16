@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Interface representing the main operations of a Stack abstract data type. <br>
+ */
 public interface Stack<T> {
     /**
      * Main constructor of the class. Crates an empty stack. <br>

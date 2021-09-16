@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Interface representing the main operations of a Queue abstract data type. <br>
+ */
 public interface Queue<T> {
     /**
      * Enqueues the given data to the back of the Queue, making it the last element. <br>
