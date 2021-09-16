@@ -1,4 +1,4 @@
-package model;
+package src.model.interfaces;
 
 /**
  * Interface representing the main operations of a Stack abstract data type. <br>

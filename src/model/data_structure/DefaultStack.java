@@ -1,4 +1,5 @@
-package model;
+package src.model.data_structure;
+import src.model.interfaces.Stack;
 
 /**
  * A custom implementation of the Stack generic data type. <br>

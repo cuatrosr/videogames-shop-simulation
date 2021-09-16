@@ -1,4 +1,4 @@
-package model;
+package src.model.data_structure;
 
 public class Node<T> {
     private T data;

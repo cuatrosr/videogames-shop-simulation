@@ -1,4 +1,4 @@
-package model;
+package src.model.interfaces;
 
 /**
  * Interface representing the main operations of a Hash Table abstract data type. <br>
@@ -21,7 +21,7 @@ public interface HashTable<K, V> {
 
     abstract public void delete(K key);
 
-    abstract public void search(K key);
+    abstract public Object search(K key);
 
     abstract public boolean isEmpty();
 
