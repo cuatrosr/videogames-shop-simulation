@@ -5,5 +5,4 @@ package src.model.objects;
  */
 public class Shop {
 
-    
 }

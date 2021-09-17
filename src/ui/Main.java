@@ -1,5 +1,5 @@
 package src.ui;
-import src.model.data_structure.*;
+import src.model.data_structures.*;
 
 public class Main{
 

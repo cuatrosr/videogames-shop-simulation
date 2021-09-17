@@ -1,5 +1,5 @@
-package src.model.data_structure;
-import src.model.interfaces.HashTable;
+package src.model.data_structures;
+import src.model.interfaces.*;
 
 class HashNode<K, V> {
 
@@ -30,7 +30,7 @@ class HashNode<K, V> {
     }
 }
 
-public class DefaultHashTable<K, V> implements HashTable<K, V>{
+public class DefaultHashTable<K, V> implements HashTable<K, V> {
 
     private HashNode<?, ?>[] table;
     private int size;
@@ -38,7 +38,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V>{
 
     public DefaultHashTable(int arraySize) {
         table = new HashNode<?, ?>[arraySize];
-        size = 0;
+        size = 0; // :)
         this.arraySize = arraySize;
     }
 
@@ -46,22 +46,19 @@ public class DefaultHashTable<K, V> implements HashTable<K, V>{
     public int hash(K key) {
         String auxKey = String.valueOf(key);
         return hash(auxKey, auxKey.length(), 0) % arraySize;
-
     }
 
     private int hash(String key, int length, int value) {
 
-        if(length != 0){
+        if (length != 0) {
             value += key.charAt(length - 1);
             length--;
             return hash(key, length, value);
 
-        }else{
+        } else{
             return value;
 
         }
-       
-    
     }
 
     @Override

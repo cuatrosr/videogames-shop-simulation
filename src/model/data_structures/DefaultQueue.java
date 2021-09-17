@@ -1,5 +1,5 @@
-package src.model.data_structure;
-import src.model.interfaces.Queue;
+package src.model.data_structures;
+import src.model.interfaces.*;
 
 import java.util.NoSuchElementException;
 
