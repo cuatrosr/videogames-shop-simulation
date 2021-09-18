@@ -1,5 +1,5 @@
 package src.model.objects;
-import src.model.data_structure.*;
+import src.model.data_structures.*;
 
 /**
  * Shelving
