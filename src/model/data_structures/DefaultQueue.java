@@ -1,13 +1,14 @@
-package src.model.data_structures;
-import src.model.interfaces.*;
+package model.data_structures;
+
+import model.interfaces.*;
 
 import java.util.NoSuchElementException;
 
 /**
  * A custom implementation of the Queue generic data type. <br>
  */
-public class DefaultQueue<T> implements Queue<T>{
-    
+public class DefaultQueue<T> implements Queue<T> {
+
     private Node<T> front;
     private Node<T> rear;
     private int size;
@@ -36,21 +37,25 @@ public class DefaultQueue<T> implements Queue<T>{
         }
         size++;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public T dequeue() {
         Node<T> trash = front;
-        if (front == null) throw new NoSuchElementException("Can't dequeue from an empty queue");
-        else if (front == rear) front = rear = null;
-        else front = front.next();
+        if (front == null) {
+            throw new NoSuchElementException("Can't dequeue from an empty queue");
+        } else if (front == rear) {
+            front = rear = null;
+        } else {
+            front = front.next();
+        }
         size--;
         return trash.data();
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -58,7 +63,7 @@ public class DefaultQueue<T> implements Queue<T>{
     public T front() {
         return front.data();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -66,7 +71,7 @@ public class DefaultQueue<T> implements Queue<T>{
     public boolean isEmpty() {
         return size == 0;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -74,7 +79,7 @@ public class DefaultQueue<T> implements Queue<T>{
     public int size() {
         return size;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -92,9 +97,13 @@ public class DefaultQueue<T> implements Queue<T>{
         sb.append(")");
         return sb.toString();
     }
+
     /**
-     * Reverses the Queue,such that the frontmost element is now at the back. <br>
-     * @return The reversed Queue, such that the unreversed Queue is still accessible with `front()`. <br>
+     * Reverses the Queue,such that the frontmost element is now at the back.
+     * <br>
+     *
+     * @return The reversed Queue, such that the unreversed Queue is still
+     * accessible with `front()`. <br>
      */
     public DefaultQueue<T> reverse() {
         DefaultStack<T> aux = new DefaultStack<>();

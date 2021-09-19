@@ -1,7 +1,8 @@
-package src.model.data_structures;
+package model.data_structures;
+
 import java.util.Objects;
 
-import src.model.interfaces.*;
+import model.interfaces.*;
 
 class HashNode<K, V> {
 
@@ -61,20 +62,19 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         do {
 
             int j = hash(key, i);
-            
+
             if (table[j] == null) {
                 table[j] = new HashNode<K, V>(key, value);
                 size++;
                 return;
-                
+
             }
 
             i++;
 
         } while (i != arraySize);
         throw new Exception("Desbordamiento de tabla hash");
-     
-    
+
     }
 
     @Override
@@ -85,19 +85,19 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         do {
 
             int j = hash(key, i);
-            
+
             if (table[j].getKey() == key) {
                 table[j] = null;
                 size--;
                 return;
-                
+
             }
 
             i++;
 
         } while (i != arraySize);
         throw new Exception("Desbordamiento de tabla hash");
-      
+
     }
 
     @Override
@@ -109,23 +109,22 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         do {
 
             j = hash(key, i);
-           
+
             if (table[j].getKey().equals(key)) {
                 return (V) table[j].getValue();
-                
+
             }
 
             i++;
 
         } while (i != arraySize);
         return null;
-      
-    
+
     }
 
     @Override
     public boolean isEmpty() {
-        return (size == 0)? true: false;
+        return (size == 0) ? true : false;
     }
 
     @Override
@@ -133,5 +132,4 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         return size;
     }
 
-    
 }

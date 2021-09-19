@@ -1,4 +1,4 @@
-package src.ui;
+package ui;
 
 import com.sun.javafx.application.LauncherImpl;
 

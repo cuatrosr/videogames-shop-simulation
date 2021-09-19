@@ -1,10 +1,11 @@
-package src.model.objects;
-import src.model.data_structures.DefaultHashTable;
+package model.objects;
+
+import model.data_structures.DefaultHashTable;
 
 /**
  * Shelving
  */
-public class Shelf{
+public class Shelf {
 
     private String code;
     private int amountGames;
@@ -32,14 +33,12 @@ public class Shelf{
         this.amountGames = amountGames;
     }
 
-    public DefaultHashTable<Integer,Games> getGameHash() {
+    public DefaultHashTable<Integer, Games> getGameHash() {
         return this.gameHash;
     }
 
-    public void setGameHash(DefaultHashTable<Integer,Games> gameHash) {
+    public void setGameHash(DefaultHashTable<Integer, Games> gameHash) {
         this.gameHash = gameHash;
     }
 
-
-    
 }

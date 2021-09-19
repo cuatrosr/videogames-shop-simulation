@@ -1,4 +1,4 @@
-package src.model.objects;
+package model.objects;
 
 /**
  * Games
@@ -39,5 +39,4 @@ public class Games {
         this.amount = amount;
     }
 
-    
 }

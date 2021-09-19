@@ -1,4 +1,4 @@
-package src.ui;
+package ui;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,12 +38,10 @@ import javafx.scene.image.ImageView;
 public class FXController implements Initializable {
 
     /*JAVAFX FIELDS*/
-
     @FXML
     private BorderPane currentBP;
 
     //Preloader
-
     @FXML
     private ImageView iLogo = new ImageView();
 
@@ -53,27 +51,25 @@ public class FXController implements Initializable {
     //Lateral Menu
     @FXML
     private VBox lateralVBOX = new VBox();
-    
+
     @FXML
     private JFXHamburger lateralHBG = new JFXHamburger();
-    
+
     @FXML
     private JFXDrawer lateralMenuDW = new JFXDrawer();
 
     HamburgerSlideCloseTransition lateralHBGTransition;
-    
+
     private boolean extended;
-    
+
     private Rectangle2D screenBounds;
 
     /*CLASS FIELDS*/
-
     private FXSecondaryController secondaryController;
 
     private String loadedPane;
-    
-    /*METHODS*/
 
+    /*METHODS*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        iLogo.setImage(new Image(new File("resources/image/baanccNegative.png").toURI().toString()));
@@ -97,14 +93,14 @@ public class FXController implements Initializable {
     }
 
     //Utility
-
     public void preload() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/drawer.fxml"));
             fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
             lateralMenuDW.setSidePane(root);
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
     public void launchFXML(String fxml, Object controller, String title, Modality modality, StageStyle style, boolean windowed, boolean resizable) throws IOException {
@@ -133,7 +129,6 @@ public class FXController implements Initializable {
     }
 
     //Lateral Menu
-
     @FXML
     void mainToggleHamburger(MouseEvent event) {
         preload();
@@ -142,14 +137,18 @@ public class FXController implements Initializable {
         int width = extended ? contractedWidth : extendedWidth;
         lateralVBOX.setPrefWidth(width);
         lateralMenuAnimation(width);
-        if (lateralMenuDW.isClosed())
+        if (lateralMenuDW.isClosed()) {
             lateralMenuDW.open();
-        else lateralMenuDW.close();
+        } else {
+            lateralMenuDW.close();
+        }
         extended = !extended;
     }
-    
-    private void lateralMenuAnimation(int width) { 
-        if (!extended) width *= -1;
+
+    private void lateralMenuAnimation(int width) {
+        if (!extended) {
+            width *= -1;
+        }
         lateralVBOX.translateXProperty().set(width);
         Timeline t = new Timeline();
         KeyValue kv = new KeyValue(lateralVBOX.translateXProperty(), 0, Interpolator.EASE_OUT);
@@ -159,7 +158,6 @@ public class FXController implements Initializable {
     }
 
     //Main pane
-
     @FXML
     void gamesClicked(ActionEvent event) {
         if (!loadedPane.equals("games")) {

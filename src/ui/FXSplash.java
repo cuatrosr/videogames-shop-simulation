@@ -1,4 +1,4 @@
-package src.ui;
+package ui;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 public class FXSplash extends Preloader {
 
     //---------------------------- Attributes of FxSplash class ----------------------------\\
+    @SuppressWarnings("FieldMayBeFinal")
     private FXController controller;
     private Stage preloaderStage;
     private Scene scene;
@@ -21,6 +22,7 @@ public class FXSplash extends Preloader {
     //-------------------------- Constructor class --------------------------\\
     /**
      * FXSplash class constructor, initialize all relations.
+     * @throws java.io.IOException
      */
     public FXSplash() throws IOException {
         controller = new FXController();

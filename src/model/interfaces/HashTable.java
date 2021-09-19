@@ -1,4 +1,4 @@
-package src.model.interfaces;
+package model.interfaces;
 
 /**
  * Interface representing the main operations of a Hash Table abstract data type. <br>

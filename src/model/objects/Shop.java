@@ -1,8 +1,8 @@
-package src.model.objects;
+package model.objects;
 
 import java.io.BufferedReader;
 
-import src.model.data_structures.DefaultQueue;
+import model.data_structures.DefaultQueue;
 
 /**
  * Shop
@@ -14,14 +14,12 @@ public class Shop {
     private DefaultQueue<Client> clientQueue;
     private Tablet tablet;
 
-
     public Shop(int atm, int amoutShelf) {
         this.atm = atm;
         this.shelf = new Shelf[amoutShelf];
         this.clientQueue = new DefaultQueue<>();
         tablet = new Tablet();
     }
-
 
     public int getAtm() {
         return this.atm;
@@ -54,7 +52,6 @@ public class Shop {
     public void setTablet(Tablet tablet) {
         this.tablet = tablet;
     }
- 
 
     public void createShelf(BufferedReader br) throws NumberFormatException, Exception {
         for (int i = 0; i < this.getShelf().length; i++) {
@@ -69,18 +66,15 @@ public class Shop {
                 String line = br.readLine();
                 int gameCode = Integer.parseInt(line.split(" ")[0]);
                 this.getShelf()[i].getGameHash().insert(gameCode, new Games(gameCode, Integer.parseInt(line.split(" ")[1]), Integer.parseInt(line.split(" ")[2])));
-                
-                
+
             }
-            
 
         }
-        
+
     }
 
-    
     public void createClients(BufferedReader br) throws NumberFormatException, Exception {
-        
+
         int num = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < num; i++) {
@@ -88,20 +82,16 @@ public class Shop {
             String[] line = br.readLine().split(" ");
 
             Client client = new Client(Integer.parseInt(line[0]));
-            
 
             for (int j = 1; j < line.length; j++) {
                 client.getGamesStack().push(Integer.parseInt(line[j]));
-                
+
             }
 
             this.getClientQueue().enqueue(client);
 
         }
 
-        
     }
 
-
 }
-    

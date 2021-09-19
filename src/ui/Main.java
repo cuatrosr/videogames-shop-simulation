@@ -1,10 +1,10 @@
-package src.ui;
-import src.model.objects.*;
+package ui;
+
+import model.objects.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-
-public class Main{
+public class Main {
 
     public static void main(String[] args) throws NumberFormatException, Exception {
 
@@ -25,13 +25,11 @@ public class Main{
         System.out.println("----------------------------------------");
         for (int var : array) {
             System.out.println(var);
-            
+
         }
- 
+
         br.close();
 
     }
-
-
 
 }

@@ -1,6 +1,7 @@
-package src.model.data_structures;
+package model.data_structures;
 
 public class Node<T> {
+
     private T data;
     private Node<T> next;
 

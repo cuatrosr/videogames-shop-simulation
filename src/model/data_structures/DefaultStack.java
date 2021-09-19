@@ -1,11 +1,12 @@
-package src.model.data_structures;
-import src.model.interfaces.*;
+package model.data_structures;
+
+import model.interfaces.*;
 
 /**
  * A custom implementation of the Stack generic data type. <br>
  */
-public class DefaultStack<T> implements Stack<T>{
-    
+public class DefaultStack<T> implements Stack<T> {
+
     private Node<T> top;
     private int size;
 
@@ -82,8 +83,11 @@ public class DefaultStack<T> implements Stack<T>{
     }
 
     /**
-     * Reverses the Stack,such that the topmost element is now at the bottom. <br>
-     * @return The reversed Stack, such that the unreversed Stack is still accessible with `top()`. <br>
+     * Reverses the Stack,such that the topmost element is now at the bottom.
+     * <br>
+     *
+     * @return The reversed Stack, such that the unreversed Stack is still
+     * accessible with `top()`. <br>
      */
     public DefaultStack<T> reverse() {
         DefaultStack<T> reversed = new DefaultStack<>();
@@ -94,8 +98,11 @@ public class DefaultStack<T> implements Stack<T>{
     }
 
     /**
-     * Returns a string representation of the Stack, as a comma separated list with no other characters or whitespace. <br>
-     * @return A trimmed comma separated values list that reresents the stack. <br>
+     * Returns a string representation of the Stack, as a comma separated list
+     * with no other characters or whitespace. <br>
+     *
+     * @return A trimmed comma separated values list that reresents the stack.
+     * <br>
      */
     public String toStringNoFormat() {
         StringBuilder sb = new StringBuilder();
@@ -109,25 +116,24 @@ public class DefaultStack<T> implements Stack<T>{
         return sb.toString();
     }
 
-    public Integer[] toArray(){
+    public Integer[] toArray() {
         Integer[] array = new Integer[size];
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) this.pop();
-            
+            array[i] = (Integer) this.pop();
+
         }
 
         return array;
 
     }
 
-    public void toStack(T[] array){
-    
+    public void toStack(T[] array) {
+
         for (T var : array) {
             push(var);
-            
+
         }
-       
 
     }
 }

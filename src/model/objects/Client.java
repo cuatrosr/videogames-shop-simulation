@@ -1,5 +1,6 @@
-package src.model.objects;
-import src.model.data_structures.DefaultStack;
+package model.objects;
+
+import model.data_structures.DefaultStack;
 
 /**
  * Client
@@ -50,6 +51,4 @@ public class Client {
         this.totalPurchase = totalPurchase;
     }
 
-
-    
 }
