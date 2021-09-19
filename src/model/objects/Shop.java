@@ -12,13 +12,16 @@ public class Shop {
     private int atm;
     private Shelf[] shelf;
     private DefaultQueue<Client> clientQueue;
+    private Tablet tablet;
 
 
     public Shop(int atm, int amoutShelf) {
         this.atm = atm;
         this.shelf = new Shelf[amoutShelf];
         this.clientQueue = new DefaultQueue<>();
+        tablet = new Tablet();
     }
+
 
     public int getAtm() {
         return this.atm;
@@ -43,6 +46,15 @@ public class Shop {
     public void setClientQueue(DefaultQueue<Client> clientQueue) {
         this.clientQueue = clientQueue;
     }
+
+    public Tablet getTablet() {
+        return this.tablet;
+    }
+
+    public void setTablet(Tablet tablet) {
+        this.tablet = tablet;
+    }
+ 
 
     public void createShelf(BufferedReader br) throws NumberFormatException, Exception {
         for (int i = 0; i < this.getShelf().length; i++) {

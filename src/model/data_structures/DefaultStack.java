@@ -108,4 +108,26 @@ public class DefaultStack<T> implements Stack<T>{
         }
         return sb.toString();
     }
+
+    public Object[] toArray(){
+        Object[] array = new Object[size];
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = this.pop();
+            
+        }
+
+        return array;
+
+    }
+
+    public void toStack(T[] array){
+    
+        for (T var : array) {
+            push(var);
+            
+        }
+       
+
+    }
 }

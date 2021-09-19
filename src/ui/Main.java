@@ -3,6 +3,7 @@ import src.model.objects.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+
 public class Main{
 
     public static void main(String[] args) throws NumberFormatException, Exception {
@@ -18,11 +19,9 @@ public class Main{
         shop.createShelf(br);
         //crea los clientes
         shop.createClients(br);
-
-        System.out.println("hola");
  
-    
         br.close();
+
     }
 
 
