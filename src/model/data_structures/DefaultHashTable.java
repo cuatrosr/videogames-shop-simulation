@@ -101,7 +101,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
     }
 
     @Override
-    public Object search(K key) {
+    public V search(K key) {
 
         int i = 0;
         int j = 0;
@@ -109,15 +109,15 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         do {
 
             j = hash(key, i);
-            
-            if (table[j].getKey() == key) {
-                return table[j].getValue();
+           
+            if (table[j].getKey().equals(key)) {
+                return (V) table[j].getValue();
                 
             }
 
             i++;
 
-        } while (table[j] != null || i != arraySize);
+        } while (i != arraySize);
         return null;
       
     

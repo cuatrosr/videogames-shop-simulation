@@ -19,6 +19,14 @@ public class Main{
         shop.createShelf(br);
         //crea los clientes
         shop.createClients(br);
+
+        int[] array = shop.getTablet().order((shop.getClientQueue().dequeue().getGamesStack().toArray()), shop.getShelf());
+
+        System.out.println("----------------------------------------");
+        for (int var : array) {
+            System.out.println(var);
+            
+        }
  
         br.close();
 

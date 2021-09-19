@@ -109,11 +109,11 @@ public class DefaultStack<T> implements Stack<T>{
         return sb.toString();
     }
 
-    public Object[] toArray(){
-        Object[] array = new Object[size];
+    public Integer[] toArray(){
+        Integer[] array = new Integer[size];
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = this.pop();
+            array[i] = (int) this.pop();
             
         }
 
