@@ -31,7 +31,6 @@ public class FXMain extends Application {
         Scene scene = new Scene(root);
 //        primaryStage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
         primaryStage.setTitle("Configure simulation");
         primaryStage.show();
     }
