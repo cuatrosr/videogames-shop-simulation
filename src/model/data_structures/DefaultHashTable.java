@@ -1,4 +1,6 @@
 package src.model.data_structures;
+import java.util.Objects;
+
 import src.model.interfaces.*;
 
 class HashNode<K, V> {
@@ -44,40 +46,80 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
 
     @Override
     public int hash(K key) {
-        String auxKey = String.valueOf(key);
-        return hash(auxKey, auxKey.length(), 0) % arraySize;
+        return Objects.hashCode(key) % arraySize;
     }
 
-    private int hash(String key, int length, int value) {
-
-        if (length != 0) {
-            value += key.charAt(length - 1);
-            length--;
-            return hash(key, length, value);
-
-        } else{
-            return value;
-
-        }
+    private int hash(K key, int i) {
+        return (Objects.hashCode(key) + i) % arraySize;
     }
 
     @Override
-    public void insert(K key, V value) {
-        table[hash(key)] = new HashNode<K, V>(key, value);
-        size += 1;
+    public void insert(K key, V value) throws Exception {
+
+        int i = 0;
+
+        do {
+
+            int j = hash(key, i);
+            
+            if (table[j] == null) {
+                table[j] = new HashNode<K, V>(key, value);
+                size++;
+                return;
+                
+            }
+
+            i++;
+
+        } while (i != arraySize);
+        throw new Exception("Desbordamiento de tabla hash");
+     
     
     }
 
     @Override
-    public void delete(K key) {
-        table[hash(key)] = null;
-        size--;
+    public void delete(K key) throws Exception {
+
+        int i = 0;
+
+        do {
+
+            int j = hash(key, i);
+            
+            if (table[j].getKey() == key) {
+                table[j] = null;
+                size--;
+                return;
+                
+            }
+
+            i++;
+
+        } while (i != arraySize);
+        throw new Exception("Desbordamiento de tabla hash");
       
     }
 
     @Override
     public Object search(K key) {
-       return  table[hash(key)].getValue();
+
+        int i = 0;
+        int j = 0;
+
+        do {
+
+            j = hash(key, i);
+            
+            if (table[j].getKey() == key) {
+                return table[j].getValue();
+                
+            }
+
+            i++;
+
+        } while (table[j] != null || i != arraySize);
+        return null;
+      
     
     }
 

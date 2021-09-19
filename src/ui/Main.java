@@ -1,30 +1,28 @@
 package src.ui;
-import src.model.data_structures.*;
+import src.model.objects.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main{
 
-    public static void main(String[] args) {
-        DefaultHashTable<String, String> table = new DefaultHashTable<>(2);
-        DefaultHashTable<String, Integer> table2 = new DefaultHashTable<>(5);
+    public static void main(String[] args) throws NumberFormatException, Exception {
 
-        table.insert("1A", "Hola samu");
-        table.insert("1B", "Hola David");
-        table2.insert("1A", 1);
-        table2.insert("1B", 2);
-        table2.insert("1C", 3);
-        table2.insert("1D", 4);
-        table2.insert("1E", 5);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println(table.search("1A"));
-        System.out.println(table.search("1B"));
-        System.out.println(table2.search("1A"));
-        System.out.println(table2.search("1B"));
-        System.out.println(table2.search("1C"));
-        System.out.println(table2.search("1D"));
-        System.out.println(table2.search("1E"));
-        
-        
-        
+        int numCase = Integer.parseInt(br.readLine());// pa que esssss?
+
+        //crea la tienda
+        Shop shop = new Shop(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()));
+
+        //crea los shelf
+        shop.createShelf(br);
+        //crea los clientes
+        shop.createClients(br);
+
+        System.out.println("hola");
+ 
+    
+        br.close();
     }
 
 

@@ -1,5 +1,5 @@
 package src.model.objects;
-import src.model.data_structures.*;
+import src.model.data_structures.DefaultStack;
 
 /**
  * Client
@@ -8,12 +8,12 @@ public class Client {
 
     private String name;
     private int cc;
-    private DefaultStack<Games> gamesStack;
+    private DefaultStack<Integer> gamesStack;
 
-    public Client(String name, int cc, DefaultStack<Games> gamesStack) {
-        this.name = name;
+    public Client(int cc) {
+        this.name = "name";
         this.cc = cc;
-        this.gamesStack = gamesStack;
+        this.gamesStack = new DefaultStack<>();
     }
 
     public String getName() {
@@ -32,11 +32,11 @@ public class Client {
         this.cc = cc;
     }
 
-    public DefaultStack<Games> getGamesStack() {
+    public DefaultStack<Integer> getGamesStack() {
         return this.gamesStack;
     }
 
-    public void setGamesStack(DefaultStack<Games> gamesStack) {
+    public void setGamesStack(DefaultStack<Integer> gamesStack) {
         this.gamesStack = gamesStack;
     }
 

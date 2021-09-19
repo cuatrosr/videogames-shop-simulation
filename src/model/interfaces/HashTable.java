@@ -16,10 +16,11 @@ public interface HashTable<K, V> {
      * Inserts a new value into the table. <br>
      * @param key The key to calculate the index. <br>
      * @param value The value to be inserted. <br>
+     * @throws Exception
      */
-    void insert(K key, V value);
+    void insert(K key, V value) throws Exception;
 
-    void delete(K key);
+    void delete(K key) throws Exception;
 
     Object search(K key);
 
