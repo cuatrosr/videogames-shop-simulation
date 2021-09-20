@@ -12,8 +12,10 @@ public class Tablet {
         for (Shelf var : shelf) {
 
             for (int i = 0; i < c.length; i++) {
-                if (var.getGameHash().search(array[i]) != null && array[i] == var.getGameHash().search(array[i]).getGameCode()) {
+                Games game = var.getGameHash().search(array[i]);
+                if (game != null && array[i] == game.getGameCode() && game.getAmount() != 0) {
                     c[j] = array[i];
+                    game.setAmount(game.getAmount() - 1);;
                     j++;
 
                 }

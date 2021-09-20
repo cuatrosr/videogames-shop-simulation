@@ -18,6 +18,7 @@ public interface HashTable<K, V> {
      * @param value The value to be inserted. <br>
      * @throws Exception
      */
+    
     void insert(K key, V value) throws Exception;
 
     void delete(K key) throws Exception;

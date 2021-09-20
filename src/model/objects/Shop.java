@@ -79,17 +79,19 @@ public class Shop {
     }
 
     public void createClients(BufferedReader br) throws NumberFormatException, Exception {
+        BufferedReader auxBr = br;
 
-        int num = Integer.parseInt(br.readLine());
+        int num = Integer.parseInt(auxBr.readLine());
 
         for (int i = 0; i < num; i++) {
 
-            String[] line = br.readLine().split(" ");
+            String[] line = auxBr.readLine().split(" ");
 
             Client client = new Client(Integer.parseInt(line[0]));
 
             for (int j = 1; j < line.length; j++) {
                 client.getGamesStack().push(Integer.parseInt(line[j]));
+                
 
             }
 

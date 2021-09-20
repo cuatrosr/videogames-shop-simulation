@@ -119,8 +119,8 @@ public class DefaultStack<T> implements Stack<T> {
     public Integer[] toArray() {
         Integer[] array = new Integer[size];
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = (Integer) this.pop();
+        for (int i = array.length ; i > 0; i--) {
+            array[i - 1] = (Integer) this.pop();
 
         }
 
