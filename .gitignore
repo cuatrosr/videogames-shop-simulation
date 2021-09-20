@@ -1,6 +1,4 @@
-/test/
-/nbproject/
-/build.xml
-/manifest.mf
-/build/
-/dist/
+.idea
+videogames-shop-simulation.iml
+bin
+out

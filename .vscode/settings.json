@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "src/ui/resources/libs/jfoenix-8.0.10.jar"
+    ]
+}

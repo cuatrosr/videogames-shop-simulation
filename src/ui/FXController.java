@@ -1,12 +1,8 @@
 package ui;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -17,23 +13,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import model.objects.Shop;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class FXController implements Initializable {
 
@@ -58,16 +54,19 @@ public class FXController implements Initializable {
     @FXML
     private JFXDrawer lateralMenuDW = new JFXDrawer();
 
-    HamburgerSlideCloseTransition lateralHBGTransition;
+    HamburgerNextArrowBasicTransition lateralHBGTransition;
 
     private boolean extended;
 
     private Rectangle2D screenBounds;
 
     /*CLASS FIELDS*/
+
     private FXSecondaryController secondaryController;
 
     private String loadedPane;
+
+    private Shop shop;
 
     /*METHODS*/
     @Override
@@ -77,8 +76,8 @@ public class FXController implements Initializable {
         double prefWidth = screenBounds.getWidth() * 0.9;
         double prefHeight = screenBounds.getHeight() * 0.85;
         mainPaneBP.setPrefSize(prefWidth, prefHeight);
-        lateralHBGTransition = new HamburgerSlideCloseTransition(lateralHBG);
-        lateralHBGTransition.setRate(-1.5);
+        lateralHBGTransition = new HamburgerNextArrowBasicTransition(lateralHBG);
+        lateralHBGTransition.setRate(-1);
         lateralHBG.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             lateralHBGTransition.setRate(lateralHBGTransition.getRate() * -1);
             lateralHBGTransition.play();
@@ -87,9 +86,11 @@ public class FXController implements Initializable {
     }
 
     //Constructors
-    public FXController() {
+    public FXController(Shop shop) {
+        this.shop = shop;
         extended = false;
         loadedPane = "none";
+        secondaryController = new FXSecondaryController(shop);
     }
 
     //Utility

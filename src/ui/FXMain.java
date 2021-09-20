@@ -1,7 +1,6 @@
 package ui;
 
 import com.sun.javafx.application.LauncherImpl;
-
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Preloader;
@@ -11,16 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.objects.Shop;
 
 public class FXMain extends Application {
 
     public static boolean loaded = false;
     private FXController controller;
-
     private static final int COUNT_LIMIT = 30000;
+    private static Shop shop;
 
     public FXMain() throws IOException {
-        controller = new FXController();
+        shop = new Shop();
+        controller = new FXController(shop);
     }
 
     @Override
@@ -31,7 +32,6 @@ public class FXMain extends Application {
         Scene scene = new Scene(root);
 //        primaryStage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
         primaryStage.setTitle("Configure simulation");
         primaryStage.show();
     }
@@ -51,5 +51,9 @@ public class FXMain extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("App stopped.");
+    }
+
+    public static Shop getShop() {
+        return shop;
     }
 }

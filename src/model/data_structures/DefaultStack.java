@@ -125,7 +125,7 @@ public class DefaultStack<T> implements Stack<T> {
         }
 
         return array;
-
+// 612 <- 287 || 287 <- 612 || 612 <- 287
     }
 
     public void toStack(T[] array) {

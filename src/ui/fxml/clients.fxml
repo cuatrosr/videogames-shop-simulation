@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Label text="Clients" BorderPane.alignment="CENTER" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXListView fx:id="clientsLV" prefHeight="469.0" prefWidth="321.0" HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER" fillWidth="false" maxWidth="-Infinity" prefHeight="504.0" prefWidth="320.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXTextField fx:id="clientNameTF" onAction="#addClient" prefWidth="200.0" />
+                  <JFXTextField fx:id="clientIDTF" onAction="#addClient" prefWidth="200.0" />
+                  <JFXListView fx:id="clientGamesLV" prefHeight="202.0" prefWidth="200.0" />
+                  <JFXButton fx:id="addClientBTN" minHeight="0.0" minWidth="0.0" onAction="#addClient" text="Añadir" />
+                  <JFXButton fx:id="editClientBTN" onAction="#editClient" text="Editar" />
+                  <JFXButton fx:id="rmClientBTN" onAction="#removeClient" text="Remover" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </center>
 </BorderPane>
