@@ -36,9 +36,9 @@ public class FXSecondaryController implements Initializable{
 
     /*CLASS FIELDS*/
 
-    ArrayList<String> clientsLVAL = new ArrayList<>();
+    private ArrayList<String> clientsLVAL = new ArrayList<>();
 
-    Shop shop;
+    private Shop shop;
 
     /*METHODS*/
 
@@ -48,6 +48,10 @@ public class FXSecondaryController implements Initializable{
     }
 
     //Constructors
+
+    public FXSecondaryController(Shop shop) {
+        this.shop = shop;
+    }
 
     //Utility
 

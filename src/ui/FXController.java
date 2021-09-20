@@ -25,6 +25,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import model.objects.Shop;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,9 +61,12 @@ public class FXController implements Initializable {
     private Rectangle2D screenBounds;
 
     /*CLASS FIELDS*/
+
     private FXSecondaryController secondaryController;
 
     private String loadedPane;
+
+    private Shop shop;
 
     /*METHODS*/
     @Override
@@ -81,10 +86,11 @@ public class FXController implements Initializable {
     }
 
     //Constructors
-    public FXController() {
+    public FXController(Shop shop) {
+        this.shop = shop;
         extended = false;
         loadedPane = "none";
-        secondaryController = new FXSecondaryController();
+        secondaryController = new FXSecondaryController(shop);
     }
 
     //Utility

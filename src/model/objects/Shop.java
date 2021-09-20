@@ -14,6 +14,11 @@ public class Shop {
     private DefaultQueue<Client> clientQueue;
     private Tablet tablet;
 
+    public Shop() {
+        this.clientQueue = new DefaultQueue<>();
+        tablet = new Tablet();
+    }
+
     public Shop(int atm, int amoutShelf) {
         this.sellers = atm;
         this.shelves = new Shelf[amoutShelf];
