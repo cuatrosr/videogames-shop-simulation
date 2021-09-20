@@ -101,6 +101,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
     }
 
     @Override
+    @SuppressWarnings("Unchecked")
     public V search(K key) {
 
         int i = 0;
@@ -109,7 +110,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
         do {
 
             j = hash(key, i);
-
+           
             if (table[j].getKey().equals(key)) {
                 return (V) table[j].getValue();
 

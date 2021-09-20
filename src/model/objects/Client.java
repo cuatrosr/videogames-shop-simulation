@@ -51,4 +51,5 @@ public class Client {
         this.totalPurchase = totalPurchase;
     }
 
+
 }
