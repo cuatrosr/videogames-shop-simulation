@@ -2,6 +2,7 @@ package ui;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -51,7 +52,7 @@ public class FXController implements Initializable {
     @FXML
     private JFXDrawer lateralMenuDW = new JFXDrawer();
 
-    HamburgerSlideCloseTransition lateralHBGTransition;
+    HamburgerNextArrowBasicTransition lateralHBGTransition;
 
     private boolean extended;
 
@@ -70,8 +71,8 @@ public class FXController implements Initializable {
         double prefWidth = screenBounds.getWidth() * 0.9;
         double prefHeight = screenBounds.getHeight() * 0.85;
         mainPaneBP.setPrefSize(prefWidth, prefHeight);
-        lateralHBGTransition = new HamburgerSlideCloseTransition(lateralHBG);
-        lateralHBGTransition.setRate(-1.5);
+        lateralHBGTransition = new HamburgerNextArrowBasicTransition(lateralHBG);
+        lateralHBGTransition.setRate(-1);
         lateralHBG.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             lateralHBGTransition.setRate(lateralHBGTransition.getRate() * -1);
             lateralHBGTransition.play();
@@ -83,6 +84,7 @@ public class FXController implements Initializable {
     public FXController() {
         extended = false;
         loadedPane = "none";
+        secondaryController = new FXSecondaryController();
     }
 
     //Utility

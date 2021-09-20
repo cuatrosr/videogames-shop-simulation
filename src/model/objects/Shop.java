@@ -9,32 +9,32 @@ import model.data_structures.DefaultQueue;
  */
 public class Shop {
 
-    private int atm;
-    private Shelf[] shelf;
+    private int sellers;
+    private Shelf[] shelves;
     private DefaultQueue<Client> clientQueue;
     private Tablet tablet;
 
     public Shop(int atm, int amoutShelf) {
-        this.atm = atm;
-        this.shelf = new Shelf[amoutShelf];
+        this.sellers = atm;
+        this.shelves = new Shelf[amoutShelf];
         this.clientQueue = new DefaultQueue<>();
         tablet = new Tablet();
     }
 
     public int getAtm() {
-        return this.atm;
+        return this.sellers;
     }
 
     public void setAtm(int atm) {
-        this.atm = atm;
+        this.sellers = atm;
     }
 
     public Shelf[] getShelf() {
-        return this.shelf;
+        return this.shelves;
     }
 
     public void setShelf(Shelf[] shelf) {
-        this.shelf = shelf;
+        this.shelves = shelf;
     }
 
     public DefaultQueue<Client> getClientQueue() {
