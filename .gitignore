@@ -2,3 +2,9 @@
 videogames-shop-simulation.iml
 bin
 out
+/test/
+/nbproject/
+/build.xml
+/manifest.mf
+/build/
+/dist/
