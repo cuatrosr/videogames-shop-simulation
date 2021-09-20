@@ -25,7 +25,7 @@ public class FXSplash extends Preloader {
      * @throws java.io.IOException
      */
     public FXSplash() throws IOException {
-        controller = new FXController();
+        controller = new FXController(FXMain.getShop());
     }
 
     /**

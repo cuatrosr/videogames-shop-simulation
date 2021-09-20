@@ -17,7 +17,7 @@ public class FXMain extends Application {
     public static boolean loaded = false;
     private FXController controller;
     private static final int COUNT_LIMIT = 30000;
-    private Shop shop;
+    private static Shop shop;
 
     public FXMain() throws IOException {
         shop = new Shop();
@@ -51,5 +51,9 @@ public class FXMain extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("App stopped.");
+    }
+
+    public static Shop getShop() {
+        return shop;
     }
 }
