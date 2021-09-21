@@ -2,6 +2,7 @@ package ui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.input.MouseEvent;
 import model.data_structures.DefaultQueue;
 import model.objects.Client;
 import model.objects.Shop;
@@ -38,6 +40,12 @@ public class FXSecondaryController implements Initializable{
     @FXML
     private JFXButton addClientBTN = new JFXButton();
 
+    @FXML
+    private JFXButton editClientBTN = new JFXButton();
+
+    @FXML
+    private JFXButton rmClientBTN = new JFXButton();
+
     /*CLASS FIELDS*/
 
     private Shop shop;
@@ -48,6 +56,14 @@ public class FXSecondaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        clientsLV.setOnMouseClicked((event) -> {
+            boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
+            rmClientBTN.setDisable(btnsDisabled);
+            editClientBTN.setDisable(btnsDisabled);
+        });
+        boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
+        rmClientBTN.setDisable(btnsDisabled);
+        editClientBTN.setDisable(btnsDisabled);
         clientGamesLV.setItems(clientGamesOL);
         clientGamesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (int i = 0; i < shop.getClientQueue().size(); i++) {
@@ -98,6 +114,6 @@ public class FXSecondaryController implements Initializable{
     
     @FXML
     void removeClient(ActionEvent event) {
-
+        
     }
 }

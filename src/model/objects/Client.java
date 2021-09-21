@@ -10,6 +10,7 @@ public class Client {
     private String name;
     private int cc;
     private DefaultStack<Integer> gamesStack;
+    private int[] shoppingList;
     private int totalPurchase;
 
     public Client(int cc) {
@@ -17,6 +18,7 @@ public class Client {
         this.cc = cc;
         this.gamesStack = new DefaultStack<>();
         this.totalPurchase = 0;
+        this.shoppingList = null;
     }
 
     public String getName() {
@@ -41,6 +43,14 @@ public class Client {
 
     public void setGamesStack(DefaultStack<Integer> gamesStack) {
         this.gamesStack = gamesStack;
+    }
+
+    public int[] getShoppingList() {
+        return this.shoppingList;
+    }
+
+    public void setShoppingList(int[] shoppingList) {
+        this.shoppingList = shoppingList;
     }
 
     public int getTotalPurchase() {

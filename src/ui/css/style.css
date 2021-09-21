@@ -7,3 +7,104 @@
     -TEXT-1: #ffffff;
     -TEXT-2: #2d2d2d;
 }
+
+.root {
+    -fx-font-family: "Helvetica";
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+/* JFX Classes */
+
+.jfx-button {
+    -fx-font-size: 18px;
+    -fx-pref-width: 130px;
+	-fx-pref-height: 40px;
+    -fx-background-radius: 8px;
+	-fx-border-radius: 8px;
+    -fx-text-fill: -TEXT-2;
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-effect: none;
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 15, 0.2, 0, 0);
+}
+
+.jfx-button .jfx-rippler {
+    -jfx-rippler-fill: -DARK-PRIMARY;
+}
+
+.jfx-button:hover {
+    -fx-background-color: -SECONDARY-COLOR;
+    -fx-text-fill: -TEXT-1;
+    -jfx-button-type: RAISED;
+}
+
+.jfx-sec-button {
+    -fx-pref-width: 110px;
+    -fx-pref-height: 30px;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-text-fill: -TEXT-1;
+}
+
+.jfx-toggle-node:selected {
+    -fx-border-color: -TEXT-2;
+}
+
+.jfx-hamburger {
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 8px;
+    -fx-spacing: 5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 15, 0.2, 0, 0);
+    
+}
+
+.jfx-hamburger StackPane {
+    -fx-background-color: -PRIMARY-DETAIL;
+}
+
+.jfx-text-field, .jfx-password-field, .jfx-text-area {
+    -jfx-focus-color: -DARK-PRIMARY;
+    -fx-prompt-text-fill: -TEXT-2;
+    -fx-alignment: CENTER;
+}
+
+.jfx-toggle-button {
+    -jfx-toggle-color: -PRIMARY-COLOR;
+}
+
+/* JFX ComboBox */
+
+.jfx-combo-box {
+    -jfx-focus-color: -DARK-PRIMARY;
+    -fx-background-color: -SECONDARY-COLOR;
+	-fx-background-radius: 4 4 0 0;
+    -fx-prompt-text-fill: -TEXT-2;
+}
+
+.jfx-combo-box .arrow {
+	-fx-background-color: -DARK-PRIMARY;
+	-fx-border-color: -PRIMARY-COLOR;
+}
+
+.jfx-combo-box .label {
+	-fx-text-fill: -TEXT-2;
+}
+
+.jfx-combo-box .list-view {
+	-fx-background-radius: 0 0 15 15;
+	-fx-background-color: -PRIMARY-COLOR;
+    -fx-padding: 10;
+}
+
+.jfx-combo-box .list-cell > .label, .jfx-combo-box .list-cell {
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-text-fill: -PRIMARY-TEXT;
+    -fx-background-radius: 5;
+}
+
+.jfx-combo-box .list-view .list-cell:hover > .label, .jfx-combo-box .list-view .list-cell:hover {
+	-fx-background-color: -DARK-PRIMARY;
+	-fx-text-fill: -TEXT-1;
+	-fx-background-radius: 5;
+}
