@@ -28,6 +28,28 @@ public class Tablet {
 
     }
 
+    
+    public void money(Client client, Shelf[] shelf) {
+        int money = 0;
+        int[] games = client.getShoppingList();
+
+        for (Shelf var : shelf) {
+
+            for (int i = 0; i < games.length; i++) {
+                Games game = var.getGameHash().search(games[i]);
+                if (game != null && games[i] == game.getGameCode() && game.getAmount() != 0) {
+                    money += game.getGamePrice();
+
+                }
+
+            }
+
+        }
+
+        client.setTotalPurchase(money);
+
+    }
+
 
     
 

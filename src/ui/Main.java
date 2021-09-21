@@ -22,23 +22,28 @@ public class Main {
 
         System.out.println("----------------------------------------");
 
-        int num = shop.getClientQueue().size();
-        
-        for (int i = 0; i < num ; i++) {
-            Integer[] array = shop.getClientQueue().dequeue().getGamesStack().toArray();
+        Client[] clients = shop.getClientQueue().toClientArray();
 
-            for (Object var : shop.getTablet().mergeSort(array, shop.getShelf())) {
-                System.out.print(" "+var);
-    
+        //crea la lista de compras y le dice al cliente el valor total de la compra
+        for (Client client : clients) {
+            client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
+            shop.getTablet().money(client, shop.getShelf());
+
+        }
+
+        //Imprime 
+        for (Client client : clients) {
+            System.out.println(client.getCc() + " " + client.getTotalPurchase());
+
+            for (int var : client.getShoppingList()) {
+                System.out.print(var + " ");
             }
 
             System.out.println();
-    
             
+
         }
         
-      
-
         br.close();
 
     }
