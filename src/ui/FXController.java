@@ -77,7 +77,7 @@ public class FXController implements Initializable {
         double prefHeight = screenBounds.getHeight() * 0.85;
         mainPaneBP.setPrefSize(prefWidth, prefHeight);
         lateralHBGTransition = new HamburgerNextArrowBasicTransition(lateralHBG);
-        lateralHBGTransition.setRate(-1);
+        lateralHBGTransition.setRate(-1.5);
         lateralHBG.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             lateralHBGTransition.setRate(lateralHBGTransition.getRate() * -1);
             lateralHBGTransition.play();
