@@ -23,11 +23,11 @@ public class Main {
         System.out.println("----------------------------------------");
 
         int num = shop.getClientQueue().size();
-
+        
         for (int i = 0; i < num ; i++) {
             Integer[] array = shop.getClientQueue().dequeue().getGamesStack().toArray();
 
-            for (int var : shop.getTablet().order(array, shop.getShelf())) {
+            for (Object var : shop.getTablet().mergeSort(array, shop.getShelf())) {
                 System.out.print(" "+var);
     
             }
@@ -36,7 +36,7 @@ public class Main {
     
             
         }
-
+        
       
 
         br.close();
