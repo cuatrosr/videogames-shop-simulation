@@ -26,7 +26,8 @@ public class Main {
 
         //crea la lista de compras y le dice al cliente el valor total de la compra
         for (Client client : clients) {
-            client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
+            //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
+            client.setShoppingList(shop.getTablet().orderSort(client.getGamesStack().toArray(), shop.getShelf()));
             shop.getTablet().money(client, shop.getShelf());
 
         }

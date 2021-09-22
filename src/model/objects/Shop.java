@@ -73,9 +73,7 @@ public class Shop {
                 this.getShelf()[i].getGameHash().insert(gameCode, new Games(gameCode, Integer.parseInt(line.split(" ")[1]), Integer.parseInt(line.split(" ")[2])));
 
             }
-
         }
-
     }
 
     public void createClients(BufferedReader br) throws NumberFormatException, Exception {
@@ -86,19 +84,12 @@ public class Shop {
         for (int i = 0; i < num; i++) {
 
             String[] line = auxBr.readLine().split(" ");
-
             Client client = new Client(Integer.parseInt(line[0]));
 
             for (int j = 1; j < line.length; j++) {
                 client.getGamesStack().push(Integer.parseInt(line[j]));
-                
-
             }
-
             this.getClientQueue().enqueue(client);
-
         }
-
     }
-
 }

@@ -64,7 +64,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
             int j = hash(key, i);
 
             if (table[j] == null) {
-                table[j] = new HashNode<K, V>(key, value);
+                table[j] = new HashNode<>(key, value);
                 size++;
                 return;
 
@@ -125,7 +125,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
 
     @Override
     public boolean isEmpty() {
-        return (size == 0) ? true : false;
+        return (size == 0);
     }
 
     @Override

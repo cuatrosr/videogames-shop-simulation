@@ -10,7 +10,7 @@ public class Client {
     private String name;
     private int cc;
     private DefaultStack<Integer> gamesStack;
-    private int[] shoppingList;
+    private Integer[] shoppingList;
     private int totalPurchase;
 
     public Client(int cc) {
@@ -45,11 +45,11 @@ public class Client {
         this.gamesStack = gamesStack;
     }
 
-    public int[] getShoppingList() {
+    public Integer[] getShoppingList() {
         return this.shoppingList;
     }
 
-    public void setShoppingList(int[] shoppingList) {
+    public void setShoppingList(Integer[] shoppingList) {
         this.shoppingList = shoppingList;
     }
 
@@ -60,6 +60,5 @@ public class Client {
     public void setTotalPurchase(int totalPurchase) {
         this.totalPurchase = totalPurchase;
     }
-
 
 }

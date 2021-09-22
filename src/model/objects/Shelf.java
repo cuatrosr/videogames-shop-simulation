@@ -40,5 +40,4 @@ public class Shelf {
     public void setGameHash(DefaultHashTable<Integer, Games> gameHash) {
         this.gameHash = gameHash;
     }
-
 }
