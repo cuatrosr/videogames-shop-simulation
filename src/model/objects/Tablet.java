@@ -4,19 +4,34 @@ import model.data_structures.DefaultHashTable;
 
 public class Tablet {
 
-    public Tablet() {}
+    public Tablet() {
+    }
 
-    public Integer[] orderSort(Integer[] arr, Shelf[] shelf) {
+    public Integer[] orderInsertSort(Integer[] arr, Shelf[] shelf) {
         int n = arr.length;
+        if (n == 1 && getShelf(arr[0], shelf) == null) {
+            return arr = null;
+        }
         for (int j = 1; j < n; j++) {
             int key = arr[j];
             int i = j - 1;
-            int compare = getShelf(arr[i], shelf).compareTo(getShelf(key, shelf));
-            while ((i > -1) && (compare >= 0)) {
-                arr[i + 1] = arr[i];
-                i--;
+            String shelf1 = getShelf(arr[i], shelf);
+            String shelf2 = getShelf(key, shelf);
+            if (shelf1 == null || shelf2 == null) {
+                arr[i] = (shelf1 == null) ? null : arr[i];
+                arr[j] = (shelf2 == null) ? null : arr[j];
             }
-            arr[i + 1] = key;
+            int compare = -1;
+            try {
+                compare = shelf1.compareTo(shelf2);
+            } catch (NullPointerException e) {
+            } finally {
+                while ((i > -1) && (compare >= 0)) {
+                    arr[i + 1] = arr[i];
+                    i--;
+                }
+                arr[i + 1] = key;
+            }
         }
         return arr;
     }
