@@ -17,33 +17,93 @@ public class Main {
 
         //crea los shelf
         shop.createShelf(br);
-        //crea los clientes
+        //crea los clientes y suma el tiempo que tardaron en entrar
         shop.createClients(br);
 
         System.out.println("----------------------------------------");
 
         Client[] clients = shop.getClientQueue().toClientArray();
 
-        //crea la lista de compras y le dice al cliente el valor total de la compra
+        //se le entregan los juegos al cliente y suma al tiempo lo que se demoraron buscando los juegos
         for (Client client : clients) {
             //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
-            client.setShoppingList(shop.getTablet().orderSort(client.getGamesStack().toArray(), shop.getShelf()));
-            shop.getTablet().money(client, shop.getShelf());
+            client.setGames(shop.getTablet().orderSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            client.setAmountGames(client.getGames().length);
+            client.setTime(client.getTime() + client.getGames().length);
+            
 
         }
 
+        //organiza los cliente por el tiempo en la cola y el tiempo que se demoraron buscando los juegos
+        shop.getClientQueue().toQueue(clients);
+        shop.selectionSort();
+
+        //cajeros
+        int k = 0;
+        Client[] sellers = new Client[shop.getSellers()];
+        do {
+        
+            for (int i = 0; i < sellers.length; i++) {
+                if(sellers[i] == null && k < clients.length){
+                    sellers[i] = shop.getClientQueue().dequeue();
+                    k++;
+                }
+                
+                
+            }
+            
+
+            for (int i = 0; i < sellers.length; i++) {
+                
+                if (sellers[i] != null) {
+                    sellers[i].setAmountGames(sellers[i].getAmountGames() - 1);
+
+                    if(sellers[i].getAmountGames() == 0){
+                        shop.getTablet().money(sellers[i], shop.getShelves());
+                        shop.getClientQueue().enqueue(sellers[i]);
+                        sellers[i] = null;
+                        
+                        
+                    }
+
+                }
+               
+                if (i == sellers.length - 1 && k != clients.length - 1) {
+
+                    for (int l = 0; l < sellers.length; l++) {
+                        if (sellers[l] == null) {
+                            i = sellers.length;
+                            break;
+                        }else{
+                            i = 0;
+                        }
+        
+                        
+                    }
+                    
+                }
+                
+                
+            }
+
+        } while (shop.getClientQueue().size() < clients.length);
+        
+        int size =  shop.getClientQueue().size();
+
         //Imprime 
-        for (Client client : clients) {
+        for (int i = 0; i <size; i++) {
+            Client client =  shop.getClientQueue().dequeue();
+
             System.out.println(client.getCc() + " " + client.getTotalPurchase());
 
-            for (int var : client.getShoppingList()) {
+            for (int var : client.getGames()) {
                 System.out.print(var + " ");
             }
 
             System.out.println();
             
-
         }
+        
         
         br.close();
 

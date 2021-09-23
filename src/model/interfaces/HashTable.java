@@ -19,7 +19,7 @@ public interface HashTable<K, V> {
      * @throws Exception
      */
     
-    void insert(K key, V value) throws Exception;
+    int insert(K key, V value) throws Exception;
 
     void delete(K key) throws Exception;
 

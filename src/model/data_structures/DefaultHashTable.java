@@ -55,7 +55,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
     }
 
     @Override
-    public void insert(K key, V value) throws Exception {
+    public int insert(K key, V value) throws Exception {
 
         int i = 0;
 
@@ -66,7 +66,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
             if (table[j] == null) {
                 table[j] = new HashNode<>(key, value);
                 size++;
-                return;
+                return j;
 
             }
 

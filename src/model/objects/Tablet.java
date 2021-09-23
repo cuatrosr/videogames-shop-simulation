@@ -1,28 +1,10 @@
 package model.objects;
 
-import java.util.Arrays;
 import model.data_structures.DefaultHashTable;
 
 public class Tablet {
 
-    public Tablet() {
-    }
-
-    public int[] order(Integer[] array, Shelf[] shelf) {
-        int j = 0;
-        int[] c = new int[array.length];
-        for (Shelf var : shelf) {
-            for (int i = 0; i < c.length; i++) {
-                Games game = var.getGameHash().search(array[i]);
-                if (game != null && array[i] == game.getGameCode() && game.getAmount() != 0) {
-                    c[j] = array[i];
-                    game.setAmount(game.getAmount() - 1);;
-                    j++;
-                }
-            }
-        }
-        return c;
-    }
+    public Tablet() {}
 
     public Integer[] orderSort(Integer[] arr, Shelf[] shelf) {
         int n = arr.length;
@@ -51,7 +33,7 @@ public class Tablet {
 
     public void money(Client client, Shelf[] shelf) {
         int money = 0;
-        Integer[] games = client.getShoppingList();
+        Integer[] games = client.getGames();
         for (Shelf var : shelf) {
             for (int i = 0; i < games.length; i++) {
                 Games game = var.getGameHash().search(games[i]);

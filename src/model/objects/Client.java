@@ -1,7 +1,5 @@
 package model.objects;
 
-import model.data_structures.DefaultStack;
-
 /**
  * Client
  */
@@ -9,16 +7,20 @@ public class Client {
 
     private String name;
     private int cc;
-    private DefaultStack<Integer> gamesStack;
-    private Integer[] shoppingList;
+    private int key;
+    private Integer[] games;
+    private int amountGames;
     private int totalPurchase;
+    private int time;
 
-    public Client(int cc) {
+    public Client(int cc, int code, int time) {
         this.name = "name";
         this.cc = cc;
-        this.gamesStack = new DefaultStack<>();
+        this.key = code;
         this.totalPurchase = 0;
-        this.shoppingList = null;
+        this.games = null;
+        this.time = time;
+        this.amountGames = 0;
     }
 
     public String getName() {
@@ -37,20 +39,28 @@ public class Client {
         this.cc = cc;
     }
 
-    public DefaultStack<Integer> getGamesStack() {
-        return this.gamesStack;
+    public int getKey() {
+        return this.key;
     }
 
-    public void setGamesStack(DefaultStack<Integer> gamesStack) {
-        this.gamesStack = gamesStack;
+    public void setKey(int key) {
+        this.key = key;
     }
 
-    public Integer[] getShoppingList() {
-        return this.shoppingList;
+    public Integer[] getGames() {
+        return this.games;
     }
 
-    public void setShoppingList(Integer[] shoppingList) {
-        this.shoppingList = shoppingList;
+    public void setGames(Integer[] games) {
+        this.games = games;
+    }
+
+    public int getAmountGames() {
+        return this.amountGames;
+    }
+
+    public void setAmountGames(int amountGames) {
+        this.amountGames = amountGames;
     }
 
     public int getTotalPurchase() {
@@ -60,5 +70,17 @@ public class Client {
     public void setTotalPurchase(int totalPurchase) {
         this.totalPurchase = totalPurchase;
     }
+
+    public int getTime() {
+        return this.time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+ 
+
+
+
 
 }
