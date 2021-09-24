@@ -28,13 +28,8 @@ public class Main {
         for (Client client : clients) {
             //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
             client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
-            try {
-                client.setAmountGames(client.getGames().length);
-            } catch (NullPointerException e) {
-                client.setAmountGames(0);
-            }
+            client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
-
         }
 
         //organiza los cliente por el tiempo en la cola y el tiempo que se demoraron buscando los juegos
@@ -59,7 +54,7 @@ public class Main {
                 if (sellers[i] != null) {
                     sellers[i].setAmountGames(sellers[i].getAmountGames() - 1);
 
-                    if (sellers[i].getAmountGames() == 0) {
+                    if (sellers[i].getAmountGames() <= 0) {
                         shop.getTablet().money(sellers[i], shop.getShelves());
                         shop.getClientQueue().enqueue(sellers[i]);
                         sellers[i] = null;
@@ -87,7 +82,6 @@ public class Main {
         } while (shop.getClientQueue().size() < clients.length);
 
         int size = shop.getClientQueue().size();
-
         //Imprime 
         for (int i = 0; i < size; i++) {
             Client client = shop.getClientQueue().dequeue();
@@ -100,17 +94,8 @@ public class Main {
                 msg += (g1 != null) ? g1 + " " : "";
             }
             System.out.println(msg);
-            /*
-            for (int var : client.getGames()) {
-                System.out.print(var + " ");
-            }
-             */
-
-            //System.out.println();
         }
-
         br.close();
-
     }
 
 }

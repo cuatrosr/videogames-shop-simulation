@@ -1,6 +1,7 @@
 package model.objects;
 
 import java.io.BufferedReader;
+import java.util.Arrays;
 
 import model.data_structures.*;
 
@@ -114,7 +115,6 @@ public class Shop {
 
     public void selectionSort(){  
         Client[] arr = this.getClientQueue().toClientArray();
-
         for (int i = 0; i < arr.length - 1; i++)  {  
             int index = i;  
             for (int j = i + 1; j < arr.length; j++){  

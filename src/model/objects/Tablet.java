@@ -10,7 +10,7 @@ public class Tablet {
     public Integer[] orderInsertSort(Integer[] arr, Shelf[] shelf) {
         int n = arr.length;
         if (n == 1 && getShelf(arr[0], shelf) == null) {
-            return arr = null;
+            return arr = new Integer[0];
         }
         for (int j = 1; j < n; j++) {
             int key = arr[j];
