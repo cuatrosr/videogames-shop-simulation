@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import model.data_structures.DefaultHashTable;
+import model.data_structures.DefaultStack;
 import model.objects.Shop;
 
 import java.io.IOException;
@@ -184,11 +187,11 @@ public class FXController implements Initializable {
     }
 
     @FXML
-    void shelvesClicked(ActionEvent event) {
-        if (!loadedPane.equals("shelves")) {
+    void miscellaneousClicked(ActionEvent event) {
+        if (!loadedPane.equals("misc")) {
             try {
-                launchFXML("shelves.fxml", secondaryController, "Setup Shelves", Modality.NONE, StageStyle.UNIFIED, false, true);
-                loadedPane = "shelves";
+                launchFXML("misc.fxml", secondaryController, "Miscellaneous Parameters", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "misc";
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -196,11 +199,17 @@ public class FXController implements Initializable {
     }
 
     @FXML
-    void miscellaneousClicked(ActionEvent event) {
-        if (!loadedPane.equals("misc")) {
+    void startSimulation(ActionEvent event) {
+        ObservableList<String> clientListRaw = secondaryController.getClientsLV().getItems();
+        int num = clientListRaw.size();
+        shop.setgamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
+        for (int i = 0; i < num; i++) {
+            String[] curr = clientListRaw.get(i).split(" / ");
+            String gamesRaw = curr[2].replaceAll("^\\[(.)*\\]$", "");
+            String name = curr[0];
+            int cc = Integer.parseInt(curr[1].trim());
             try {
-                launchFXML("misc.fxml", secondaryController, "Miscellaneous Parameters", Modality.NONE, StageStyle.UNIFIED, false, true);
-                loadedPane = "misc";
+                shop.createClients(name, cc, gamesRaw, num, i);
             } catch (Exception e) {
                 e.printStackTrace();
             }

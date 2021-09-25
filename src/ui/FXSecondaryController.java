@@ -85,12 +85,7 @@ public class FXSecondaryController implements Initializable{
 
     @FXML
     void addClient(ActionEvent event) {
-        clientsLV.getItems().add(clientNameTF.getText() + " (" + clientIDTF.getText() + ")");
-        shop.getClientQueue().enqueue(new Client(Integer.parseInt(clientIDTF.getText().trim())));
-        shop.getClientQueue().front().setName(clientNameTF.getText());
-        for (int gameId : clientGamesLV.getSelectionModel().getSelectedItems()) {
-            shop.getClientQueue().front().getGamesStack().push(gameId);
-        }
+        clientsLV.getItems().add(clientNameTF.getText() + " / " + clientIDTF.getText() + " / " + clientGamesLV.getSelectionModel().getSelectedItems().toString());
         clientNameTF.setText("");
         clientIDTF.setText("");
         clientGamesLV.getSelectionModel().clearSelection();
@@ -115,5 +110,11 @@ public class FXSecondaryController implements Initializable{
     @FXML
     void removeClient(ActionEvent event) {
         
+    }
+
+    /*GETTERS N SHIT*/
+
+    public JFXListView<String> getClientsLV() {
+        return clientsLV;
     }
 }

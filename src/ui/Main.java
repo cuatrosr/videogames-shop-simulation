@@ -18,7 +18,7 @@ public class Main {
         //crea los shelf
         shop.createShelf(br);
         //crea los clientes y suma el tiempo que tardaron en entrar
-        shop.createClients(br);
+        shop.createClientsCLI(br);
 
         System.out.println("----------------------------------------");
 

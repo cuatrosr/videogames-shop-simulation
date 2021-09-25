@@ -22,6 +22,16 @@ public class Client {
         this.time = time;
         this.amountGames = 0;
     }
+    
+    public Client(String name, int cc, int code, int time) {
+        this.name = name;
+        this.cc = cc;
+        this.key = code;
+        this.totalPurchase = 0;
+        this.games = null;
+        this.time = time;
+        this.amountGames = 0;
+    }
 
     public String getName() {
         return this.name;
