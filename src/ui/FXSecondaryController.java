@@ -24,6 +24,23 @@ import model.objects.Shop;
 public class FXSecondaryController implements Initializable{
     
     /*JAVAFX FIELDS*/
+    
+    //Shelves
+
+    @FXML
+    private JFXListView<String> shelvesLV = new JFXListView<>();
+
+    @FXML
+    private JFXTextField shelfIDTF = new JFXTextField();
+
+    @FXML
+    private JFXButton addShelfBTN = new JFXButton();
+
+    @FXML
+    private JFXButton editShelfBTN = new JFXButton();
+
+    @FXML
+    private JFXButton rmShelfBTN = new JFXButton();
 
     //Games
 
@@ -85,6 +102,8 @@ public class FXSecondaryController implements Initializable{
     
     private final ObservableList<String> clientsGamesOL = FXCollections.observableArrayList("435", "235", "231", "578", "102", "004", "743", "332");
 
+    private final ObservableList<String> filler = FXCollections.observableArrayList("a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a");
+    
     ArrayList<String> shelves = new ArrayList<>();
 
     ArrayList<String> games = new ArrayList<>();
@@ -101,26 +120,33 @@ public class FXSecondaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        switch (controller.getLoadedPane()) {
-            case "shelves":
-                initShelves();
-                break;
-            case "games":
-                initGames();
-                break;
-            case "clients":
-                initClients();
-                break;
-            case "misc":
-                initParams();
-                break;
-            default:
-                break;
-        }
+        System.out.println(controller.getLoadedPane());
+        initShelves();
+        initGames();
+        initClients();
+        initParams();
     }
     
     private void initShelves() {
-        
+        shelvesLV.setOnMouseClicked((event) -> {
+            boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
+            rmShelfBTN.setDisable(btnsDisabled);
+            editShelfBTN.setDisable(btnsDisabled);
+        });
+        boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
+        rmShelfBTN.setDisable(btnsDisabled);
+        editShelfBTN.setDisable(btnsDisabled);
+        for (String shelf : shelves) {
+            for (String game : games) {
+                String[] split = shelf.split(":");
+                if (game.contains(split[0])) {
+                    System.out.println(split[0]);
+                    String sep = split[1].equals(" ") ? "" : ", ";
+                    shelf += sep + game.split(" / ")[2];
+                }
+            }
+            shelvesLV.getItems().add(shelf);
+        }
     }
     
     private void initGames() {
@@ -132,7 +158,15 @@ public class FXSecondaryController implements Initializable{
         boolean btnsDisabled = gamesLV.getSelectionModel().getSelectedItems().isEmpty();
         rmGameBTN.setDisable(btnsDisabled);
         editGameBTN.setDisable(btnsDisabled);
-        gameShelvesCBX.setItems(gamesShelvesOL);
+        for (String game : games) {
+            System.out.println("G:" + game);
+            gamesLV.getItems().add(game);
+        }
+        for (String shelf : shelves) {
+            String shelfCode = shelf.split(":")[0];
+            System.out.println("SC:" + shelfCode);
+            gameShelvesCBX.getItems().add(shelfCode);
+        }
     }
     
     private void initClients() {
@@ -144,13 +178,15 @@ public class FXSecondaryController implements Initializable{
         boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
         rmClientBTN.setDisable(btnsDisabled);
         editClientBTN.setDisable(btnsDisabled);
-        clientGamesLV.setItems(clientsGamesOL);
         clientGamesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (String client : clients) {
+            System.out.println("CL: " + client);
             clientsLV.getItems().add(client);
         }
         for (String game : games) {
-            String gameCode = game.split(" / ")[1];
+            String[] gameRaw = game.split(" / ");
+            String gameCode = gameRaw[2] + " (" + gameRaw[0] + ")";
+            System.out.println("GC:" + gameCode);
             clientGamesLV.getItems().add(gameCode);
         }
     }
@@ -168,11 +204,41 @@ public class FXSecondaryController implements Initializable{
     
     //Utility
 
+    //Shelves
+
+
+    @FXML
+    void addShelf(ActionEvent event) {
+        String newShelf = shelfIDTF.getText() + ": ";
+        shelvesLV.getItems().add(newShelf);
+        shelves.add(newShelf);
+        shelfIDTF.setText("");
+        shelvesLV.requestFocus();
+    }
+
+    @FXML
+    void editShelf(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeShelf(ActionEvent event) {
+
+    }
+
     //Games
 
     @FXML
     void addGame(ActionEvent event) {
-
+        String newGame = gameNameTF.getText() + " / $" + gamePriceTF.getText() + " / " + gameIDTF.getText() + " / " + gameShelvesCBX.getSelectionModel().getSelectedItem().split(" \\(")[0] + " / x" + gameAmountTF.getText();
+        gamesLV.getItems().add(newGame);
+        games.add(newGame);
+        gameNameTF.setText("");
+        gameIDTF.setText("");
+        gamePriceTF.setText("");
+        gameShelvesCBX.getSelectionModel().clearSelection();
+        gameAmountTF.setText("");
+        gamesLV.requestFocus();
     }
 
     @FXML
@@ -200,10 +266,14 @@ public class FXSecondaryController implements Initializable{
     
     @FXML
     void addClient(ActionEvent event) {
-        clientsLV.getItems().add(clientNameTF.getText() + " / " + clientIDTF.getText() + " / " + clientGamesLV.getSelectionModel().getSelectedItems().toString());
+        String gameList = clientGamesLV.getSelectionModel().getSelectedItems().toString().replaceAll("\\s(\\([^,]+\\))", "");
+        String newClient = clientNameTF.getText() + " / " + clientIDTF.getText() + " / " + gameList;
+        clientsLV.getItems().add(newClient);
+        clients.add(newClient);
         clientNameTF.setText("");
         clientIDTF.setText("");
         clientGamesLV.getSelectionModel().clearSelection();
+        clientsLV.requestFocus();
     }
     
     @FXML

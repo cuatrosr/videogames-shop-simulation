@@ -1,12 +1,15 @@
 * {
-    -LIGHT-COLOR: #d0f1c9;
-    -PRIMARY-COLOR: #8fd694;
-    -DARK-PRIMARY: #7dba84;
-    -SECONDARY-COLOR: #77ad78;
-    -DARK-SECONDARY: #6f8f72;
-    -PRIMARY-DETAIL: #504b43;
+    -LIGHT-COLOR: #c9f1db;
+    -PRIMARY-COLOR: #8fd6b5;
+    -DARK-PRIMARY: #7dba9d;
+    -SECONDARY-COLOR: #77ad92;
+    -DARK-SECONDARY: #6f8f83;
+    -PRIMARY-DETAIL: #435044;
+    -ACCENT-COLOR: #228f3e;
     -TEXT-1: #ffffff;
     -TEXT-2: #2d2d2d;
+    -PROMPT-TEXT: #4e4d4d7f; 
+    -PROMPT-TEXT-DARK: #3c3b3b7f; 
 }
 
 .root {
@@ -95,7 +98,8 @@
 
 .jfx-text-field, .jfx-password-field, .jfx-text-area {
     -jfx-focus-color: -DARK-PRIMARY;
-    -fx-prompt-text-fill: -TEXT-2;
+    -fx-prompt-text-fill: -PROMPT-TEXT;
+    -fx-prompt-text-style: italic;
     -fx-alignment: CENTER;
 }
 
@@ -109,7 +113,8 @@
     -jfx-focus-color: -DARK-PRIMARY;
     -fx-background-color: -SECONDARY-COLOR;
 	-fx-background-radius: 4 4 0 0;
-    -fx-prompt-text-fill: -TEXT-2;
+    -fx-prompt-text-fill: -PROMPT-TEXT-DARK;
+    -fx-prompt-text-style: italic;
 }
 
 .jfx-combo-box .arrow {
@@ -155,9 +160,14 @@
     -fx-font-size: 18px
 }
 
+.list-cell .jfx-rippler {
+    -jfx-rippler-fill: -DARK-PRIMARY;
+    -jfx-rippler-radius: 100;
+}
+
 .list-cell > .label, .list-cell {
     -fx-background-color: -PRIMARY-COLOR;
-    -fx-text-fill: -TEXT-1;
+    -fx-text-fill: -TEXT-2;
     -fx-background-radius: 5;
     -fx-border-color: -DARK-PRIMARY;
     -fx-border-size: 5;
@@ -169,6 +179,19 @@
     -fx-background-color: -LIGHT-COLOR;
 	-fx-text-fill: -DARK-SECONDARY;
 	-fx-background-radius: 5;
+}
+
+.jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .jfx-list-view .virtual-flow .scroll-bar:vertical .track{
+    -fx-background-color: -LIGHT-COLOR;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -DARK-PRIMARY;
+}
+
+.jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button {
+    -fx-background-color: -SECONDARY-COLOR;
+    -fx-background-radius: 10;
 }
 
 .alt-jfx-list-view {
@@ -184,7 +207,28 @@
 
 .alt-jfx-list-view .list-cell:hover > .label, .alt-jfx-list-view .list-cell:hover,
 .alt-jfx-list-view .list-cell:filled:selected > .label, .alt-jfx-list-view .list-cell:filled:selected {
-    -fx-background-color: -LIGHT-COLOR;
-	-fx-text-fill: -DARK-SECONDARY;
+    -fx-background-color: -ACCENT-COLOR;
+	-fx-text-fill: -LIGHT-COLOR;
 	-fx-background-radius: 5;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track{
+    -fx-background-color: -LIGHT-COLOR;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -PRIMARY-COLOR;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button {
+    -fx-background-color: -DARK-PRIMARY;
+    -fx-background-radius: 10;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow,
+.jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow {
+    -fx-background-color: -TEXT-1;
+    -fx-background-size: 5;
 }

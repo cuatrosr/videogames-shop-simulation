@@ -227,7 +227,6 @@ public class FXController implements Initializable {
                 e.printStackTrace();
             }
         }
-        System.out.println(num);
     }
 
     @FXML

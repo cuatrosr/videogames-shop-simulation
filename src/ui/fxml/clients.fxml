@@ -25,9 +25,9 @@
                      <tooltip>
                         <Tooltip text="Select one or multiple (CTRL + L_CLICK) games" />
                      </tooltip></JFXListView>
-                  <JFXButton fx:id="addClientBTN" minHeight="0.0" minWidth="0.0" onAction="#addClient" text="Añadir" />
-                  <JFXButton fx:id="editClientBTN" onAction="#editClient" text="Editar" />
-                  <JFXButton fx:id="rmClientBTN" onAction="#removeClient" text="Remover" />
+                  <JFXButton fx:id="addClientBTN" minHeight="0.0" minWidth="0.0" onAction="#addClient" text="Add" />
+                  <JFXButton fx:id="editClientBTN" onAction="#editClient" text="Edit" />
+                  <JFXButton fx:id="rmClientBTN" onAction="#removeClient" text="Remove" />
                </children>
             </VBox>
          </children>
