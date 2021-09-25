@@ -88,29 +88,39 @@ public class Shop {
         }
     }
 
-    public void createClients(BufferedReader br) throws NumberFormatException, Exception {
+    public void createClientsCLI(BufferedReader br) throws NumberFormatException, Exception {
         BufferedReader auxBr = br;
 
         int num = Integer.parseInt(auxBr.readLine());
-        this.setgamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         DefaultStack<Integer> stack;
-
+        
         for (int i = 0; i < num; i++) {
-
+            
             String[] line = auxBr.readLine().split(" ");
-            stack  = new DefaultStack<Integer>();
-
+            stack  = new DefaultStack<>();
+            
             for (int j = 1; j < line.length; j++) {
                 stack.push(Integer.parseInt(line[j]));
             }
-
+            
             int key = this.getgamesHash().insert(Integer.parseInt(line[0]), stack);
-
+            
             Client client = new Client(Integer.parseInt(line[0]), key, i + 1);
-
+            
             
             this.getClientQueue().enqueue(client);
         }
+    }
+    
+    public void createClients(String name, int cc, String gamesRaw, int num, int i) throws NumberFormatException, Exception {
+        String[] line = gamesRaw.split(", ");
+        DefaultStack<Integer> stack  = new DefaultStack<>();
+        for (int j = 1; j < line.length; j++) {
+            stack.push(Integer.parseInt(line[j]));
+        } 
+        int key = this.getgamesHash().insert(cc, stack);
+        Client client = new Client(name, cc, key, i + 1);
+        this.getClientQueue().enqueue(client);
     }
 
     public void selectionSort(){  

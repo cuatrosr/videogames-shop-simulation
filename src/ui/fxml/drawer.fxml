@@ -9,9 +9,9 @@
    <children>
       <JFXButton minHeight="0.0" minWidth="0.0" onAction="#gamesClicked" prefHeight="44.0" text="Games" />
       <JFXButton minHeight="0.0" minWidth="0.0" onAction="#clientsClicked" prefHeight="44.0" text="Clients" />
-      <JFXButton minHeight="0.0" minWidth="0.0" onAction="#shelvesClicked" prefHeight="44.0" text="Shelves" />
       <JFXButton minHeight="0.0" minWidth="0.0" onAction="#miscellaneousClicked" prefHeight="44.0" text="Misc" />
       <Separator minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="0.0" visible="false" VBox.vgrow="ALWAYS" />
+      <JFXButton minHeight="0.0" minWidth="0.0" onAction="#startSimulation" prefHeight="44.0" text="Run" />
       <JFXButton minHeight="0.0" minWidth="0.0" onAction="#exit" prefHeight="44.0" text="Exit" />
    </children>
    <padding>

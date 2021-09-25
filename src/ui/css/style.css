@@ -1,4 +1,5 @@
 * {
+    -LIGHT-COLOR: #d0f1c9;
     -PRIMARY-COLOR: #8fd694;
     -DARK-PRIMARY: #7dba84;
     -SECONDARY-COLOR: #77ad78;
@@ -14,7 +15,26 @@
 	-fx-font-weight: bold;
 }
 
+.preloader {
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
 /* JFX Classes */
+
+.jfx-progress-bar .bar {
+    -fx-background-color: -PRIMARY-COLOR;
+}
+
+.jfx-progress-bar {
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
+    -fx-border-radius: 50;
+}
+
+.jfx-progress-bar .track {
+    -fx-border-radius: 50;
+}
 
 .jfx-button {
     -fx-font-size: 18px;
@@ -25,7 +45,7 @@
     -fx-text-fill: -TEXT-2;
     -fx-background-color: -PRIMARY-COLOR;
     -fx-effect: none;
-    -fx-effect: dropshadow(gaussian, -TEXT-2, 15, 0.2, 0, 0);
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
 }
 
 .jfx-button .jfx-rippler {
@@ -55,8 +75,7 @@
     -fx-background-radius: 8px;
     -fx-spacing: 5;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, -TEXT-2, 15, 0.2, 0, 0);
-    
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
 }
 
 .jfx-hamburger StackPane {
@@ -83,16 +102,16 @@
 }
 
 .jfx-combo-box .arrow {
-	-fx-background-color: -DARK-PRIMARY;
+    -fx-background-color: -DARK-PRIMARY;
 	-fx-border-color: -PRIMARY-COLOR;
 }
 
 .jfx-combo-box .label {
-	-fx-text-fill: -TEXT-2;
+    -fx-text-fill: -TEXT-2;
 }
 
 .jfx-combo-box .list-view {
-	-fx-background-radius: 0 0 15 15;
+    -fx-background-radius: 0 0 12 12;
 	-fx-background-color: -PRIMARY-COLOR;
     -fx-padding: 10;
 }
@@ -104,7 +123,53 @@
 }
 
 .jfx-combo-box .list-view .list-cell:hover > .label, .jfx-combo-box .list-view .list-cell:hover {
-	-fx-background-color: -DARK-PRIMARY;
+    -fx-background-color: -DARK-PRIMARY;
 	-fx-text-fill: -TEXT-1;
+	-fx-background-radius: 5;
+}
+
+/* JFX ListView */
+
+.jfx-list-view {
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
+    -jfx-cell-horizontal-margin: 10;
+    -fx-padding: 10;
+    -fx-font-size: 18px
+}
+
+.list-cell > .label, .list-cell {
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-text-fill: -TEXT-1;
+    -fx-background-radius: 5;
+    -fx-border-color: -DARK-PRIMARY;
+    -fx-border-size: 5;
+    -fx-border-radius: 5;
+}
+
+.jfx-list-view .list-cell:hover > .label, .jfx-list-view .list-cell:hover,
+.jfx-list-view .list-cell:filled:selected > .label, .jfx-list-view .list-cell:filled:selected {
+    -fx-background-color: -LIGHT-COLOR;
+	-fx-text-fill: -DARK-SECONDARY;
+	-fx-background-radius: 5;
+}
+
+.alt-jfx-list-view {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-background-color: -LIGHT-COLOR;
+    -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
+    -jfx-cell-horizontal-margin: 5px;
+    -jfx-cell-horizontal-margin: 5;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+}
+
+.alt-jfx-list-view .list-cell:hover > .label, .alt-jfx-list-view .list-cell:hover,
+.alt-jfx-list-view .list-cell:filled:selected > .label, .alt-jfx-list-view .list-cell:filled:selected {
+    -fx-background-color: -LIGHT-COLOR;
+	-fx-text-fill: -DARK-SECONDARY;
 	-fx-background-radius: 5;
 }
