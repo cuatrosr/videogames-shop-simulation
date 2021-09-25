@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,9 +19,12 @@
                </HBox.margin></JFXListView>
             <VBox alignment="CENTER" fillWidth="false" maxWidth="-Infinity" prefHeight="504.0" prefWidth="320.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <JFXTextField fx:id="clientNameTF" onAction="#addClient" prefWidth="200.0" />
-                  <JFXTextField fx:id="clientIDTF" onAction="#addClient" prefWidth="200.0" />
-                  <JFXListView fx:id="clientGamesLV" prefHeight="202.0" prefWidth="200.0" styleClass="alt-jfx-list-view" />
+                  <JFXTextField fx:id="clientNameTF" onAction="#addClient" prefWidth="200.0" promptText="Name" />
+                  <JFXTextField fx:id="clientIDTF" onAction="#addClient" prefWidth="200.0" promptText="ID" />
+                  <JFXListView fx:id="clientGamesLV" prefHeight="202.0" prefWidth="200.0" showTooltip="true" styleClass="alt-jfx-list-view">
+                     <tooltip>
+                        <Tooltip text="Select one or multiple (CTRL + L_CLICK) games" />
+                     </tooltip></JFXListView>
                   <JFXButton fx:id="addClientBTN" minHeight="0.0" minWidth="0.0" onAction="#addClient" text="Añadir" />
                   <JFXButton fx:id="editClientBTN" onAction="#editClient" text="Editar" />
                   <JFXButton fx:id="rmClientBTN" onAction="#removeClient" text="Remover" />

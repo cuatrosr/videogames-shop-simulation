@@ -21,6 +21,17 @@
     -fx-border-radius: 12;
 }
 
+.tooltip {
+    -fx-background: -PRIMARY-DETAIL;
+    -fx-text-fill: white;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
+    -fx-effect: dropshadow(three-pass-box , -TEXT-2, 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.95em;
+}
+
 /* JFX Classes */
 
 .jfx-progress-bar .bar {
@@ -110,6 +121,10 @@
     -fx-text-fill: -TEXT-2;
 }
 
+.jfx-combo-box > .prompt-container {
+    -fx-alignment: CENTER;
+}
+
 .jfx-combo-box .list-view {
     -fx-background-radius: 0 0 12 12;
 	-fx-background-color: -PRIMARY-COLOR;
@@ -118,7 +133,7 @@
 
 .jfx-combo-box .list-cell > .label, .jfx-combo-box .list-cell {
     -fx-background-color: -PRIMARY-COLOR;
-    -fx-text-fill: -PRIMARY-TEXT;
+    -fx-text-fill: -TEXT-2;
     -fx-background-radius: 5;
 }
 

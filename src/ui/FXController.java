@@ -93,7 +93,7 @@ public class FXController implements Initializable {
         this.shop = shop;
         extended = false;
         loadedPane = "none";
-        secondaryController = new FXSecondaryController(shop);
+        secondaryController = new FXSecondaryController(shop, this);
     }
 
     //Utility
@@ -162,6 +162,19 @@ public class FXController implements Initializable {
     }
 
     //Main pane
+
+    @FXML
+    void shelvesClicked(ActionEvent event) {
+        if (!loadedPane.equals("shelves")) {
+            try {
+                launchFXML("shelves.fxml", secondaryController, "Setup Shelves", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "shelves";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML
     void gamesClicked(ActionEvent event) {
         if (!loadedPane.equals("games")) {
@@ -214,10 +227,17 @@ public class FXController implements Initializable {
                 e.printStackTrace();
             }
         }
+        System.out.println(num);
     }
 
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
+    }
+
+    /*GETTERS*/
+
+    public String getLoadedPane() {
+        return loadedPane;
     }
 }
