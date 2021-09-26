@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="972.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Label text="Games" BorderPane.alignment="CENTER" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXListView fx:id="gamesLV" prefHeight="469.0" prefWidth="321.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin></JFXListView>
+            <VBox alignment="CENTER" fillWidth="false" maxWidth="-Infinity" prefHeight="504.0" prefWidth="320.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXTextField fx:id="gameNameTF" onAction="#addGame" prefWidth="200.0" promptText="Name" />
+                  <JFXTextField fx:id="gameIDTF" onAction="#addGame" prefWidth="200.0" promptText="ID" />
+                  <JFXTextField fx:id="gamePriceTF" layoutX="70.0" layoutY="113.0" onAction="#addGame" prefWidth="200.0" promptText="Price" />
+                  <JFXTextField fx:id="gameAmountTF" layoutX="70.0" layoutY="237.0" onAction="#addGame" prefWidth="200.0" promptText="Amount" />
+                  <JFXComboBox fx:id="gameShelvesCBX" prefWidth="200.0" promptText="(Select a Shelf)" />
+                  <JFXButton fx:id="addGameBTN" minHeight="0.0" minWidth="0.0" onAction="#addGame" text="Add" />
+                  <JFXButton fx:id="editGameBTN" onAction="#editGame" text="Edit" />
+                  <JFXButton fx:id="rmGameBTN" onAction="#removeGame" text="Remove" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </center>
 </BorderPane>

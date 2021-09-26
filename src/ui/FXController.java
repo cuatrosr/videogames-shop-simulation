@@ -85,7 +85,6 @@ public class FXController implements Initializable {
             lateralHBGTransition.setRate(lateralHBGTransition.getRate() * -1);
             lateralHBGTransition.play();
         });
-//        lateralMenuDW.open();
     }
 
     //Constructors
@@ -93,7 +92,7 @@ public class FXController implements Initializable {
         this.shop = shop;
         extended = false;
         loadedPane = "none";
-        secondaryController = new FXSecondaryController(shop);
+        secondaryController = new FXSecondaryController(shop, this);
     }
 
     //Utility
@@ -162,6 +161,19 @@ public class FXController implements Initializable {
     }
 
     //Main pane
+
+    @FXML
+    void shelvesClicked(ActionEvent event) {
+        if (!loadedPane.equals("shelves")) {
+            try {
+                launchFXML("shelves.fxml", secondaryController, "Setup Shelves", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "shelves";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML
     void gamesClicked(ActionEvent event) {
         if (!loadedPane.equals("games")) {
@@ -187,27 +199,20 @@ public class FXController implements Initializable {
     }
 
     @FXML
-    void miscellaneousClicked(ActionEvent event) {
-        if (!loadedPane.equals("misc")) {
-            try {
-                launchFXML("misc.fxml", secondaryController, "Miscellaneous Parameters", Modality.NONE, StageStyle.UNIFIED, false, true);
-                loadedPane = "misc";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
     void startSimulation(ActionEvent event) {
+        stage1();
+    }
+    
+    void stage1() {
         ObservableList<String> clientListRaw = secondaryController.getClientsLV().getItems();
         int num = clientListRaw.size();
         shop.setgamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         for (int i = 0; i < num; i++) {
             String[] curr = clientListRaw.get(i).split(" / ");
-            String gamesRaw = curr[2].replaceAll("^\\[(.)*\\]$", "");
+            String gamesRaw = curr[2].replaceAll("\\[|\\]", "");
             String name = curr[0];
             int cc = Integer.parseInt(curr[1].trim());
+            System.out.println("Client #" + (i + 1) + ": Name: " + name + ", ID: " + cc + ", Games: [" + gamesRaw + "], Time: " + (i + 1));
             try {
                 shop.createClients(name, cc, gamesRaw, num, i);
             } catch (Exception e) {
@@ -216,8 +221,22 @@ public class FXController implements Initializable {
         }
     }
 
+    void stage2() {
+        
+    }
+
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
+    }
+
+    /*GETTERS*/
+
+    public String getLoadedPane() {
+        return loadedPane;
+    }
+
+    public Rectangle2D getScreenBounds() {
+        return screenBounds;
     }
 }

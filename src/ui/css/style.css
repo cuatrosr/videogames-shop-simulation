@@ -1,12 +1,15 @@
 * {
-    -LIGHT-COLOR: #d0f1c9;
-    -PRIMARY-COLOR: #8fd694;
-    -DARK-PRIMARY: #7dba84;
-    -SECONDARY-COLOR: #77ad78;
-    -DARK-SECONDARY: #6f8f72;
-    -PRIMARY-DETAIL: #504b43;
+    -LIGHT-COLOR: #c9f1db;
+    -PRIMARY-COLOR: #8fd6b5;
+    -DARK-PRIMARY: #7dba9d;
+    -SECONDARY-COLOR: #77ad92;
+    -DARK-SECONDARY: #6f8f83;
+    -PRIMARY-DETAIL: #435044;
+    -ACCENT-COLOR: #228f3e;
     -TEXT-1: #ffffff;
     -TEXT-2: #2d2d2d;
+    -PROMPT-TEXT: #4e4d4d7f; 
+    -PROMPT-TEXT-DARK: #3c3b3b7f; 
 }
 
 .root {
@@ -19,6 +22,17 @@
     -fx-background-color: -DARK-SECONDARY;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
+}
+
+.tooltip {
+    -fx-background: -PRIMARY-DETAIL;
+    -fx-text-fill: white;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
+    -fx-effect: dropshadow(three-pass-box , -TEXT-2, 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.95em;
 }
 
 /* JFX Classes */
@@ -84,7 +98,8 @@
 
 .jfx-text-field, .jfx-password-field, .jfx-text-area {
     -jfx-focus-color: -DARK-PRIMARY;
-    -fx-prompt-text-fill: -TEXT-2;
+    -fx-prompt-text-fill: -PROMPT-TEXT;
+    -fx-prompt-text-style: italic;
     -fx-alignment: CENTER;
 }
 
@@ -98,7 +113,8 @@
     -jfx-focus-color: -DARK-PRIMARY;
     -fx-background-color: -SECONDARY-COLOR;
 	-fx-background-radius: 4 4 0 0;
-    -fx-prompt-text-fill: -TEXT-2;
+    -fx-prompt-text-fill: -PROMPT-TEXT-DARK;
+    -fx-prompt-text-style: italic;
 }
 
 .jfx-combo-box .arrow {
@@ -110,6 +126,10 @@
     -fx-text-fill: -TEXT-2;
 }
 
+.jfx-combo-box > .prompt-container {
+    -fx-alignment: CENTER;
+}
+
 .jfx-combo-box .list-view {
     -fx-background-radius: 0 0 12 12;
 	-fx-background-color: -PRIMARY-COLOR;
@@ -118,7 +138,7 @@
 
 .jfx-combo-box .list-cell > .label, .jfx-combo-box .list-cell {
     -fx-background-color: -PRIMARY-COLOR;
-    -fx-text-fill: -PRIMARY-TEXT;
+    -fx-text-fill: -TEXT-2;
     -fx-background-radius: 5;
 }
 
@@ -140,9 +160,14 @@
     -fx-font-size: 18px
 }
 
+.list-cell .jfx-rippler {
+    -jfx-rippler-fill: -DARK-PRIMARY;
+    -jfx-rippler-radius: 100;
+}
+
 .list-cell > .label, .list-cell {
     -fx-background-color: -PRIMARY-COLOR;
-    -fx-text-fill: -TEXT-1;
+    -fx-text-fill: -TEXT-2;
     -fx-background-radius: 5;
     -fx-border-color: -DARK-PRIMARY;
     -fx-border-size: 5;
@@ -154,6 +179,21 @@
     -fx-background-color: -LIGHT-COLOR;
 	-fx-text-fill: -DARK-SECONDARY;
 	-fx-background-radius: 5;
+}
+
+.jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .jfx-list-view .virtual-flow .scroll-bar:vertical .track, 
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .track-background,  .jfx-list-view .virtual-flow .scroll-bar:horizontal .track {
+    -fx-background-color: -LIGHT-COLOR;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -DARK-PRIMARY;
+}
+
+.jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb,  
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: -SECONDARY-COLOR;
+    -fx-background-radius: 10;
 }
 
 .alt-jfx-list-view {
@@ -169,7 +209,60 @@
 
 .alt-jfx-list-view .list-cell:hover > .label, .alt-jfx-list-view .list-cell:hover,
 .alt-jfx-list-view .list-cell:filled:selected > .label, .alt-jfx-list-view .list-cell:filled:selected {
-    -fx-background-color: -LIGHT-COLOR;
-	-fx-text-fill: -DARK-SECONDARY;
+    -fx-background-color: -ACCENT-COLOR;
+	-fx-text-fill: -LIGHT-COLOR;
 	-fx-background-radius: 5;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track,
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .track{
+    -fx-background-color: -LIGHT-COLOR;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -PRIMARY-COLOR;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: -DARK-PRIMARY;
+    -fx-background-radius: 10;
+}
+
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow,
+.jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow,
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow {
+    -fx-background-color: -TEXT-1;
+    -fx-background-size: 5;
+}
+
+
+/* Custom JFX Spinner */
+
+.cus-spinner {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(two-pass-box , -TEXT-2, 10, 0.0 , 0 , 3);
+}
+
+.cus-increment-button {
+    -fx-pref-height: 17;
+    -fx-background-radius: 5px 5px 0px 0px;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: none;
+}
+
+.cus-decrement-button {
+    -fx-pref-height: 17;
+    -fx-background-radius: 0px 0px 5px 5px ;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: none;
 }

@@ -33,6 +33,8 @@ public class FXMain extends Application {
 //        primaryStage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Configure simulation");
+        primaryStage.setMinHeight(controller.getScreenBounds().getHeight() * 0.45);
+        primaryStage.setMinWidth(controller.getScreenBounds().getHeight() * 0.5);
         primaryStage.show();
     }
 
