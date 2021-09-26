@@ -1,31 +1,17 @@
 package ui;
 
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-
-import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import model.data_structures.DefaultQueue;
-import model.objects.Client;
 import model.objects.Shop;
 
 public class FXSecondaryController implements Initializable{
@@ -49,6 +35,9 @@ public class FXSecondaryController implements Initializable{
     @FXML
     private JFXButton rmShelfBTN = new JFXButton();
 
+    @FXML
+    private JFXTextField checkoutNumTF = new JFXTextField();
+    
     //Games
 
     @FXML
@@ -100,7 +89,7 @@ public class FXSecondaryController implements Initializable{
     
     @FXML
     private JFXButton rmClientBTN = new JFXButton();
-    
+
     /*CLASS FIELDS*/
     
     private Shop shop;
@@ -114,6 +103,8 @@ public class FXSecondaryController implements Initializable{
     String params = "";
 
     private FXController controller;
+
+    private int checkouts;
 
     /*METHODS*/
     
@@ -204,9 +195,10 @@ public class FXSecondaryController implements Initializable{
             clientIDTF.setText(newValue.replaceAll("[^\\d]", ""));
         });
     }
-
+    
     private void initParams() {
-
+        checkoutNumTF.setEditable(false);
+        checkoutNumTF.setText("Chechout #: " + checkouts);
     }
     
     //Constructors
@@ -214,6 +206,7 @@ public class FXSecondaryController implements Initializable{
     public FXSecondaryController(Shop shop, FXController controller) {
         this.shop = shop;
         this.controller = controller;
+        checkouts = 1;
     }
     
     //Utility
@@ -309,6 +302,22 @@ public class FXSecondaryController implements Initializable{
     @FXML
     void removeClient(ActionEvent event) {
         
+    }
+
+    @FXML
+    void incrementCheckouts(MouseEvent event) {
+        int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
+        checknum++;
+        checkouts = checknum;
+        checkoutNumTF.setText("Chechout #: " + checkouts);
+    }
+
+    @FXML
+    void decrementCheckouts(MouseEvent event) {
+        int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
+        if (checknum > 1) checknum--;
+        checkouts = checknum;
+        checkoutNumTF.setText("Chechout #: " + checkouts);
     }
 
     /*GETTERS N SHIT*/

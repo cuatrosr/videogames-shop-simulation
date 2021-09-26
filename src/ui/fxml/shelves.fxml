@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -22,6 +23,18 @@
                   <JFXButton fx:id="addShelfBTN" minHeight="0.0" minWidth="0.0" onAction="#addShelf" text="Add" />
                   <JFXButton fx:id="editShelfBTN" onAction="#editShelf" text="Edit" />
                   <JFXButton fx:id="rmShelfBTN" onAction="#removeShelf" text="Remove" />
+                  <Separator prefHeight="0.0" prefWidth="278.0" />
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="checkoutNumTF" promptText="Number of Checkouts" HBox.hgrow="ALWAYS" />
+                        <VBox prefHeight="34.0" prefWidth="30.0" spacing="1.0" styleClass="cus-spinner">
+                           <children>
+                              <JFXButton fx:id="incrementBTN" alignment="CENTER" onMousePressed="#incrementCheckouts" styleClass="cus-increment-button" text="▲" />
+                              <JFXButton fx:id="decrementBTN" alignment="CENTER" onMousePressed="#decrementCheckouts" prefHeight="15.0" prefWidth="30.0" styleClass="cus-decrement-button" text="▼" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

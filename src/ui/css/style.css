@@ -240,3 +240,29 @@
     -fx-background-color: -TEXT-1;
     -fx-background-size: 5;
 }
+
+
+/* Custom JFX Spinner */
+
+.cus-spinner {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(two-pass-box , -TEXT-2, 10, 0.0 , 0 , 3);
+}
+
+.cus-increment-button {
+    -fx-pref-height: 17;
+    -fx-background-radius: 5px 5px 0px 0px;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: none;
+}
+
+.cus-decrement-button {
+    -fx-pref-height: 17;
+    -fx-background-radius: 0px 0px 5px 5px ;
+    -fx-background-color: -DARK-SECONDARY;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: none;
+}
