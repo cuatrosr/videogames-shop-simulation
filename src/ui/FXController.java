@@ -239,4 +239,8 @@ public class FXController implements Initializable {
     public String getLoadedPane() {
         return loadedPane;
     }
+
+    public Rectangle2D getScreenBounds() {
+        return screenBounds;
+    }
 }

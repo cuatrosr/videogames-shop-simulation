@@ -1,20 +1,27 @@
 package ui;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import model.data_structures.DefaultQueue;
@@ -98,12 +105,6 @@ public class FXSecondaryController implements Initializable{
     
     private Shop shop;
     
-    private final ObservableList<String> gamesShelvesOL = FXCollections.observableArrayList("A1", "B1", "C1", "D1", "E1", "E2", "H1", "G1", "F1");
-    
-    private final ObservableList<String> clientsGamesOL = FXCollections.observableArrayList("435", "235", "231", "578", "102", "004", "743", "332");
-
-    private final ObservableList<String> filler = FXCollections.observableArrayList("a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a");
-    
     ArrayList<String> shelves = new ArrayList<>();
 
     ArrayList<String> games = new ArrayList<>();
@@ -120,7 +121,6 @@ public class FXSecondaryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(controller.getLoadedPane());
         initShelves();
         initGames();
         initClients();
@@ -164,9 +164,21 @@ public class FXSecondaryController implements Initializable{
         }
         for (String shelf : shelves) {
             String shelfCode = shelf.split(":")[0];
-            System.out.println("SC:" + shelfCode);
             gameShelvesCBX.getItems().add(shelfCode);
         }
+        
+        gameAmountTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("\\d*")) return;
+            gameAmountTF.setText(newValue.replaceAll("[^\\d]", ""));
+        });
+        gamePriceTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("\\d*")) return;
+            gamePriceTF.setText(newValue.replaceAll("[^\\d]", ""));
+        });
+        gameIDTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("\\d*")) return;
+            gameIDTF.setText(newValue.replaceAll("[^\\d]", ""));
+        });
     }
     
     private void initClients() {
@@ -180,15 +192,17 @@ public class FXSecondaryController implements Initializable{
         editClientBTN.setDisable(btnsDisabled);
         clientGamesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (String client : clients) {
-            System.out.println("CL: " + client);
             clientsLV.getItems().add(client);
         }
         for (String game : games) {
             String[] gameRaw = game.split(" / ");
             String gameCode = gameRaw[2] + " (" + gameRaw[0] + ")";
-            System.out.println("GC:" + gameCode);
             clientGamesLV.getItems().add(gameCode);
         }
+        clientIDTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("\\d*")) return;
+            clientIDTF.setText(newValue.replaceAll("[^\\d]", ""));
+        });
     }
 
     private void initParams() {

@@ -181,7 +181,8 @@
 	-fx-background-radius: 5;
 }
 
-.jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .jfx-list-view .virtual-flow .scroll-bar:vertical .track{
+.jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .jfx-list-view .virtual-flow .scroll-bar:vertical .track, 
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .track-background,  .jfx-list-view .virtual-flow .scroll-bar:horizontal .track {
     -fx-background-color: -LIGHT-COLOR;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -189,7 +190,8 @@
 }
 
 .jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
-.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button {
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb,  
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
     -fx-background-color: -SECONDARY-COLOR;
     -fx-background-radius: 10;
 }
@@ -212,7 +214,8 @@
 	-fx-background-radius: 5;
 }
 
-.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track{
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .track,
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .track-background,  .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .track{
     -fx-background-color: -LIGHT-COLOR;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -220,7 +223,8 @@
 }
 
 .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
-.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button {
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
     -fx-background-color: -DARK-PRIMARY;
     -fx-background-radius: 10;
 }
@@ -228,7 +232,11 @@
 .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
 .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow,
 .jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
-.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow {
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow,
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow {
     -fx-background-color: -TEXT-1;
     -fx-background-size: 5;
 }
