@@ -149,17 +149,8 @@ public class FXSecondaryController implements Initializable{
         boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
         rmShelfBTN.setDisable(btnsDisabled);
         editShelfBTN.setDisable(btnsDisabled);
-        for (int i = 0; i < shelves.size(); i++) {
-            String[] split = shelves.get(i).split(":");
-            shelves.set(i, shelves.get(i).split(":")[0]);
-            for (String game : games) {
-                if (game.contains(split[0])) {
-                    System.out.println(split[0]);
-                    String sep = split[1].equals(" ") ? "" : ", ";
-                    shelves.set(i, shelves.get(i) + sep + game.split(" / ")[2]);
-                }
-            }
-            shelvesLV.getItems().add(shelves.get(i));
+        for (String shelf : shelves) {
+            shelvesLV.getItems().add(shelf);
         }
     }
     
@@ -177,7 +168,7 @@ public class FXSecondaryController implements Initializable{
             gamesLV.getItems().add(game);
         }
         for (String shelf : shelves) {
-            String shelfCode = shelf.split(":")[0];
+            String shelfCode = shelf.replace(":", "");
             gameShelvesCBX.getItems().add(shelfCode);
         }
         
@@ -264,7 +255,7 @@ public class FXSecondaryController implements Initializable{
     
     @FXML
     void addShelf(ActionEvent event) {
-        String newShelf = shelfIDTF.getText() + ": ";
+        String newShelf = shelfIDTF.getText() + ":";
         shelvesLV.getItems().add(newShelf);
         shelves.add(newShelf);
         shelfIDTF.setText("");
@@ -287,6 +278,14 @@ public class FXSecondaryController implements Initializable{
         String newGame = gameNameTF.getText() + " / $" + gamePriceTF.getText() + " / " + gameIDTF.getText() + " / " + gameShelvesCBX.getSelectionModel().getSelectedItem().split(" \\(")[0] + " / x" + gameAmountTF.getText();
         gamesLV.getItems().add(newGame);
         games.add(newGame);
+        for (String shelf : shelves) {
+            if (shelf.contains(gameShelvesCBX.getSelectionModel().getSelectedItem())) {
+                String separator = !shelf.contains(" ") ? " ": ", ";
+                int index = shelves.indexOf(shelf);
+                shelves.set(index, shelf + separator + gameIDTF.getText());
+                break;
+            }
+        }
         gameNameTF.setText("");
         gameIDTF.setText("");
         gamePriceTF.setText("");
