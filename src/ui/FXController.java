@@ -1,9 +1,11 @@
 package ui;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -15,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -29,10 +32,6 @@ import javafx.util.Duration;
 import model.data_structures.DefaultHashTable;
 import model.data_structures.DefaultStack;
 import model.objects.Shop;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class FXController implements Initializable {
 
@@ -71,6 +70,8 @@ public class FXController implements Initializable {
 
     private Shop shop;
 
+    private String currDrawer;
+
     /*METHODS*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,10 +86,12 @@ public class FXController implements Initializable {
             lateralHBGTransition.setRate(lateralHBGTransition.getRate() * -1);
             lateralHBGTransition.play();
         });
+        lateralVBOX.setPrefWidth(50);
     }
 
     //Constructors
     public FXController(Shop shop) {
+        currDrawer = "fxml/drawer.fxml";
         this.shop = shop;
         extended = false;
         loadedPane = "none";
@@ -98,7 +101,7 @@ public class FXController implements Initializable {
     //Utility
     public void preload() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/drawer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(currDrawer));
             fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
             lateralMenuDW.setSidePane(root);
@@ -115,8 +118,8 @@ public class FXController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             if (resizable) {
-                stage.setMinHeight(screenBounds.getHeight() * 0.5);
-                stage.setMinWidth(screenBounds.getWidth() * 0.45);
+                stage.setMinHeight(750);
+                stage.setMinWidth(1400);
             }
             stage.initModality(modality);
 //            stage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
@@ -140,7 +143,7 @@ public class FXController implements Initializable {
         int width = extended ? contractedWidth : extendedWidth;
         lateralVBOX.setPrefWidth(width);
         lateralMenuAnimation(width);
-        if (lateralMenuDW.isClosed()) {
+        if (lateralMenuDW.isClosed() && width != contractedWidth) {
             lateralMenuDW.open();
         } else {
             lateralMenuDW.close();
@@ -154,7 +157,7 @@ public class FXController implements Initializable {
         }
         lateralVBOX.translateXProperty().set(width);
         Timeline t = new Timeline();
-        KeyValue kv = new KeyValue(lateralVBOX.translateXProperty(), 0, Interpolator.EASE_OUT);
+        KeyValue kv = new KeyValue(lateralVBOX.translateXProperty(), 0, Interpolator.EASE_BOTH);
         KeyFrame kf = new KeyFrame(Duration.seconds(0.2), kv);
         t.getKeyFrames().addAll(kf);
         t.play();
@@ -200,7 +203,18 @@ public class FXController implements Initializable {
 
     @FXML
     void startSimulation(ActionEvent event) {
+        //Setup
         stage1();
+        //Launch
+        try {
+            currDrawer = "fxml/drawer-post.fxml";
+            ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
+            launchFXML("main.fxml", this, "Results", Modality.WINDOW_MODAL, StageStyle.DECORATED, true, true);
+            mainToggleHamburger(null);
+        } catch (Exception e) {
+            System.out.println("Can't open.");
+            e.printStackTrace();
+        }
     }
     
     void stage1() {
@@ -220,18 +234,53 @@ public class FXController implements Initializable {
             }
         }
     }
-
+    
     void stage2() {
         
     }
-
+    
+    //Post Simulation
+    
+    @FXML
+    void stage1Clicked(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    void stage2Clicked(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    void stage3Clicked(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    void stage4Clicked(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    void finishClicked(ActionEvent event) {
+        try {
+            currDrawer = "fxml/drawer.fxml";
+            ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
+            launchFXML("main.fxml", this, "Configure simulation", Modality.WINDOW_MODAL, StageStyle.DECORATED, true, true);
+            mainToggleHamburger(null);
+        } catch (Exception e) {
+            System.out.println("Can't open.");
+            e.printStackTrace();
+        }
+    }
+    
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
     }
-
+    
     /*GETTERS*/
-
+    
     public String getLoadedPane() {
         return loadedPane;
     }
