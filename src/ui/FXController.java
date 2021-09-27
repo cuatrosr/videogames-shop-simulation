@@ -269,7 +269,14 @@ public class FXController implements Initializable {
     
     @FXML
     void stage2Clicked(ActionEvent event) {
-        
+        if (!loadedPane.equals("Stage-2")) {
+            try {
+                launchFXML("stage-2.fxml", secondaryController, "Stage 2 Results", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "Stage-2";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @FXML

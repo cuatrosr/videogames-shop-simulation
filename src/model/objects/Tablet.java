@@ -37,6 +37,7 @@ public class Tablet {
     }
 
     public String getShelf(int key, Shelf[] shelf) {
+        System.out.println(shelf);
         for (int i = 0; i < shelf.length; i++) {
             DefaultHashTable<Integer, Games> gameHash = shelf[i].getGameHash();
             if (gameHash.search(key) != null) {
