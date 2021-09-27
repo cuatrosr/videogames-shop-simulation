@@ -31,6 +31,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.data_structures.DefaultHashTable;
 import model.data_structures.DefaultStack;
+import model.objects.Client;
 import model.objects.Shop;
 
 public class FXController implements Initializable {
@@ -72,6 +73,8 @@ public class FXController implements Initializable {
 
     private String currDrawer;
 
+    private boolean simulated;
+
     /*METHODS*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,11 +94,12 @@ public class FXController implements Initializable {
 
     //Constructors
     public FXController(Shop shop) {
+        simulated = false;
         currDrawer = "fxml/drawer.fxml";
         this.shop = shop;
         extended = false;
         loadedPane = "none";
-        secondaryController = new FXSecondaryController(shop, this);
+        secondaryController = new FXSecondaryController(shop, this, simulated);
     }
 
     //Utility
@@ -205,8 +209,11 @@ public class FXController implements Initializable {
     void startSimulation(ActionEvent event) {
         //Setup
         stage1();
+        stage2();
         //Launch
         try {
+            simulated = !simulated;
+            secondaryController.setSimulated(simulated);
             currDrawer = "fxml/drawer-post.fxml";
             ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
             launchFXML("main.fxml", this, "Results", Modality.WINDOW_MODAL, StageStyle.DECORATED, true, true);
@@ -236,14 +243,28 @@ public class FXController implements Initializable {
     }
     
     void stage2() {
-        
+        Client[] clients = shop.getClientQueue().toClientArray();
+        for (Client client : clients) {
+            client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            client.setAmountGames(client.getGames().length);
+            client.setTime(client.getTime() + client.getAmountGames());
+        }
+        shop.getClientQueue().toQueue(clients);
+        shop.selectionSort();
     }
     
     //Post Simulation
     
     @FXML
     void stage1Clicked(ActionEvent event) {
-        
+        if (!loadedPane.equals("Stage-1")) {
+            try {
+                launchFXML("stage-1.fxml", secondaryController, "Stage 1 Results", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "Stage-1";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @FXML
@@ -264,6 +285,8 @@ public class FXController implements Initializable {
     @FXML
     void finishClicked(ActionEvent event) {
         try {
+            simulated = !simulated;
+            secondaryController.setSimulated(simulated);
             currDrawer = "fxml/drawer.fxml";
             ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
             launchFXML("main.fxml", this, "Configure simulation", Modality.WINDOW_MODAL, StageStyle.DECORATED, true, true);

@@ -9,7 +9,7 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXListView fx:id="stage1LV" prefHeight="469.0" prefWidth="321.0" HBox.hgrow="ALWAYS">
+            <JFXListView fx:id="stage2LV" prefHeight="469.0" prefWidth="321.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </HBox.margin></JFXListView>

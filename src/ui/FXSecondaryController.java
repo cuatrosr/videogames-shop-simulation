@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
+import model.data_structures.DefaultQueue;
+import model.objects.Client;
 import model.objects.Shop;
 
 public class FXSecondaryController implements Initializable{
@@ -90,6 +92,20 @@ public class FXSecondaryController implements Initializable{
     @FXML
     private JFXButton rmClientBTN = new JFXButton();
 
+    //Stage 1
+
+    @FXML
+    private JFXListView<String> stage1LV = new JFXListView<>();
+    
+    //Stage 2
+
+    @FXML
+    private JFXListView<String> stage2LV = new JFXListView<>();
+    
+    //Stage 3
+    
+    //Stage 4
+
     /*CLASS FIELDS*/
     
     private Shop shop;
@@ -101,21 +117,28 @@ public class FXSecondaryController implements Initializable{
     ArrayList<String> clients = new ArrayList<>();
 
     String params = "";
-
+    
     private FXController controller;
-
+    
     private int checkouts;
-
+    
+    private boolean simulated;
+    
     /*METHODS*/
     
     //Initializers
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initShelves();
-        initGames();
-        initClients();
-        initParams();
+        if (!simulated) {
+            initShelves();
+            initGames();
+            initClients();
+            initParams();
+        } else {
+            initStage1();
+            initStage2();
+        }
     }
     
     private void initShelves() {
@@ -201,19 +224,44 @@ public class FXSecondaryController implements Initializable{
         checkoutNumTF.setText("Chechout #: " + checkouts);
     }
     
+    //Post Sims
+    
+    private void initStage1() {
+        DefaultQueue<Client> clientQueue = shop.getClientQueue();
+        for (int i = 0; i < clients.size(); i++) {
+            String client = clients.get(i).split(" / ")[0];
+            if (!client.equals(clientQueue.front().getName())) {
+                clientQueue.enqueue(clientQueue.dequeue());
+                i--;
+                continue;
+            }
+            int currKey = clientQueue.front().getKey();
+            stage1LV.getItems().add("Generated code for client '" + client + "': " + currKey);
+        }
+    }
+    
+    private void initStage2() {
+        Client[] clientsArr = shop.getClientQueue().toClientArray();
+        for (Client client : clientsArr) {
+            stage2LV.getItems().add("Client ordered list: " + client.getGames().toString() + " (Current time: " + client.getTime() + ")");
+        }
+        shop.getClientQueue().toQueue(clientsArr);
+    }
+    
     //Constructors
     
-    public FXSecondaryController(Shop shop, FXController controller) {
+    public FXSecondaryController(Shop shop, FXController controller, boolean simulated) {
+        this.simulated = simulated;
         this.shop = shop;
         this.controller = controller;
         checkouts = 1;
     }
     
     //Utility
-
+    
     //Shelves
-
-
+    
+    
     @FXML
     void addShelf(ActionEvent event) {
         String newShelf = shelfIDTF.getText() + ": ";
@@ -222,19 +270,19 @@ public class FXSecondaryController implements Initializable{
         shelfIDTF.setText("");
         shelvesLV.requestFocus();
     }
-
+    
     @FXML
     void editShelf(ActionEvent event) {
-
+        
     }
 
     @FXML
     void removeShelf(ActionEvent event) {
-
+        
     }
-
+    
     //Games
-
+    
     @FXML
     void addGame(ActionEvent event) {
         String newGame = gameNameTF.getText() + " / $" + gamePriceTF.getText() + " / " + gameIDTF.getText() + " / " + gameShelvesCBX.getSelectionModel().getSelectedItem().split(" \\(")[0] + " / x" + gameAmountTF.getText();
@@ -247,7 +295,7 @@ public class FXSecondaryController implements Initializable{
         gameAmountTF.setText("");
         gamesLV.requestFocus();
     }
-
+    
     @FXML
     void editGame(ActionEvent event) {
         addGameBTN.setText("Commit");
@@ -263,10 +311,10 @@ public class FXSecondaryController implements Initializable{
             addGame(event);
         });
     }
-
+    
     @FXML
     void removeGame(ActionEvent event) {
-
+        
     }
     
     //Clients
@@ -290,7 +338,7 @@ public class FXSecondaryController implements Initializable{
             addClient(event);
         });
     }
-
+    
     @FXML
     void editClient(ActionEvent event) {
         addClientBTN.setText("Commit");
@@ -303,7 +351,7 @@ public class FXSecondaryController implements Initializable{
     void removeClient(ActionEvent event) {
         
     }
-
+    
     @FXML
     void incrementCheckouts(MouseEvent event) {
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
@@ -311,7 +359,7 @@ public class FXSecondaryController implements Initializable{
         checkouts = checknum;
         checkoutNumTF.setText("Chechout #: " + checkouts);
     }
-
+    
     @FXML
     void decrementCheckouts(MouseEvent event) {
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
@@ -319,26 +367,32 @@ public class FXSecondaryController implements Initializable{
         checkouts = checknum;
         checkoutNumTF.setText("Chechout #: " + checkouts);
     }
-
+    
+    //POST-SIMS
+    
     /*GETTERS N SHIT*/
-
+    
     public JFXListView<String> getClientsLV() {
         return clientsLV;
     }
-
+    
     public ArrayList<String> getClients() {
         return clients;
     }
-
+    
     public ArrayList<String> getGames() {
         return games;
     }
-
+    
     public ArrayList<String> getShelves() {
         return shelves;
     }
 
     public String getParams() {
         return params;
+    }
+
+    public void setSimulated(boolean simulated) {
+        this.simulated = simulated;
     }
 }
