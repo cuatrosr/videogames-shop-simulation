@@ -16,7 +16,7 @@ public class Main {
         Shop shop = new Shop(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()));
 
         //crea los shelf
-        shop.createShelf(br);
+        shop.createShelfCLI(br);
         //crea los clientes y suma el tiempo que tardaron en entrar
         shop.createClientsCLI(br);
 

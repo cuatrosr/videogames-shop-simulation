@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -32,6 +33,7 @@ import javafx.util.Duration;
 import model.data_structures.DefaultHashTable;
 import model.data_structures.DefaultStack;
 import model.objects.Client;
+import model.objects.Shelf;
 import model.objects.Shop;
 
 public class FXController implements Initializable {
@@ -206,8 +208,13 @@ public class FXController implements Initializable {
     }
 
     @FXML
-    void startSimulation(ActionEvent event) {
+    void startSimulation(ActionEvent event) throws NumberFormatException, Exception {
         //Setup
+        shop.setSellers(secondaryController.getCheckoutNum());
+        ArrayList<String> shelves = secondaryController.getShelves();
+        int amountShelf = shelves.size();
+        shop.setShelves(new Shelf[amountShelf]);
+        shop.createShelf(shelves, secondaryController.getGames());
         stage1();
         stage2();
         //Launch
@@ -246,6 +253,7 @@ public class FXController implements Initializable {
         Client[] clients = shop.getClientQueue().toClientArray();
         for (Client client : clients) {
             client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            System.out.println(shop.getgamesHash().search(client.getCc()));
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }

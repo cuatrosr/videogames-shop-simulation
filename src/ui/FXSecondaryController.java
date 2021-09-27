@@ -2,6 +2,7 @@ package ui;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -115,8 +116,6 @@ public class FXSecondaryController implements Initializable{
     ArrayList<String> games = new ArrayList<>();
     
     ArrayList<String> clients = new ArrayList<>();
-
-    String params = "";
     
     private FXController controller;
     
@@ -150,16 +149,17 @@ public class FXSecondaryController implements Initializable{
         boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
         rmShelfBTN.setDisable(btnsDisabled);
         editShelfBTN.setDisable(btnsDisabled);
-        for (String shelf : shelves) {
+        for (int i = 0; i < shelves.size(); i++) {
+            String[] split = shelves.get(i).split(":");
+            shelves.set(i, shelves.get(i).split(":")[0]);
             for (String game : games) {
-                String[] split = shelf.split(":");
                 if (game.contains(split[0])) {
                     System.out.println(split[0]);
                     String sep = split[1].equals(" ") ? "" : ", ";
-                    shelf += sep + game.split(" / ")[2];
+                    shelves.set(i, shelves.get(i) + sep + game.split(" / ")[2]);
                 }
             }
-            shelvesLV.getItems().add(shelf);
+            shelvesLV.getItems().add(shelves.get(i));
         }
     }
     
@@ -243,7 +243,7 @@ public class FXSecondaryController implements Initializable{
     private void initStage2() {
         Client[] clientsArr = shop.getClientQueue().toClientArray();
         for (Client client : clientsArr) {
-            stage2LV.getItems().add("Client ordered list: " + client.getGames().toString() + " (Current time: " + client.getTime() + ")");
+            stage2LV.getItems().add("Client ordered list: " + Arrays.toString(client.getGames()) + " (Current time: " + client.getTime() + ")");
         }
         shop.getClientQueue().toQueue(clientsArr);
     }
@@ -268,7 +268,6 @@ public class FXSecondaryController implements Initializable{
         shelvesLV.getItems().add(newShelf);
         shelves.add(newShelf);
         shelfIDTF.setText("");
-        shelvesLV.requestFocus();
     }
     
     @FXML
@@ -293,7 +292,6 @@ public class FXSecondaryController implements Initializable{
         gamePriceTF.setText("");
         gameShelvesCBX.getSelectionModel().clearSelection();
         gameAmountTF.setText("");
-        gamesLV.requestFocus();
     }
     
     @FXML
@@ -328,7 +326,6 @@ public class FXSecondaryController implements Initializable{
         clientNameTF.setText("");
         clientIDTF.setText("");
         clientGamesLV.getSelectionModel().clearSelection();
-        clientsLV.requestFocus();
     }
     
     @FXML
@@ -388,8 +385,8 @@ public class FXSecondaryController implements Initializable{
         return shelves;
     }
 
-    public String getParams() {
-        return params;
+    public int getCheckoutNum() {
+        return checkouts;
     }
 
     public void setSimulated(boolean simulated) {

@@ -1,6 +1,7 @@
 package model.objects;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import model.data_structures.*;
@@ -21,8 +22,8 @@ public class Shop {
         tablet = new Tablet();
     }
 
-    public Shop(int atm, int amoutShelf) {
-        this.sellers = atm;
+    public Shop(int checkouts, int amoutShelf) {
+        this.sellers = checkouts;
         this.shelves = new Shelf[amoutShelf];
         this.clientQueue = new DefaultQueue<>();
         tablet = new Tablet();
@@ -70,7 +71,7 @@ public class Shop {
     }
    
    
-    public void createShelf(BufferedReader br) throws NumberFormatException, Exception {
+    public void createShelfCLI(BufferedReader br) throws NumberFormatException, Exception {
         for (int i = 0; i < this.getShelves().length; i++) {
 
             String code = br.readLine();
@@ -82,8 +83,35 @@ public class Shop {
             for (int j = 0; j < numGames; j++) {
                 String line = br.readLine();
                 int gameCode = Integer.parseInt(line.split(" ")[0]);
-                this.getShelves()[i].getGameHash().insert(gameCode, new Games(gameCode, Integer.parseInt(line.split(" ")[1]), Integer.parseInt(line.split(" ")[2])));
+                this.getShelves()[i].getGameHash().insert(gameCode, new Game(gameCode, Integer.parseInt(line.split(" ")[1]), Integer.parseInt(line.split(" ")[2])));
 
+            }
+        }
+    }
+
+    public void createShelf(ArrayList<String> shelves, ArrayList<String> games) throws NumberFormatException, Exception {
+        for (int i = 0; i < shelves.size(); i++) {
+            String[] shelf = shelves.get(i).split(": ");
+            String shelfCode = shelf[0];
+            String[] gameList = shelf[1].split(", ");
+            int numGames = gameList.length;
+            this.getShelves()[i] = new Shelf(shelfCode, numGames);
+        }
+        addGamesToShelf(games);
+    }
+
+    private void addGamesToShelf(ArrayList<String> games) throws Exception {
+        for (String game : games) {
+            String[] meta = game.split(" / ");
+            String gameShelf = meta[3];
+            int gameCode = Integer.parseInt(meta[2]);
+            double gamePrice = Double.parseDouble(meta[1].replaceAll("\\$", ""));
+            int gameAmount = Integer.parseInt(meta[4].replaceAll("x", ""));
+            String gameName = meta[0];
+            for (Shelf shelf : getShelves()) {
+                if (gameShelf.equals(shelf.getCode())) {
+                    shelf.getGameHash().insert(gameCode, new Game(gameCode, gamePrice, gameAmount, gameName));
+                }
             }
         }
     }
@@ -115,7 +143,7 @@ public class Shop {
     public void createClients(String name, int cc, String gamesRaw, int num, int i) throws NumberFormatException, Exception {
         String[] line = gamesRaw.split(", ");
         DefaultStack<Integer> stack  = new DefaultStack<>();
-        for (int j = 1; j < line.length; j++) {
+        for (int j = 0; j < line.length; j++) {
             stack.push(Integer.parseInt(line[j]));
         } 
         int key = this.getgamesHash().insert(cc, stack);

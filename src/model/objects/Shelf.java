@@ -9,12 +9,12 @@ public class Shelf {
 
     private String code;
     private int amountGames;
-    private DefaultHashTable<Integer, Games> gameHash;
+    private DefaultHashTable<Integer, Game> gameHash;
 
     public Shelf(String code, int numGames) {
         this.code = code;
         this.amountGames = numGames;
-        this.gameHash = new DefaultHashTable<Integer, Games>(numGames);
+        this.gameHash = new DefaultHashTable<Integer, Game>(numGames);
     }
 
     public String getCode() {
@@ -33,11 +33,11 @@ public class Shelf {
         this.amountGames = amountGames;
     }
 
-    public DefaultHashTable<Integer, Games> getGameHash() {
+    public DefaultHashTable<Integer, Game> getGameHash() {
         return this.gameHash;
     }
 
-    public void setGameHash(DefaultHashTable<Integer, Games> gameHash) {
+    public void setGameHash(DefaultHashTable<Integer, Game> gameHash) {
         this.gameHash = gameHash;
     }
 }

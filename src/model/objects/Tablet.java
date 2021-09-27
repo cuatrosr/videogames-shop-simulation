@@ -39,7 +39,7 @@ public class Tablet {
     public String getShelf(int key, Shelf[] shelf) {
         System.out.println(shelf);
         for (int i = 0; i < shelf.length; i++) {
-            DefaultHashTable<Integer, Games> gameHash = shelf[i].getGameHash();
+            DefaultHashTable<Integer, Game> gameHash = shelf[i].getGameHash();
             if (gameHash.search(key) != null) {
                 return shelf[i].getCode();
             }
@@ -52,7 +52,7 @@ public class Tablet {
         Integer[] games = client.getGames();
         for (Shelf var : shelf) {
             for (int i = 0; i < games.length; i++) {
-                Games game = var.getGameHash().search(games[i]);
+                Game game = var.getGameHash().search(games[i]);
                 if (game != null && games[i] == game.getGameCode() && game.getAmount() != 0) {
                     money += game.getGamePrice();
                 }
