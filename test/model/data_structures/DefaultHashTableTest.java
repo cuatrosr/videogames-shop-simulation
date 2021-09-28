@@ -10,12 +10,10 @@ class DefaultHashTableTest {
     DefaultHashTable<Integer, String> testHash;
     private final int SIZE = 3;
 
-    @BeforeEach
     void setUp1() {
         testHash = new DefaultHashTable<>(SIZE);
     }
 
-    @BeforeEach
     void setUp2() throws Exception {
         testHash = new DefaultHashTable<>(SIZE);
         testHash.insert(1, "Car");
@@ -34,7 +32,7 @@ class DefaultHashTableTest {
     }
 
     @Test
-    void limitInsert(){
+    void limitInsert() {
         setUp1();
 
         assertDoesNotThrow(() -> testHash.insert(234, "Car"));
@@ -82,13 +80,10 @@ class DefaultHashTableTest {
         assertThrows(Exception.class, () -> testHash.delete(3));
         assertThrows(Exception.class, () -> testHash.delete(6));
 
-
     }
 
     @Test
     void interestingDelete() throws Exception {
-
-
 
     }
 
@@ -112,7 +107,6 @@ class DefaultHashTableTest {
 
     @Test
     void interestingSearch() throws Exception {
-
 
     }
 }

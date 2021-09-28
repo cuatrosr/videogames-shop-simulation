@@ -35,6 +35,35 @@ public class Tablet {
         }
         return arr;
     }
+    
+        public Integer[] orderSelectionSort(Integer[] arr, Shelf[] shelf) {
+        int n = arr.length;
+        if (n == 1 && getShelf(arr[0], shelf) == null) {
+            return arr = new Integer[0];
+        }
+        for (int j = 1; j < n; j++) {
+            int key = arr[j];
+            int i = j - 1;
+            String shelf1 = getShelf(arr[i], shelf);
+            String shelf2 = getShelf(key, shelf);
+            if (shelf1 == null || shelf2 == null) {
+                arr[i] = (shelf1 == null) ? null : arr[i];
+                arr[j] = (shelf2 == null) ? null : arr[j];
+            }
+            int compare = -1;
+            try {
+                compare = shelf1.compareTo(shelf2);
+            } catch (NullPointerException e) {
+            } finally {
+                while ((i > -1) && (compare >= 0)) {
+                    arr[i + 1] = arr[i];
+                    i--;
+                }
+                arr[i + 1] = key;
+            }
+        }
+        return arr;
+    }
 
     public String getShelf(int key, Shelf[] shelf) {
         System.out.println(shelf);

@@ -1,31 +1,30 @@
 package model.data_structures;
 
 import model.objects.Client;
-
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class DefaultQueueTest {
 
     private DefaultQueue<Client> clientQueue;
-
-    @org.junit.jupiter.api.BeforeEach
+    
     private void setUp1() {
         clientQueue = new DefaultQueue<>();
 
     }
-
-    @org.junit.jupiter.api.BeforeEach
+    
     private void setUp2() {
         clientQueue = new DefaultQueue<>();
         clientQueue.enqueue(new Client(1006016477, 102, 3));
         clientQueue.enqueue(new Client(1006013423, 123, 4));
 
     }
-
-    @org.junit.jupiter.api.Test
+    
+    @Test
     void normalEnqueue() {
         setUp1();
         Client client;
@@ -36,13 +35,12 @@ class DefaultQueueTest {
 
     }
 
-    @org.junit.jupiter.api.Test
     void limitEnqueue() {
 
 
     }
-
-    @org.junit.jupiter.api.Test
+    
+    @Test
     void interestingEnqueue() {
         setUp1();
 
@@ -60,16 +58,15 @@ class DefaultQueueTest {
 
     }
 
-
-    @org.junit.jupiter.api.Test
+    @Test
     void normalDequeue() {
         setUp2();
 
         assertNotEquals(null, clientQueue.dequeue());
         assertNotEquals(null, clientQueue.dequeue());
     }
-
-    @org.junit.jupiter.api.Test
+    
+    @Test
     void limitDequeue() {
         setUp2();
 
@@ -81,8 +78,8 @@ class DefaultQueueTest {
 
 
     }
-
-    @org.junit.jupiter.api.Test
+    
+    @Test
     void interestingDequeue() {
 
     }
