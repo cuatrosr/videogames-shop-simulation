@@ -58,7 +58,6 @@
 	-fx-border-radius: 8px;
     -fx-text-fill: -TEXT-2;
     -fx-background-color: -PRIMARY-COLOR;
-    -fx-effect: none;
     -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
 }
 
@@ -77,10 +76,6 @@
     -fx-pref-height: 30px;
     -fx-background-color: -DARK-SECONDARY;
     -fx-text-fill: -TEXT-1;
-}
-
-.jfx-toggle-node:selected {
-    -fx-border-color: -TEXT-2;
 }
 
 .jfx-hamburger {
@@ -190,7 +185,7 @@
 }
 
 .jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
-.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb,  
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb,
 .jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
     -fx-background-color: -SECONDARY-COLOR;
     -fx-background-radius: 10;
@@ -201,7 +196,6 @@
     -fx-border-radius: 12;
     -fx-background-color: -LIGHT-COLOR;
     -fx-effect: dropshadow(gaussian, -TEXT-2, 12, 0.2, 0, 0);
-    -jfx-cell-horizontal-margin: 5px;
     -jfx-cell-horizontal-margin: 5;
     -fx-padding: 10;
     -fx-font-size: 14px;
@@ -223,24 +217,41 @@
 }
 
 .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .thumb,  .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button,
-.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .thumb,
 .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button, .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button {
     -fx-background-color: -DARK-PRIMARY;
     -fx-background-radius: 10;
 }
 
-.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
+.alt-jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow,
 .alt-jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow,
-.jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow, 
-.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow, 
-.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:vertical .increment-button .increment-arrow,
+.jfx-list-view .virtual-flow .scroll-bar:vertical .decrement-button .decrement-arrow,
+.alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow,
 .alt-jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow,
-.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow, 
+.jfx-list-view .virtual-flow .scroll-bar:horizontal .increment-button .increment-arrow,
 .jfx-list-view .virtual-flow .scroll-bar:horizontal .decrement-button .decrement-arrow {
     -fx-background-color: -TEXT-1;
     -fx-background-size: 5;
 }
 
+/* TOGGLE NODES */
+
+.sorting-container {
+    -fx-background-radius: 8;
+    -fx-background-color: -LIGHT-COLOR;
+}
+
+.jfx-toggle-node {
+    -fx-background-color: -PRIMARY-COLOR;
+    -fx-font-size: 14px;
+    -fx-background-radius: 12;
+}
+
+.jfx-toggle-node:selected {
+    -fx-background-color: -ACCENT-COLOR;
+    -fx-text-fill: -TEXT-1;
+}
 
 /* Custom JFX Spinner */
 

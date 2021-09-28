@@ -4,15 +4,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
+
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import model.data_structures.DefaultQueue;
 import model.objects.Client;
 import model.objects.Shop;
@@ -40,7 +44,10 @@ public class FXSecondaryController implements Initializable{
 
     @FXML
     private JFXTextField checkoutNumTF = new JFXTextField();
-    
+
+    @FXML
+    private Label shelfGamesLBL = new Label();
+
     //Games
 
     @FXML
@@ -93,6 +100,9 @@ public class FXSecondaryController implements Initializable{
     @FXML
     private JFXButton rmClientBTN = new JFXButton();
 
+    @FXML
+    private ToggleGroup sortingTGRP = new ToggleGroup();
+
     //Stage 1
 
     @FXML
@@ -104,7 +114,10 @@ public class FXSecondaryController implements Initializable{
     private JFXListView<String> stage2LV = new JFXListView<>();
     
     //Stage 3
-    
+
+    @FXML
+    private JFXListView<?> stage3LV;
+
     //Stage 4
 
     /*CLASS FIELDS*/
@@ -122,7 +135,9 @@ public class FXSecondaryController implements Initializable{
     private int checkouts;
     
     private boolean simulated;
-    
+
+    private int selectedSortMethod;
+
     /*METHODS*/
     
     //Initializers
@@ -208,11 +223,24 @@ public class FXSecondaryController implements Initializable{
             if (newValue.matches("\\d*")) return;
             clientIDTF.setText(newValue.replaceAll("[^\\d]", ""));
         });
+        switch (selectedSortMethod) {
+            case 1:
+                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(0));
+                break;
+            case 2:
+                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(1));
+                break;
+            case -1:
+                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(2));
+                break;
+            default:
+                break;
+        }
     }
     
     private void initParams() {
         checkoutNumTF.setEditable(false);
-        checkoutNumTF.setText("Chechout #: " + checkouts);
+        checkoutNumTF.setText("Checkout #: " + checkouts);
     }
     
     //Post Sims
@@ -246,29 +274,103 @@ public class FXSecondaryController implements Initializable{
         this.shop = shop;
         this.controller = controller;
         checkouts = 1;
+        selectedSortMethod = 0;
     }
     
     //Utility
     
     //Shelves
-    
-    
+
+    boolean validateShelf() {
+        return !shelfIDTF.getText().isEmpty();
+    }
+
     @FXML
     void addShelf(ActionEvent event) {
-        String newShelf = shelfIDTF.getText() + ":";
-        shelvesLV.getItems().add(newShelf);
-        shelves.add(newShelf);
-        shelfIDTF.setText("");
+        if (validateShelf()) {
+            String newShelf = shelfIDTF.getText() + ":";
+            shelvesLV.getItems().add(newShelf);
+            shelves.add(newShelf);
+            shelfIDTF.setText("");
+        } else {
+            try {
+                controller.launchFXML("dialogue.fxml", this, "Unable to add shelf",
+                        Modality.APPLICATION_MODAL, StageStyle.UNDECORATED, true, false);
+            } catch (Exception ignored) {
+                System.out.println("There will be consequences");
+            }
+        }
     }
     
     @FXML
     void editShelf(ActionEvent event) {
-        
+        addShelfBTN.setText("Commit");
+        addShelfBTN.setOnAction((e) -> { // 6017441818 <- No borren esto xfa
+            commitShelf(event);
+        });
+        shelfIDTF.setOnAction((e) -> {
+            commitShelf(event);
+        });
+        String editing = shelvesLV.getSelectionModel().getSelectedItem();
+        String shelfCode = editing.split(": ")[0].replace(":", "");
+        String gameList;
+        try {
+            gameList = editing.split(": ")[1];
+        } catch (IndexOutOfBoundsException iub) {
+            gameList = "(empty)";
+        }
+        shelfIDTF.setText(shelfCode);
+        shelfGamesLBL.setText("Current game list (Shelf " + shelfCode + "): " + gameList);
+        shelvesLV.getItems().remove(editing);
+        shelves.remove(editing);
+    }
+
+    @FXML
+    void commitShelf(ActionEvent event) {
+        if (validateShelf()) {
+            String gameList = shelfGamesLBL.getText().contains("empty") ? "" : shelfGamesLBL.getText().replace("Current game list:", "");
+            String newShelf = shelfIDTF.getText() + ":" + gameList;
+            shelvesLV.getItems().add(newShelf);
+            shelves.add(newShelf);
+            shelfIDTF.setText("");
+            shelfGamesLBL.setText("");
+            addShelfBTN.setText("Add");
+            addShelfBTN.setOnAction((e) -> {
+                addShelf(event);
+            });
+            shelfIDTF.setOnAction((e) -> {
+                addShelf(event);
+            });
+        } else {
+            try {
+                controller.launchFXML("dialogue.fxml", this, "Unable to add shelf",
+                        Modality.APPLICATION_MODAL, StageStyle.UNDECORATED, true, false);
+            } catch (Exception ignored) {
+                System.out.println("There will be consequences");
+            }
+        }
+    }
+
+    void lookUpShelf(String code, String newCode, String mode) {
+        switch (mode) {
+            case "replace":
+                for (String game : games) {
+                    games.set(games.indexOf(game), game.replace(code, newCode));
+                }
+                break;
+            case "remove":
+                games.removeIf(game -> game.contains(code));
+                break;
+            default:
+                throw new IllegalStateException("Illegal argument: " + mode);
+        }
     }
 
     @FXML
     void removeShelf(ActionEvent event) {
-        
+        shelvesLV.getItems().remove(shelvesLV.getSelectionModel().getSelectedItem());
+        String remCode = shelvesLV.getSelectionModel().getSelectedItem().split(": ")[0];
+        lookUpShelf(remCode, remCode, "remove");
     }
     
     //Games
@@ -353,7 +455,7 @@ public class FXSecondaryController implements Initializable{
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
         checknum++;
         checkouts = checknum;
-        checkoutNumTF.setText("Chechout #: " + checkouts);
+        checkoutNumTF.setText("Checkout #: " + checkouts);
     }
     
     @FXML
@@ -361,7 +463,19 @@ public class FXSecondaryController implements Initializable{
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
         if (checknum > 1) checknum--;
         checkouts = checknum;
-        checkoutNumTF.setText("Chechout #: " + checkouts);
+        checkoutNumTF.setText("Checkout #: " + checkouts);
+    }
+
+    @FXML
+    void selectAlgorithmToggle(ActionEvent event) {
+        JFXToggleNode clickedSort = ((JFXToggleNode)event.getSource());
+        System.out.println(clickedSort.toString());
+        selectedSortMethod = clickedSort.getText().contains("Random") ? -1 : Integer.parseInt(clickedSort.getText());
+        for (Toggle node : sortingTGRP.getToggles()) {
+            double glowVal = (node.isSelected()) ? 0.8 : 0;
+            System.out.println(glowVal);
+            ((JFXToggleNode) node).setEffect(new Glow(glowVal));
+        }
     }
     
     //POST-SIMS
@@ -386,6 +500,10 @@ public class FXSecondaryController implements Initializable{
 
     public int getCheckoutNum() {
         return checkouts;
+    }
+
+    public int getSelectedSortMethod() {
+        return selectedSortMethod;
     }
 
     public void setSimulated(boolean simulated) {

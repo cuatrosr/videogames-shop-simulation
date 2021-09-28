@@ -257,8 +257,29 @@ public class FXController implements Initializable {
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }
+        recurSwitch(secondaryController.getSelectedSortMethod(), clients);
+    }
 
-        shop.selectionSort(clients);
+    void recurSwitch(int param, Client[] clients) {
+        switch (param) {
+            case 1:
+                shop.selectionSort(clients);
+                break;
+            case 2:
+                // The  other sort
+                System.out.println("Guys we really need the other sort");
+                shop.selectionSort(clients); //TODO: The other sorting algorithm
+                break;
+            case -1:
+                recurSwitch((Math.random() <= 0.5) ? 1 : 2, clients);
+                break;
+            default:
+                throw new IllegalStateException("How: " + param);
+        }
+    }
+
+    void stage3() {
+
     }
     
     //Post Simulation
