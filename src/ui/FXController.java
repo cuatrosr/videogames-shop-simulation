@@ -257,8 +257,8 @@ public class FXController implements Initializable {
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }
-        shop.getClientQueue().toQueue(clients);
-        shop.selectionSort();
+
+        shop.selectionSort(clients);
     }
     
     //Post Simulation

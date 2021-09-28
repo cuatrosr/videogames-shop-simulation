@@ -19,11 +19,6 @@ class HashNode<K, V> {
         prev = null;
     }
 
-    public HashNode() {
-        next = null;
-        prev = null;
-    }
-
     public K getKey() {
         return key;
     }
@@ -101,11 +96,11 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
     }
 
     @Override
-    @SuppressWarnings("Unchecked")
+    @SuppressWarnings("unchecked")
     public V search(K key) {
 
         int i = 0;
-        int j = 0;
+        int j;
 
         do {
 

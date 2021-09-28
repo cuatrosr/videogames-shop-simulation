@@ -72,6 +72,7 @@ public class Shop {
    
    
     public void createShelfCLI(BufferedReader br) throws NumberFormatException, Exception {
+
         for (int i = 0; i < this.getShelves().length; i++) {
 
             String code = br.readLine();
@@ -151,7 +152,8 @@ public class Shop {
         this.getClientQueue().enqueue(client);
     }
 
-    public void selectionSort(){  
+    public void selectionSort(Client[] clients){
+        this.getClientQueue().toQueue(clients);
         Client[] arr = this.getClientQueue().toClientArray();
         for (int i = 0; i < arr.length - 1; i++)  {  
             int index = i;  
@@ -166,7 +168,55 @@ public class Shop {
         } 
         
         this.getClientQueue().toQueue(arr);
-    } 
+    }
+
+    public void sellers(int clientSize){
+        int k = 0;
+        Client[] sellers = new Client[this.getSellers()];
+        do {
+
+            for (int i = 0; i < sellers.length; i++) {
+                if (sellers[i] == null && k < clientSize) {
+                    sellers[i] = this.getClientQueue().dequeue();
+                    k++;
+                }
+
+            }
+
+            for (int i = 0; i < sellers.length; i++) {
+
+                if (sellers[i] != null) {
+                    sellers[i].setAmountGames(sellers[i].getAmountGames() - 1);
+
+                    if (sellers[i].getAmountGames() <= 0) {
+                        this.getTablet().money(sellers[i], this.getShelves());
+                        this.getClientQueue().enqueue(sellers[i]);
+                        sellers[i] = null;
+
+                    }
+
+                }
+
+                if (i == sellers.length - 1 && k != clientSize - 1) {
+
+                    for (Client seller : sellers) {
+                        if (seller == null) {
+                            i = sellers.length;
+                            break;
+                        } else {
+                            i = 0;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        } while (this.getClientQueue().size() < clientSize);
+
+
+    }
 
 
 }

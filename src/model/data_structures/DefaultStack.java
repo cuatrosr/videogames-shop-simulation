@@ -2,6 +2,8 @@ package model.data_structures;
 
 import model.interfaces.*;
 
+import java.util.NoSuchElementException;
+
 /**
  * A custom implementation of the Stack generic data type. <br>
  */
@@ -34,10 +36,16 @@ public class DefaultStack<T> implements Stack<T> {
      */
     @Override
     public T pop() {
-        Node<T> trash = top;
-        top = top.next();
-        size--;
-        return trash.data();
+        if(top == null){
+            throw new NoSuchElementException("Can't pop from an empty stack");
+
+        }else {
+            Node<T> trash = top;
+            top = top.next();
+            size--;
+            return trash.data();
+
+        }
     }
 
     /**

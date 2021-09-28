@@ -60,4 +60,13 @@ public class Tablet {
         }
         client.setTotalPurchase(money);
     }
+
+    public void clientList(Client[] clients, Shop shop){
+        for (Client client : clients) {
+            //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
+            client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            client.setAmountGames(client.getGames().length);
+            client.setTime(client.getTime() + client.getAmountGames());
+        }
+    }
 }

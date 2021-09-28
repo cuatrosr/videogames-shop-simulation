@@ -6,83 +6,36 @@ import java.io.InputStreamReader;
 
 public class Main {
 
+    @SuppressWarnings("unused")
     public static void main(String[] args) throws  Exception {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int numCase = Integer.parseInt(br.readLine());// pa que esssss?
+        int numCase = Integer.parseInt(br.readLine());
 
-        //crea la tienda
         Shop shop = new Shop(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()));
 
-        //crea los shelf
         shop.createShelfCLI(br);
-        //crea los clientes y suma el tiempo que tardaron en entrar
+
         shop.createClientsCLI(br);
 
         System.out.println("----------------------------------------");
 
         Client[] clients = shop.getClientQueue().toClientArray();
 
-        //se le entregan los juegos al cliente y suma al tiempo lo que se demoraron buscando los juegos
-        for (Client client : clients) {
-            //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
-            client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
-            client.setAmountGames(client.getGames().length);
-            client.setTime(client.getTime() + client.getAmountGames());
-        }
+        shop.getTablet().clientList(clients, shop);
 
-        //organiza los cliente por el tiempo en la cola y el tiempo que se demoraron buscando los juegos
-        shop.getClientQueue().toQueue(clients);
-        shop.selectionSort();
+        shop.selectionSort(clients);
 
-        //cajeros
-        int k = 0;
-        Client[] sellers = new Client[shop.getSellers()];
-        do {
+        shop.sellers(clients.length);
 
-            for (int i = 0; i < sellers.length; i++) {
-                if (sellers[i] == null && k < clients.length) {
-                    sellers[i] = shop.getClientQueue().dequeue();
-                    k++;
-                }
+        output(shop.getClientQueue().size(), shop);
 
-            }
+        br.close();
+    }
 
-            for (int i = 0; i < sellers.length; i++) {
+    public static void output(int size, Shop shop){
 
-                if (sellers[i] != null) {
-                    sellers[i].setAmountGames(sellers[i].getAmountGames() - 1);
-
-                    if (sellers[i].getAmountGames() <= 0) {
-                        shop.getTablet().money(sellers[i], shop.getShelves());
-                        shop.getClientQueue().enqueue(sellers[i]);
-                        sellers[i] = null;
-
-                    }
-
-                }
-
-                if (i == sellers.length - 1 && k != clients.length - 1) {
-
-                    for (Client seller : sellers) {
-                        if (seller == null) {
-                            i = sellers.length;
-                            break;
-                        } else {
-                            i = 0;
-                        }
-
-                    }
-
-                }
-
-            }
-
-        } while (shop.getClientQueue().size() < clients.length);
-
-        int size = shop.getClientQueue().size();
-        //Imprime 
         for (int i = 0; i < size; i++) {
             Client client = shop.getClientQueue().dequeue();
 
@@ -95,7 +48,7 @@ public class Main {
             }
             System.out.println(msg);
         }
-        br.close();
+
     }
 
 }
