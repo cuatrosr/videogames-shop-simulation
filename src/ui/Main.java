@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) throws NumberFormatException, Exception {
+    public static void main(String[] args) throws  Exception {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -65,8 +65,8 @@ public class Main {
 
                 if (i == sellers.length - 1 && k != clients.length - 1) {
 
-                    for (int l = 0; l < sellers.length; l++) {
-                        if (sellers[l] == null) {
+                    for (Client seller : sellers) {
+                        if (seller == null) {
                             i = sellers.length;
                             break;
                         } else {
