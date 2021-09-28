@@ -234,7 +234,7 @@ public class FXController implements Initializable {
     void stage1() {
         ObservableList<String> clientListRaw = secondaryController.getClientsLV().getItems();
         int num = clientListRaw.size();
-        shop.setgamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
+        shop.setGamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         for (int i = 0; i < num; i++) {
             String[] curr = clientListRaw.get(i).split(" / ");
             String gamesRaw = curr[2].replaceAll("\\[|\\]", "");

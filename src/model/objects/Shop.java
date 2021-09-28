@@ -58,7 +58,7 @@ public class Shop {
         return this.gamesHash;
     }
 
-    public void setgamesHash(DefaultHashTable<Integer,DefaultStack<Integer>> gamesHash) {
+    public void setGamesHash(DefaultHashTable<Integer,DefaultStack<Integer>> gamesHash) {
         this.gamesHash = gamesHash;
     }
 
@@ -121,6 +121,7 @@ public class Shop {
         BufferedReader auxBr = br;
 
         int num = Integer.parseInt(auxBr.readLine());
+        this.setGamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         DefaultStack<Integer> stack;
         
         for (int i = 0; i < num; i++) {
@@ -144,6 +145,7 @@ public class Shop {
     public void createClients(String name, int cc, String gamesRaw, int num, int i) throws NumberFormatException, Exception {
         String[] line = gamesRaw.split(", ");
         DefaultStack<Integer> stack  = new DefaultStack<>();
+
         for (int j = 0; j < line.length; j++) {
             stack.push(Integer.parseInt(line[j]));
         } 

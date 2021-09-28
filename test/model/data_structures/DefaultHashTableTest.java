@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultHashTableTest {
+public class DefaultHashTableTest {
 
     DefaultHashTable<Integer, String> testHash;
     private final int SIZE = 3;
