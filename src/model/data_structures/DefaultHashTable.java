@@ -81,12 +81,16 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
 
             int j = hash(key, i);
 
-            if (table[j].getKey() == key) {
-                table[j] = null;
-                size--;
-                return;
+            try {
+                if (table[j].getKey() == key) {
+                    table[j] = null;
+                    size--;
+                    return;
 
-            }
+                }
+            }catch (NullPointerException e){}
+
+
 
             i++;
 
@@ -106,7 +110,7 @@ public class DefaultHashTable<K, V> implements HashTable<K, V> {
 
             j = hash(key, i);
            
-            if (table[j].getKey().equals(key)) {
+            if (table[j] != null && table[j].getKey().equals(key)) {
                 return (V) table[j].getValue();
 
             }
