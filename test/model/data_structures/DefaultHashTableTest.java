@@ -26,9 +26,9 @@ public class DefaultHashTableTest {
         setUp1();
 
         String name1 = "Car";
-        int key1 = testHash.insert(234, name1);
+        testHash.insert(234, name1);
 
-        assertEquals(name1, testHash.search(key1));
+        assertEquals(name1, testHash.search(234));
     }
 
     @Test
@@ -47,17 +47,12 @@ public class DefaultHashTableTest {
         setUp1();
 
         String name1 = "Car";
-        int key1 = testHash.insert(234, name1);
-
+        assertNotNull(testHash.insert(234, name1));
         String name2 = "House";
-        int key2 = testHash.insert(234, name2);
-
+        assertNotNull(testHash.insert(234, name2));
         String name3 = "Dog";
-        int key3 = testHash.insert(234, name3);
+        assertNotNull(testHash.insert(234, name3));
 
-        assertEquals(name1, testHash.search(key1));
-        assertEquals(name2, testHash.search(key2));
-        assertEquals(name3, testHash.search(key3));
     }
 
     @Test
@@ -72,18 +67,18 @@ public class DefaultHashTableTest {
     @Test
     void limitDelete() throws Exception {
         setUp2();
+        System.out.println(testHash);
 
         assertDoesNotThrow(() -> testHash.delete(1));
         assertDoesNotThrow(() -> testHash.delete(3));
         assertDoesNotThrow(() -> testHash.delete(6));
-        assertThrows(Exception.class, () -> testHash.delete(1));
-        assertThrows(Exception.class, () -> testHash.delete(3));
-        assertThrows(Exception.class, () -> testHash.delete(6));
 
     }
 
     @Test
     void interestingDelete() throws Exception {
+        setUp1();
+        assertThrows(Exception.class, () -> testHash.delete(1));
 
     }
 
@@ -92,9 +87,9 @@ public class DefaultHashTableTest {
         setUp1();
 
         String name1 = "Car";
-        int key1 = testHash.insert(234, name1);
+        testHash.insert(234, name1);
 
-        assertEquals(name1, testHash.search(key1));
+        assertEquals(name1, testHash.search(234));
 
     }
 
@@ -107,6 +102,10 @@ public class DefaultHashTableTest {
 
     @Test
     void interestingSearch() throws Exception {
+        setUp1();
+        testHash.insert(3, "hello");
+        testHash.insert(3, "bye");
+        assertNotNull(testHash.search(3));
 
     }
 }
