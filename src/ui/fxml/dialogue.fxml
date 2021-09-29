@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ui.fxml.Dialogue"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="522.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </BorderPane.margin>
+         <children>
+            <VBox styleClass="alt-jfx-list-view" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="titleErrLBL" prefHeight="20.0" prefWidth="500.0" styleClass="title" text="TITLE" />
+                  <Separator prefWidth="200.0" style="-fx-background-color: -ACCENT-COLOR; -fx-border-color: -DARK-PRIMARY;" />
+                  <Label fx:id="msgErrLBL" alignment="TOP_LEFT" prefHeight="178.0" prefWidth="470.0" styleClass="message" text="MESSAGE" textAlignment="JUSTIFY" />
+               </children>
+            </VBox>
+            <JFXButton onAction="#close" text="Close" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

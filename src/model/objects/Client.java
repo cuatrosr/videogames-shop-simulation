@@ -12,6 +12,7 @@ public class Client {
     private int amountGames;
     private int totalPurchase;
     private int time;
+    private int selectedSortingMethod;
 
     public Client(int cc, int code, int time) {
         this.name = "name";
@@ -23,7 +24,7 @@ public class Client {
         this.amountGames = 0;
     }
     
-    public Client(String name, int cc, int code, int time) {
+    public Client(String name, int cc, int code, int time, int selectedSortingMethod) {
         this.name = name;
         this.cc = cc;
         this.key = code;
@@ -31,6 +32,7 @@ public class Client {
         this.games = null;
         this.time = time;
         this.amountGames = 0;
+        this.selectedSortingMethod = selectedSortingMethod;
     }
 
     public String getName() {
@@ -88,9 +90,8 @@ public class Client {
     public void setTime(int time) {
         this.time = time;
     }
- 
 
-
-
-
+    public int getSelectedSortingMethod() {
+        return selectedSortingMethod;
+    }
 }

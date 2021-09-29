@@ -16,15 +16,25 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.data_structures.DefaultQueue;
 import model.objects.Client;
 import model.objects.Shop;
 
+@SuppressWarnings("StringConcatenationInLoop")
 public class FXSecondaryController implements Initializable{
     
     /*JAVAFX FIELDS*/
-    
+
+    //Error Pane
+
+    @FXML
+    private Label titleErrLBL = new Label();
+
+    @FXML
+    private Label msgErrLBL = new Label();
+
     //Shelves
 
     @FXML
@@ -37,66 +47,54 @@ public class FXSecondaryController implements Initializable{
     private JFXButton addShelfBTN = new JFXButton();
 
     @FXML
-    private JFXButton editShelfBTN = new JFXButton();
-
-    @FXML
     private JFXButton rmShelfBTN = new JFXButton();
 
     @FXML
     private JFXTextField checkoutNumTF = new JFXTextField();
 
-    @FXML
-    private Label shelfGamesLBL = new Label();
-
     //Games
 
     @FXML
     private JFXListView<String> gamesLV = new JFXListView<>();
-    
+
     @FXML
     private JFXTextField gameNameTF = new JFXTextField();
-    
+
     @FXML
     private JFXTextField gameIDTF = new JFXTextField();
-    
+
     @FXML
     private JFXTextField gamePriceTF = new JFXTextField();
-    
+
     @FXML
     private JFXTextField gameAmountTF = new JFXTextField();
 
     @FXML
     private JFXComboBox<String> gameShelvesCBX = new JFXComboBox<>();
-    
+
     @FXML
     private JFXButton addGameBTN = new JFXButton();
-    
-    @FXML
-    private JFXButton editGameBTN = new JFXButton();
 
     @FXML
     private JFXButton rmGameBTN = new JFXButton();
-    
+
     //Clients
-    
+
     @FXML
     private JFXListView<String> clientsLV = new JFXListView<>();
-    
+
     @FXML
     private JFXTextField clientNameTF = new JFXTextField();
-    
+
     @FXML
     private JFXTextField clientIDTF = new JFXTextField();
-    
+
     @FXML
     private JFXListView<String> clientGamesLV = new JFXListView<>();
-    
+
     @FXML
     private JFXButton addClientBTN = new JFXButton();
-    
-    @FXML
-    private JFXButton editClientBTN = new JFXButton();
-    
+
     @FXML
     private JFXButton rmClientBTN = new JFXButton();
 
@@ -107,41 +105,41 @@ public class FXSecondaryController implements Initializable{
 
     @FXML
     private JFXListView<String> stage1LV = new JFXListView<>();
-    
+
     //Stage 2
 
     @FXML
     private JFXListView<String> stage2LV = new JFXListView<>();
-    
+
     //Stage 3
 
     @FXML
-    private JFXListView<?> stage3LV;
+    private JFXListView<String> stage3LV;
 
     //Stage 4
 
     /*CLASS FIELDS*/
-    
+
     private Shop shop;
-    
+
     ArrayList<String> shelves = new ArrayList<>();
 
     ArrayList<String> games = new ArrayList<>();
-    
+
     ArrayList<String> clients = new ArrayList<>();
-    
+
     private FXController controller;
-    
+
     private int checkouts;
-    
+
     private boolean simulated;
 
-    private int selectedSortMethod;
+    private String selectedSorting;
 
     /*METHODS*/
-    
+
     //Initializers
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!simulated) {
@@ -154,30 +152,26 @@ public class FXSecondaryController implements Initializable{
             initStage2();
         }
     }
-    
+
     private void initShelves() {
         shelvesLV.setOnMouseClicked((event) -> {
             boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
             rmShelfBTN.setDisable(btnsDisabled);
-            editShelfBTN.setDisable(btnsDisabled);
         });
         boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
         rmShelfBTN.setDisable(btnsDisabled);
-        editShelfBTN.setDisable(btnsDisabled);
         for (String shelf : shelves) {
             shelvesLV.getItems().add(shelf);
         }
     }
-    
+
     private void initGames() {
         gamesLV.setOnMouseClicked((event) -> {
             boolean btnsDisabled = gamesLV.getSelectionModel().getSelectedItems().isEmpty();
             rmGameBTN.setDisable(btnsDisabled);
-            editGameBTN.setDisable(btnsDisabled);
         });
         boolean btnsDisabled = gamesLV.getSelectionModel().getSelectedItems().isEmpty();
         rmGameBTN.setDisable(btnsDisabled);
-        editGameBTN.setDisable(btnsDisabled);
         for (String game : games) {
             System.out.println("G:" + game);
             gamesLV.getItems().add(game);
@@ -186,7 +180,7 @@ public class FXSecondaryController implements Initializable{
             String shelfCode = shelf.replace(":", "");
             gameShelvesCBX.getItems().add(shelfCode);
         }
-        
+
         gameAmountTF.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches("\\d*")) return;
             gameAmountTF.setText(newValue.replaceAll("[^\\d]", ""));
@@ -200,16 +194,14 @@ public class FXSecondaryController implements Initializable{
             gameIDTF.setText(newValue.replaceAll("[^\\d]", ""));
         });
     }
-    
+
     private void initClients() {
         clientsLV.setOnMouseClicked((event) -> {
             boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
             rmClientBTN.setDisable(btnsDisabled);
-            editClientBTN.setDisable(btnsDisabled);
         });
         boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
         rmClientBTN.setDisable(btnsDisabled);
-        editClientBTN.setDisable(btnsDisabled);
         clientGamesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (String client : clients) {
             clientsLV.getItems().add(client);
@@ -223,28 +215,15 @@ public class FXSecondaryController implements Initializable{
             if (newValue.matches("\\d*")) return;
             clientIDTF.setText(newValue.replaceAll("[^\\d]", ""));
         });
-        switch (selectedSortMethod) {
-            case 1:
-                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(0));
-                break;
-            case 2:
-                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(1));
-                break;
-            case -1:
-                sortingTGRP.selectToggle(sortingTGRP.getToggles().get(2));
-                break;
-            default:
-                break;
-        }
     }
-    
+
     private void initParams() {
         checkoutNumTF.setEditable(false);
         checkoutNumTF.setText("Checkout #: " + checkouts);
     }
-    
+
     //Post Sims
-    
+
     private void initStage1() {
         DefaultQueue<Client> clientQueue = shop.getClientQueue();
         for (int i = 0; i < clients.size(); i++) {
@@ -258,7 +237,7 @@ public class FXSecondaryController implements Initializable{
             stage1LV.getItems().add("Generated code for client '" + client + "': " + currKey);
         }
     }
-    
+
     private void initStage2() {
         Client[] clientsArr = shop.getClientQueue().toClientArray();
         for (Client client : clientsArr) {
@@ -266,103 +245,67 @@ public class FXSecondaryController implements Initializable{
         }
         shop.getClientQueue().toQueue(clientsArr);
     }
-    
+
     //Constructors
-    
+
     public FXSecondaryController(Shop shop, FXController controller, boolean simulated) {
         this.simulated = simulated;
         this.shop = shop;
         this.controller = controller;
         checkouts = 1;
-        selectedSortMethod = 0;
+        selectedSorting = "Selected sort: ";
     }
-    
+
     //Utility
-    
+
+    @FXML
+    void close(ActionEvent event) {
+        ((Stage) msgErrLBL.getScene().getWindow()).close();
+    }
+
     //Shelves
 
     boolean validateShelf() {
-        return !shelfIDTF.getText().isEmpty();
+        boolean codeFilled = !shelfIDTF.getText().isEmpty();
+        boolean noRepeatedCode = true;
+        for (String shelf: shelves) {
+            if (shelf.contains(shelfIDTF.getText())) {
+                noRepeatedCode = false;
+                break;
+            }
+        }
+        return codeFilled && noRepeatedCode;
     }
 
     @FXML
     void addShelf(ActionEvent event) {
+        titleErrLBL.setText("Error: can't add shelf");
+        msgErrLBL.setText("The shelf couldn't be added because either it already exists or the code is empty. Please check and try again");
         if (validateShelf()) {
             String newShelf = shelfIDTF.getText() + ":";
             shelvesLV.getItems().add(newShelf);
             shelves.add(newShelf);
             shelfIDTF.setText("");
         } else {
+            System.out.println("Here");
             try {
                 controller.launchFXML("dialogue.fxml", this, "Unable to add shelf",
-                        Modality.APPLICATION_MODAL, StageStyle.UNDECORATED, true, false);
-            } catch (Exception ignored) {
-                System.out.println("There will be consequences");
-            }
-        }
-    }
-    
-    @FXML
-    void editShelf(ActionEvent event) {
-        addShelfBTN.setText("Commit");
-        addShelfBTN.setOnAction((e) -> { // 6017441818 <- No borren esto xfa
-            commitShelf(event);
-        });
-        shelfIDTF.setOnAction((e) -> {
-            commitShelf(event);
-        });
-        String editing = shelvesLV.getSelectionModel().getSelectedItem();
-        String shelfCode = editing.split(": ")[0].replace(":", "");
-        String gameList;
-        try {
-            gameList = editing.split(": ")[1];
-        } catch (IndexOutOfBoundsException iub) {
-            gameList = "(empty)";
-        }
-        shelfIDTF.setText(shelfCode);
-        shelfGamesLBL.setText("Current game list (Shelf " + shelfCode + "): " + gameList);
-        shelvesLV.getItems().remove(editing);
-        shelves.remove(editing);
-    }
-
-    @FXML
-    void commitShelf(ActionEvent event) {
-        if (validateShelf()) {
-            String gameList = shelfGamesLBL.getText().contains("empty") ? "" : shelfGamesLBL.getText().replace("Current game list:", "");
-            String newShelf = shelfIDTF.getText() + ":" + gameList;
-            shelvesLV.getItems().add(newShelf);
-            shelves.add(newShelf);
-            shelfIDTF.setText("");
-            shelfGamesLBL.setText("");
-            addShelfBTN.setText("Add");
-            addShelfBTN.setOnAction((e) -> {
-                addShelf(event);
-            });
-            shelfIDTF.setOnAction((e) -> {
-                addShelf(event);
-            });
-        } else {
-            try {
-                controller.launchFXML("dialogue.fxml", this, "Unable to add shelf",
-                        Modality.APPLICATION_MODAL, StageStyle.UNDECORATED, true, false);
+                        Modality.APPLICATION_MODAL, StageStyle.DECORATED, true, false);
             } catch (Exception ignored) {
                 System.out.println("There will be consequences");
             }
         }
     }
 
-    void lookUpShelf(String code, String newCode, String mode) {
-        switch (mode) {
-            case "replace":
-                for (String game : games) {
-                    games.set(games.indexOf(game), game.replace(code, newCode));
+    void lookUpShelf(String code) {
+        for (String game: games) {
+            if (game.contains(code)) {
+                games.remove(game);
+                String gameCode = game.split(" / ")[2];
+                for (String client: clients) {
+                    clients.set(clients.indexOf(client), client.replace(", " + gameCode, ""));
                 }
-                break;
-            case "remove":
-                games.removeIf(game -> game.contains(code));
-                break;
-            default:
-                throw new IllegalStateException("Illegal argument: " + mode);
+            }
         }
     }
 
@@ -370,86 +313,124 @@ public class FXSecondaryController implements Initializable{
     void removeShelf(ActionEvent event) {
         shelvesLV.getItems().remove(shelvesLV.getSelectionModel().getSelectedItem());
         String remCode = shelvesLV.getSelectionModel().getSelectedItem().split(": ")[0];
-        lookUpShelf(remCode, remCode, "remove");
+        lookUpShelf(remCode);
     }
-    
+
     //Games
-    
-    @FXML
-    void addGame(ActionEvent event) {
-        String newGame = gameNameTF.getText() + " / $" + gamePriceTF.getText() + " / " + gameIDTF.getText() + " / " + gameShelvesCBX.getSelectionModel().getSelectedItem().split(" \\(")[0] + " / x" + gameAmountTF.getText();
-        gamesLV.getItems().add(newGame);
-        games.add(newGame);
-        for (String shelf : shelves) {
-            if (shelf.contains(gameShelvesCBX.getSelectionModel().getSelectedItem())) {
-                String separator = !shelf.contains(" ") ? " ": ", ";
-                int index = shelves.indexOf(shelf);
-                shelves.set(index, shelf + separator + gameIDTF.getText());
+
+    boolean validateGame() {
+        boolean allInfoPresent = !gameNameTF.getText().isEmpty() && !gameIDTF.getText().isEmpty() &&
+                !gamePriceTF.getText().isEmpty() && !gameAmountTF.getText().isEmpty() && !gameShelvesCBX.getSelectionModel().isEmpty();
+        boolean noRepeatedInfo = true;
+        for (String game: games) {
+            if (game.contains(gameNameTF.getText()) || game.contains(gameIDTF.getText())) {
+                noRepeatedInfo = false;
                 break;
             }
         }
-        gameNameTF.setText("");
-        gameIDTF.setText("");
-        gamePriceTF.setText("");
-        gameShelvesCBX.getSelectionModel().clearSelection();
-        gameAmountTF.setText("");
+        return allInfoPresent && noRepeatedInfo;
     }
-    
+
     @FXML
-    void editGame(ActionEvent event) {
-        addGameBTN.setText("Commit");
-        addGameBTN.setOnAction((e) -> {
-            commitGame(event);
-        });
+    void addGame(ActionEvent event) {
+        titleErrLBL.setText("Error: can't add game");
+        msgErrLBL.setText("The game couldn't be added because either it already exists or the information is incomplete. Please check and try again");
+        if (validateGame()) {
+            String newGame = gameNameTF.getText() + " / $" + gamePriceTF.getText() + " / " + gameIDTF.getText() + " / " + gameShelvesCBX.getSelectionModel().getSelectedItem().split(" \\(")[0] + " / x" + gameAmountTF.getText();
+            gamesLV.getItems().add(newGame);
+            games.add(newGame);
+            for (String shelf : shelves) {
+                if (shelf.contains(gameShelvesCBX.getSelectionModel().getSelectedItem())) {
+                    String separator = !shelf.contains(" ") ? " " : ", ";
+                    int index = shelves.indexOf(shelf);
+                    shelves.set(index, shelf + separator + gameIDTF.getText());
+                    break;
+                }
+            }
+            gameNameTF.setText("");
+            gameIDTF.setText("");
+            gamePriceTF.setText("");
+            gameShelvesCBX.getSelectionModel().clearSelection();
+            gameAmountTF.setText("");
+        } else {
+            try {
+                controller.launchFXML("dialogue.fxml", this, "Unable to add game",
+                        Modality.APPLICATION_MODAL, StageStyle.DECORATED, true, false);
+            } catch (Exception ignored) {
+                System.out.println("There will be consequences");
+            }
+        }
     }
-    
-    @FXML
-    void commitGame(ActionEvent event) {
-        addGameBTN.setText("Add");
-        addGameBTN.setOnAction((e) -> {
-            addGame(event);
-        });
-    }
-    
+
     @FXML
     void removeGame(ActionEvent event) {
-        
+        gamesLV.getItems().remove(shelvesLV.getSelectionModel().getSelectedItem());
+        String remCode = gamesLV.getSelectionModel().getSelectedItem().split(" / ")[2];
+        lookUpGame(remCode);
     }
-    
+
+    void lookUpGame(String remCode) {
+        for (String shelf: shelves) {
+            if (shelf.contains(remCode)) {
+                shelves.set(shelves.indexOf(shelf), shelf.replace(remCode + ", ", ""));
+                break;
+            }
+        }
+    }
+
     //Clients
-    
+
+    boolean validateClient() {
+        boolean allInfoFilled = !clientNameTF.getText().isEmpty() && !clientIDTF.getText().isEmpty() &&
+                !clientGamesLV.getSelectionModel().isEmpty();
+        boolean noRepeatedInfo = true;
+        for (String client: clients) {
+            if (client.contains(clientNameTF.getText()) || client.contains(clientIDTF.getText())) {
+                noRepeatedInfo = false;
+                break;
+            }
+        }
+        return allInfoFilled && noRepeatedInfo;
+    }
+
     @FXML
     void addClient(ActionEvent event) {
-        String gameList = clientGamesLV.getSelectionModel().getSelectedItems().toString().replaceAll("\\s(\\([^,]+\\))", "");
-        String newClient = clientNameTF.getText() + " / " + clientIDTF.getText() + " / " + gameList;
-        clientsLV.getItems().add(newClient);
-        clients.add(newClient);
-        clientNameTF.setText("");
-        clientIDTF.setText("");
-        clientGamesLV.getSelectionModel().clearSelection();
+        titleErrLBL.setText("Error: can't add client");
+        msgErrLBL.setText("The client couldn't be added because either it already exists or the information is incomplete. Please check and try again");
+        if (validateClient()) {
+            String gameList = clientGamesLV.getSelectionModel().getSelectedItems().toString().replaceAll("\\s(\\([^,]+\\))", "");
+            String newClient = clientNameTF.getText() + " / " + clientIDTF.getText() + " / " + gameList + " / " + selectedSorting;
+            clientsLV.getItems().add(newClient);
+            clients.add(newClient);
+            clientNameTF.setText("");
+            clientIDTF.setText("");
+            clientGamesLV.getSelectionModel().clearSelection();
+        } else {
+            try {
+                controller.launchFXML("dialogue.fxml", this, "Unable to add client",
+                        Modality.APPLICATION_MODAL, StageStyle.DECORATED, true, false);
+            } catch (Exception ignored) {
+                System.out.println("There will be consequences");
+            }
+        }
     }
-    
-    @FXML
-    void commitClient(ActionEvent event) {
-        addClientBTN.setText("Add");
-        addClientBTN.setOnAction((e) -> {
-            addClient(event);
-        });
-    }
-    
-    @FXML
-    void editClient(ActionEvent event) {
-        addClientBTN.setText("Commit");
-        addClientBTN.setOnAction((e) -> {
-            commitClient(event);
-        });
-    }
-    
+
     @FXML
     void removeClient(ActionEvent event) {
-        
+        clientsLV.getItems().remove(clientsLV.getSelectionModel().getSelectedItem());
+        String remCode = clientsLV.getSelectionModel().getSelectedItem().split(" / ")[1];
+        lookUpClient(remCode);
     }
-    
+
+    void lookUpClient(String remCode) {
+        for (String client: clients) {
+            if (client.contains(remCode)) {
+                clients.remove(client);
+                break;
+            }
+        }
+    }
+
     @FXML
     void incrementCheckouts(MouseEvent event) {
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
@@ -457,7 +438,7 @@ public class FXSecondaryController implements Initializable{
         checkouts = checknum;
         checkoutNumTF.setText("Checkout #: " + checkouts);
     }
-    
+
     @FXML
     void decrementCheckouts(MouseEvent event) {
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
@@ -470,10 +451,11 @@ public class FXSecondaryController implements Initializable{
     void selectAlgorithmToggle(ActionEvent event) {
         JFXToggleNode clickedSort = ((JFXToggleNode)event.getSource());
         System.out.println(clickedSort.toString());
-        selectedSortMethod = clickedSort.getText().contains("Random") ? -1 : Integer.parseInt(clickedSort.getText());
         for (Toggle node : sortingTGRP.getToggles()) {
             double glowVal = (node.isSelected()) ? 0.8 : 0;
-            System.out.println(glowVal);
+            int index = sortingTGRP.getToggles().indexOf(node);
+            String code = index == 0 ? "Insertion Sort" : index == 1 ? "Selection Sort" : "Random";
+            if (glowVal == 0.8) selectedSorting += code;
             ((JFXToggleNode) node).setEffect(new Glow(glowVal));
         }
     }
@@ -500,10 +482,6 @@ public class FXSecondaryController implements Initializable{
 
     public int getCheckoutNum() {
         return checkouts;
-    }
-
-    public int getSelectedSortMethod() {
-        return selectedSortMethod;
     }
 
     public void setSimulated(boolean simulated) {

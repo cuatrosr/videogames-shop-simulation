@@ -142,7 +142,7 @@ public class Shop {
         }
     }
     
-    public void createClients(String name, int cc, String gamesRaw, int num, int i) throws NumberFormatException, Exception {
+    public void createClients(String name, int cc, String gamesRaw, int num, int i, int sorting) throws NumberFormatException, Exception {
         String[] line = gamesRaw.split(", ");
         DefaultStack<Integer> stack  = new DefaultStack<>();
 
@@ -150,7 +150,7 @@ public class Shop {
             stack.push(Integer.parseInt(line[j]));
         } 
         int key = this.getgamesHash().insert(cc, stack);
-        Client client = new Client(name, cc, key, i + 1);
+        Client client = new Client(name, cc, key, i + 1, sorting);
         this.getClientQueue().enqueue(client);
     }
 
