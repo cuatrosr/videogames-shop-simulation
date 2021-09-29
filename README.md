@@ -24,7 +24,7 @@ _We used [GitHub](https://github.com/) to the versioned. For all the updates of 
 
 ## <b>_Documentation And Images_</b> 💬📷
 
-* _All the documentation can be found [here](https://github.com/cuatrosr/videogames-shop-simulation/blob/main/docs/Engineering%20Method.docx) <br>
+* _All the documentation can be found [here](https://github.com/cuatrosr/videogames-shop-simulation/blob/main/docs/Engineering%20Method.pdf) <br>
 ```
 src/ui/resources/docs/
 ```
