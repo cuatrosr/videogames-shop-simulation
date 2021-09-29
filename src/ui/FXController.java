@@ -7,13 +7,11 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
-import java.io.File;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -217,8 +215,7 @@ public class FXController implements Initializable {
         shop.setShelves(new Shelf[amountShelf]);
         shop.createShelf(shelves, secondaryController.getGames());
         stage1();
-        stage2();
-        stage3();
+        stage2_3();
         stage4();
         //Launch
         try {
@@ -247,26 +244,27 @@ public class FXController implements Initializable {
             System.out.println("Client #" + (i + 1) + ": Name: " + name + ", ID: " + cc + ", Games: [" + gamesRaw + "], Time: " + (i + 1));
             try {
                 shop.createClients(name, cc, gamesRaw, num, i, sorting);
-                shop.getClientQueue().toString();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
     
-    void stage2() {
+    void stage2_3() {
         Client[] clients = shop.getClientQueue().toClientArray();
-        for (Client client : clients) {
+        /*for (Client client : clients) {
             client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
             System.out.println(shop.getgamesHash().search(client.getCc()));
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
-        }
+        }*/
+        shop.getTablet().clientList(clients, shop);
         shop.selectionSort(clients);
-        recurSwitch(clients);
+        sortingAlg(clients);
+        shop.sellers(clients.length);
     }
 
-    void recurSwitch(Client[] clients) {
+    void sortingAlg(Client[] clients) {
         for (Client client : clients) {
             int param = client.getSelectedSortingMethod();
             switch (param) {
@@ -282,14 +280,7 @@ public class FXController implements Initializable {
         }
     }
 
-    void stage3() {
-        Client[] clients = shop.getClientQueue().toClientArray();
-        shop.getTablet().clientList(clients, shop);
-        shop.selectionSort(clients);
-    }
-
     void stage4() {
-        shop.sellers(shop.getClientQueue().size());
     }
     
     //Post Simulation

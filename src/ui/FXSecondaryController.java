@@ -203,14 +203,7 @@ public class FXSecondaryController implements Initializable{
 
     //Post Sims
 
-    Client[] mayhaps;
-
-    public void setMayhaps(Client[] mayhaps) {
-        this.mayhaps = mayhaps;
-    }
-
     private void initStage1() {
-        shop.getClientQueue().toQueue(mayhaps);
         DefaultQueue<Client> clientQueue = shop.getClientQueue();
         for (int i = 0; i < clients.size(); i++) {
             String client = clients.get(i).split(" / ")[0];
