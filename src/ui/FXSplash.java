@@ -49,7 +49,7 @@ public class FXSplash extends Preloader {
         preloaderStage.initStyle(StageStyle.TRANSPARENT);
         preloaderStage.setScene(scene);
         preloaderStage.setResizable(false);
-//        preloaderStage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
+        preloaderStage.getIcons().add(new Image(FXSplash.class.getResourceAsStream("resources/img/gamex.png")));
         preloaderStage.show();
     }
 

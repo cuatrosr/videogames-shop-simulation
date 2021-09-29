@@ -1,6 +1,7 @@
 package ui;
 
 import com.sun.javafx.application.LauncherImpl;
+import java.io.File;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.objects.Shop;
 import java.io.IOException;
+import javafx.scene.image.Image;
 
 public class FXMain extends Application {
 
@@ -28,7 +30,7 @@ public class FXMain extends Application {
         fxmlLoader.setController(controller);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-//        primaryStage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
+        primaryStage.getIcons().add(new Image(FXMain.class.getResourceAsStream("resources/img/gamex.png")));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Configure simulation");
         primaryStage.setMinHeight(750);

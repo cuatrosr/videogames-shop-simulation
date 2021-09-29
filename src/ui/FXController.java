@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
+import java.io.File;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -21,6 +22,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -44,7 +46,7 @@ public class FXController implements Initializable {
 
     //Preloader
     @FXML
-    private ImageView iLogo = new ImageView();
+    private ImageView iLogo;
 
     @FXML
     private BorderPane mainPaneBP = new BorderPane();
@@ -80,7 +82,6 @@ public class FXController implements Initializable {
     /*METHODS*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        iLogo.setImage(new Image(new File("resources/image/baanccNegative.png").toURI().toString()));
         screenBounds = Screen.getPrimary().getBounds();
         double prefWidth = screenBounds.getWidth() * 0.9;
         double prefHeight = screenBounds.getHeight() * 0.85;
@@ -128,7 +129,7 @@ public class FXController implements Initializable {
                 stage.setMinWidth(1400);
             }
             stage.initModality(modality);
-//            stage.getIcons().add(new Image(new File("resources/image/baancc.png").toURI().toString()));
+            stage.getIcons().add(new Image(FXController.class.getResourceAsStream("resources/img/gamex.png")));
             stage.initStyle(style);
             stage.setTitle(title);
             stage.setResizable(resizable);
