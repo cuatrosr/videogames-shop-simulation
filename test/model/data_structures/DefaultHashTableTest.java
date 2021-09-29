@@ -67,7 +67,6 @@ public class DefaultHashTableTest {
     @Test
     void limitDelete() throws Exception {
         setUp2();
-        System.out.println(testHash);
 
         assertDoesNotThrow(() -> testHash.delete(1));
         assertDoesNotThrow(() -> testHash.delete(3));

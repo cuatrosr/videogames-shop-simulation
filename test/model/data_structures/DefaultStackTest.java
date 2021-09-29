@@ -36,11 +36,6 @@ class DefaultStackTest {
     }
 
     @Test
-    void limitPush() {
-
-    }
-
-    @Test
     void interestingPush() {
         setUp1();
 
@@ -74,11 +69,6 @@ class DefaultStackTest {
         assertDoesNotThrow(() -> clientStack.pop());
         assertThrows(NoSuchElementException.class, () -> clientStack.pop());
         assertThrows(NoSuchElementException.class, () -> clientStack.pop());
-
-    }
-
-    @org.junit.jupiter.api.Test
-    void interestingPop() {
 
     }
 
