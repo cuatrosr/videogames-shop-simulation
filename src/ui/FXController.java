@@ -218,6 +218,8 @@ public class FXController implements Initializable {
         shop.createShelf(shelves, secondaryController.getGames());
         stage1();
         stage2();
+        stage3();
+        stage4();
         //Launch
         try {
             simulated = !simulated;
@@ -240,10 +242,11 @@ public class FXController implements Initializable {
             String[] curr = clientListRaw.get(i).split(" / ");
             String gamesRaw = curr[2].replaceAll("\\[|\\]", "");
             String name = curr[0];
+            int sorting = curr[3].contains("Insertion") ? 1 : curr[3].contains("Selection") ? 2 : -1;
             int cc = Integer.parseInt(curr[1].trim());
             System.out.println("Client #" + (i + 1) + ": Name: " + name + ", ID: " + cc + ", Games: [" + gamesRaw + "], Time: " + (i + 1));
             try {
-                shop.createClients(name, cc, gamesRaw, num, i);
+                shop.createClients(name, cc, gamesRaw, num, i, sorting);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -258,29 +261,37 @@ public class FXController implements Initializable {
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }
-        recurSwitch(secondaryController.getSelectedSortMethod(), clients);
+        shop.selectionSort(clients);
+        recurSwitch(clients);
     }
 
-    void recurSwitch(int param, Client[] clients) {
-        switch (param) {
-            case 1:
-                shop.selectionSort(clients);
-                break;
-            case 2:
-                // The  other sort
-                System.out.println("Guys we really need the other sort");
-                shop.selectionSort(clients); //TODO: The other sorting algorithm
-                break;
-            case -1:
-                recurSwitch((Math.random() <= 0.5) ? 1 : 2, clients);
-                break;
-            default:
-                throw new IllegalStateException("How: " + param);
+    void recurSwitch(Client[] clients) {
+        for (Client client : clients) {
+            int param = client.getSelectedSortingMethod();
+            switch (param) {
+                case 1:
+                    shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves());
+                    break;
+                case 2:
+                    shop.getTablet().orderSelectionSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves());
+                    break;
+                case -1:
+                    recurSwitch(clients);
+                    break;
+                default:
+                    throw new IllegalStateException("How: " + param);
+            }
         }
     }
 
     void stage3() {
+        Client[] clients = shop.getClientQueue().toClientArray();
+        shop.getTablet().clientList(clients, shop);
+        shop.selectionSort(clients);
+    }
 
+    void stage4() {
+        shop.sellers(shop.getClientQueue().size());
     }
     
     //Post Simulation
@@ -311,12 +322,26 @@ public class FXController implements Initializable {
     
     @FXML
     void stage3Clicked(ActionEvent event) {
-        
+        if (!loadedPane.equals("Stage-3")) {
+            try {
+                launchFXML("stage-3.fxml", secondaryController, "Stage 3 Results", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "Stage-3";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @FXML
     void stage4Clicked(ActionEvent event) {
-        
+        if (!loadedPane.equals("Stage-4")) {
+            try {
+                launchFXML("stage-4.fxml", secondaryController, "Stage 4 Results", Modality.NONE, StageStyle.UNIFIED, false, true);
+                loadedPane = "Stage-4";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     @FXML

@@ -25,7 +25,6 @@
                   <JFXTextField fx:id="gameAmountTF" layoutX="70.0" layoutY="237.0" onAction="#addGame" prefWidth="200.0" promptText="Amount" />
                   <JFXComboBox fx:id="gameShelvesCBX" prefWidth="200.0" promptText="(Select a Shelf)" />
                   <JFXButton fx:id="addGameBTN" minHeight="0.0" minWidth="0.0" onAction="#addGame" text="Add" />
-                  <JFXButton fx:id="editGameBTN" onAction="#editGame" text="Edit" />
                   <JFXButton fx:id="rmGameBTN" onAction="#removeGame" text="Remove" />
                </children>
             </VBox>

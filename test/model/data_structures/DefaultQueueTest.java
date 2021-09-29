@@ -34,11 +34,6 @@ class DefaultQueueTest {
         assertEquals(client, clientQueue.dequeue());
 
     }
-
-    void limitEnqueue() {
-
-
-    }
     
     @Test
     void interestingEnqueue() {
@@ -78,14 +73,6 @@ class DefaultQueueTest {
 
 
     }
-    
-    @Test
-    void interestingDequeue() {
-
-    }
-
-
-
 
 
 }

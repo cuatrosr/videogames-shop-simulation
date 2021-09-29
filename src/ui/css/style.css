@@ -35,6 +35,16 @@
     -fx-font-size: 0.95em;
 }
 
+.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -DARK-SECONDARY;
+}
+
+.message {
+    -fx-text-fill: -TEXT-2;
+}
+
 /* JFX Classes */
 
 .jfx-progress-bar .bar {
