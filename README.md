@@ -28,6 +28,13 @@ _We used [GitHub](https://github.com/) to the versioned. For all the updates of 
 ```
 src/ui/resources/docs/
 ```
+## <b>_Execution_</b> 📦
+   
+* _To run the program from its .jar, you must have a JDK of: "jre1.8.0_291" in which it was developed. Then, you should follow these steps: <br><br> 1️⃣ Run your command console. <br> 2️⃣ Navigate to the dist folder.<br> 3️⃣ Execute the following command to execute it, ignore any error displayed in the console:_<br>
+```
+java -jar videogames-shop-simulation.jar
+```
+  
 ---
 ⌨️ with ❤️ [ArturoDiaz02](https://github.com/ArturoDiaz02) 😊<br>
 ⌨️ with ❤️ [cuatrosr](https://github.com/cuatrosr) 😊<br>
