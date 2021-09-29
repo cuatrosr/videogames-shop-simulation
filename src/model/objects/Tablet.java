@@ -35,38 +35,30 @@ public class Tablet {
         }
         return arr;
     }
-    
-        public Integer[] orderSelectionSort(Integer[] arr, Shelf[] shelf) {
+
+    public Integer[] orderSelectionSort(Integer[] arr, Shelf[] shelf) {
         int n = arr.length;
         if (n == 1 && getShelf(arr[0], shelf) == null) {
             return arr = new Integer[0];
         }
-        for (int j = 1; j < n; j++) {
-            int key = arr[j];
-            int i = j - 1;
-            String shelf1 = getShelf(arr[i], shelf);
-            String shelf2 = getShelf(key, shelf);
-            if (shelf1 == null || shelf2 == null) {
-                arr[i] = (shelf1 == null) ? null : arr[i];
-                arr[j] = (shelf2 == null) ? null : arr[j];
-            }
-            int compare = -1;
-            try {
-                compare = shelf1.compareTo(shelf2);
-            } catch (NullPointerException e) {
-            } finally {
-                while ((i > -1) && (compare >= 0)) {
-                    arr[i + 1] = arr[i];
-                    i--;
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+            String shelf2 = getShelf(arr[i], shelf);
+            for (int j = i+1; j < n; j++) {
+                String shelf1 = getShelf(arr[j], shelf);
+                int compare = shelf1.compareTo(shelf2);
+                if (compare < 0) {
+                    min = j;
                 }
-                arr[i + 1] = key;
+                int temp = arr[min];
+                arr[min] = arr[i];
+                arr[i] = temp;
             }
         }
         return arr;
     }
 
     public String getShelf(int key, Shelf[] shelf) {
-        System.out.println(shelf);
         for (int i = 0; i < shelf.length; i++) {
             DefaultHashTable<Integer, Game> gameHash = shelf[i].getGameHash();
             if (gameHash.search(key) != null) {
@@ -90,10 +82,10 @@ public class Tablet {
         client.setTotalPurchase(money);
     }
 
-    public void clientList(Client[] clients, Shop shop){
+    public void clientList(Client[] clients, Shop shop) {
         for (Client client : clients) {
-            //client.setShoppingList(shop.getTablet().order(client.getGamesStack().toArray(), shop.getShelf()));
-            client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            //client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            client.setGames(shop.getTablet().orderSelectionSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }
