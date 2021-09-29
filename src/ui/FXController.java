@@ -235,18 +235,19 @@ public class FXController implements Initializable {
     }
     
     void stage1() {
-        ObservableList<String> clientListRaw = secondaryController.getClientsLV().getItems();
+        ArrayList<String> clientListRaw = secondaryController.getClients();
         int num = clientListRaw.size();
         shop.setGamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         for (int i = 0; i < num; i++) {
             String[] curr = clientListRaw.get(i).split(" / ");
             String gamesRaw = curr[2].replaceAll("\\[|\\]", "");
             String name = curr[0];
-            int sorting = curr[3].contains("Insertion") ? 1 : curr[3].contains("Selection") ? 2 : -1;
+            int sorting = curr[3].contains("Insertion") ? 1 : 2;
             int cc = Integer.parseInt(curr[1].trim());
             System.out.println("Client #" + (i + 1) + ": Name: " + name + ", ID: " + cc + ", Games: [" + gamesRaw + "], Time: " + (i + 1));
             try {
                 shop.createClients(name, cc, gamesRaw, num, i, sorting);
+                shop.getClientQueue().toString();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -274,9 +275,6 @@ public class FXController implements Initializable {
                     break;
                 case 2:
                     shop.getTablet().orderSelectionSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves());
-                    break;
-                case -1:
-                    recurSwitch(clients);
                     break;
                 default:
                     throw new IllegalStateException("How: " + param);

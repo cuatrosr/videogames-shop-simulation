@@ -48,9 +48,6 @@ public class FXSecondaryController implements Initializable{
     private JFXButton addShelfBTN = new JFXButton();
 
     @FXML
-    private JFXButton rmShelfBTN = new JFXButton();
-
-    @FXML
     private JFXTextField checkoutNumTF = new JFXTextField();
 
     //Games
@@ -76,9 +73,6 @@ public class FXSecondaryController implements Initializable{
     @FXML
     private JFXButton addGameBTN = new JFXButton();
 
-    @FXML
-    private JFXButton rmGameBTN = new JFXButton();
-
     //Clients
 
     @FXML
@@ -95,9 +89,6 @@ public class FXSecondaryController implements Initializable{
 
     @FXML
     private JFXButton addClientBTN = new JFXButton();
-
-    @FXML
-    private JFXButton rmClientBTN = new JFXButton();
 
     @FXML
     private ToggleGroup sortingTGRP = new ToggleGroup();
@@ -160,24 +151,12 @@ public class FXSecondaryController implements Initializable{
     }
 
     private void initShelves() {
-        shelvesLV.setOnMouseClicked((event) -> {
-            boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
-            rmShelfBTN.setDisable(btnsDisabled);
-        });
-        boolean btnsDisabled = shelvesLV.getSelectionModel().getSelectedItems().isEmpty();
-        rmShelfBTN.setDisable(btnsDisabled);
         for (String shelf : shelves) {
             shelvesLV.getItems().add(shelf);
         }
     }
 
     private void initGames() {
-        gamesLV.setOnMouseClicked((event) -> {
-            boolean btnsDisabled = gamesLV.getSelectionModel().getSelectedItems().isEmpty();
-            rmGameBTN.setDisable(btnsDisabled);
-        });
-        boolean btnsDisabled = gamesLV.getSelectionModel().getSelectedItems().isEmpty();
-        rmGameBTN.setDisable(btnsDisabled);
         for (String game : games) {
             System.out.println("G:" + game);
             gamesLV.getItems().add(game);
@@ -202,12 +181,6 @@ public class FXSecondaryController implements Initializable{
     }
 
     private void initClients() {
-        clientsLV.setOnMouseClicked((event) -> {
-            boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
-            rmClientBTN.setDisable(btnsDisabled);
-        });
-        boolean btnsDisabled = clientsLV.getSelectionModel().getSelectedItems().isEmpty();
-        rmClientBTN.setDisable(btnsDisabled);
         clientGamesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (String client : clients) {
             clientsLV.getItems().add(client);
@@ -230,7 +203,14 @@ public class FXSecondaryController implements Initializable{
 
     //Post Sims
 
+    Client[] mayhaps;
+
+    public void setMayhaps(Client[] mayhaps) {
+        this.mayhaps = mayhaps;
+    }
+
     private void initStage1() {
+        shop.getClientQueue().toQueue(mayhaps);
         DefaultQueue<Client> clientQueue = shop.getClientQueue();
         for (int i = 0; i < clients.size(); i++) {
             String client = clients.get(i).split(" / ")[0];
@@ -253,7 +233,7 @@ public class FXSecondaryController implements Initializable{
             }
             stage2LV.getItems().add("Client " + client.getName() + "'s ordered list: " + stacky.toStringNoFormat() + " (Current time: " + client.getTime() + ")");
         }
-        shop.getClientQueue().toQueue(clientsArr);
+        shop.selectionSort(clientsArr);
     }
 
     private void initStage3() {
@@ -261,7 +241,7 @@ public class FXSecondaryController implements Initializable{
         for (Client client: clientsArr) {
             stage3LV.getItems().add("Client " + client.getName() + "'s basket: " + Arrays.toString(client.getGames()) + " (Current time: " + client.getTime() + ")");
         }
-        shop.getClientQueue().toQueue(clientsArr);
+        shop.selectionSort(clientsArr);
     }
 
     private void initStage4() {
@@ -269,6 +249,7 @@ public class FXSecondaryController implements Initializable{
         for (Client client: clientsArr) {
             stage4LV.getItems().add("Client " + client.getKey() + " exits with time " + client.getTime() + "(Games: " + Arrays.toString(client.getGames()) + ")");
         }
+        shop.selectionSort(clientsArr);
     }
 
     //Constructors
@@ -322,25 +303,6 @@ public class FXSecondaryController implements Initializable{
         }
     }
 
-    void lookUpShelf(String code) {
-        for (String game: games) {
-            if (game.contains(code)) {
-                games.remove(game);
-                String gameCode = game.split(" / ")[2];
-                for (String client: clients) {
-                    clients.set(clients.indexOf(client), client.replace(", " + gameCode, ""));
-                }
-            }
-        }
-    }
-
-    @FXML
-    void removeShelf(ActionEvent event) {
-        shelvesLV.getItems().remove(shelvesLV.getSelectionModel().getSelectedItem());
-        String remCode = shelvesLV.getSelectionModel().getSelectedItem().split(": ")[0];
-        lookUpShelf(remCode);
-    }
-
     //Games
 
     boolean validateGame() {
@@ -387,22 +349,6 @@ public class FXSecondaryController implements Initializable{
         }
     }
 
-    @FXML
-    void removeGame(ActionEvent event) {
-        gamesLV.getItems().remove(shelvesLV.getSelectionModel().getSelectedItem());
-        String remCode = gamesLV.getSelectionModel().getSelectedItem().split(" / ")[2];
-        lookUpGame(remCode);
-    }
-
-    void lookUpGame(String remCode) {
-        for (String shelf: shelves) {
-            if (shelf.contains(remCode)) {
-                shelves.set(shelves.indexOf(shelf), shelf.replace(remCode + ", ", ""));
-                break;
-            }
-        }
-    }
-
     //Clients
 
     boolean validateClient() {
@@ -441,22 +387,6 @@ public class FXSecondaryController implements Initializable{
     }
 
     @FXML
-    void removeClient(ActionEvent event) {
-        clientsLV.getItems().remove(clientsLV.getSelectionModel().getSelectedItem());
-        String remCode = clientsLV.getSelectionModel().getSelectedItem().split(" / ")[1];
-        lookUpClient(remCode);
-    }
-
-    void lookUpClient(String remCode) {
-        for (String client: clients) {
-            if (client.contains(remCode)) {
-                clients.remove(client);
-                break;
-            }
-        }
-    }
-
-    @FXML
     void incrementCheckouts(MouseEvent event) {
         int checknum = Integer.parseInt(checkoutNumTF.getText().split(": ")[1]);
         checknum++;
@@ -479,7 +409,7 @@ public class FXSecondaryController implements Initializable{
         for (Toggle node : sortingTGRP.getToggles()) {
             double glowVal = (node.isSelected()) ? 0.8 : 0;
             int index = sortingTGRP.getToggles().indexOf(node);
-            String code = index == 0 ? "Insertion Sort" : index == 1 ? "Selection Sort" : "Random";
+            String code = index == 0 ? "Insertion Sort" : "Selection Sort";
             if (glowVal == 0.8) selectedSorting += code;
             ((JFXToggleNode) node).setEffect(new Glow(glowVal));
         }

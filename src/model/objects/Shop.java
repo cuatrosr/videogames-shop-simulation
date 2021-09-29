@@ -95,6 +95,7 @@ public class Shop {
             String[] shelf = shelves.get(i).split(": ");
             System.out.println(Arrays.toString(shelf) + " " + shelf.length);
             String shelfCode = shelf[0];
+            if (shelf.length == 1) continue;
             String[] gameList = shelf[1].split(", ");
             int numGames = gameList.length;
             this.getShelves()[i] = new Shelf(shelfCode, numGames);
@@ -111,7 +112,7 @@ public class Shop {
             int gameAmount = Integer.parseInt(meta[4].replaceAll("x", ""));
             String gameName = meta[0];
             for (Shelf shelf : getShelves()) {
-                if (gameShelf.equals(shelf.getCode())) {
+                if (shelf != null && gameShelf.equals(shelf.getCode())) {
                     shelf.getGameHash().insert(gameCode, new Game(gameCode, gamePrice, gameAmount, gameName));
                 }
             }

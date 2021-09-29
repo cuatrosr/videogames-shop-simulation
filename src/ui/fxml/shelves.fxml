@@ -21,7 +21,6 @@
                <children>
                   <JFXTextField fx:id="shelfIDTF" onAction="#addShelf" prefWidth="200.0" promptText="Shelf Code" />
                   <JFXButton fx:id="addShelfBTN" minHeight="0.0" minWidth="0.0" onAction="#addShelf" text="Add" />
-                  <JFXButton fx:id="rmShelfBTN" onAction="#removeShelf" text="Remove" />
                   <Separator prefHeight="0.0" prefWidth="278.0" />
                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0">
                      <children>

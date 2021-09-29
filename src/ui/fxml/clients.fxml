@@ -25,7 +25,7 @@
                   <JFXTextField fx:id="clientNameTF" onAction="#addClient" prefWidth="200.0" promptText="Name" />
                   <JFXTextField fx:id="clientIDTF" onAction="#addClient" prefWidth="200.0" promptText="ID" />
                   <Label style="-fx-text-fill: -PROMPT-TEXT;" text="Sorting algorithm" />
-                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="223.0" spacing="5.0" styleClass="sorting-container">
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="155.0" spacing="5.0" styleClass="sorting-container">
                      <children>
                         <JFXToggleNode onAction="#selectAlgorithmToggle" prefHeight="48.0" prefWidth="59.0" text="1" HBox.hgrow="ALWAYS">
                            <toggleGroup>
@@ -33,7 +33,6 @@
                            </toggleGroup>
                         </JFXToggleNode>
                         <JFXToggleNode onAction="#selectAlgorithmToggle" prefHeight="48.0" prefWidth="59.0" text="2" toggleGroup="$sortingTGRP" HBox.hgrow="ALWAYS" />
-                        <JFXToggleNode onAction="#selectAlgorithmToggle" prefHeight="48.0" prefWidth="83.0" text="Random" toggleGroup="$sortingTGRP" />
                      </children>
                   </HBox>
                   <JFXListView fx:id="clientGamesLV" prefHeight="160.0" prefWidth="200.0" showTooltip="true" styleClass="alt-jfx-list-view">
@@ -41,7 +40,6 @@
                         <Tooltip text="Select one or multiple (CTRL + L_CLICK) games" />
                      </tooltip></JFXListView>
                   <JFXButton fx:id="addClientBTN" minHeight="0.0" minWidth="0.0" onAction="#addClient" text="Add" />
-                  <JFXButton fx:id="rmClientBTN" onAction="#removeClient" text="Remove" />
                </children>
             </VBox>
          </children>
