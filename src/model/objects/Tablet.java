@@ -44,7 +44,7 @@ public class Tablet {
         for (int i = 0; i < n - 1; i++) {
             int min = i;
             String shelf2 = getShelf(arr[i], shelf);
-            for (int j = i+1; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 String shelf1 = getShelf(arr[j], shelf);
                 int compare = shelf1.compareTo(shelf2);
                 if (compare < 0) {
@@ -84,8 +84,11 @@ public class Tablet {
 
     public void clientList(Client[] clients, Shop shop) {
         for (Client client : clients) {
-            //client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
-            client.setGames(shop.getTablet().orderSelectionSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            if (client.getSelectedSortingMethod() == 1) {
+                client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            } else {
+                client.setGames(shop.getTablet().orderSelectionSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
+            }
             client.setAmountGames(client.getGames().length);
             client.setTime(client.getTime() + client.getAmountGames());
         }

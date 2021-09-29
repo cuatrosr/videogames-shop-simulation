@@ -236,6 +236,7 @@ public class FXController implements Initializable {
         int num = clientListRaw.size();
         shop.setGamesHash(new DefaultHashTable<Integer, DefaultStack<Integer>>(num));
         for (int i = 0; i < num; i++) {
+            System.out.println(clientListRaw.get(i));
             String[] curr = clientListRaw.get(i).split(" / ");
             String gamesRaw = curr[2].replaceAll("\\[|\\]", "");
             String name = curr[0];
@@ -252,15 +253,8 @@ public class FXController implements Initializable {
     
     void stage2_3() {
         Client[] clients = shop.getClientQueue().toClientArray();
-        /*for (Client client : clients) {
-            client.setGames(shop.getTablet().orderInsertSort(shop.getgamesHash().search(client.getCc()).toArray(), shop.getShelves()));
-            System.out.println(shop.getgamesHash().search(client.getCc()));
-            client.setAmountGames(client.getGames().length);
-            client.setTime(client.getTime() + client.getAmountGames());
-        }*/
         shop.getTablet().clientList(clients, shop);
         shop.selectionSort(clients);
-        sortingAlg(clients);
         shop.sellers(clients.length);
     }
 
