@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.data_structures.DefaultQueue;
+import model.data_structures.DefaultStack;
 import model.objects.Client;
 import model.objects.Shop;
 
@@ -114,9 +115,12 @@ public class FXSecondaryController implements Initializable{
     //Stage 3
 
     @FXML
-    private JFXListView<String> stage3LV;
+    private JFXListView<String> stage3LV = new JFXListView<>();
 
     //Stage 4
+
+    @FXML
+    private JFXListView<String> stage4LV = new JFXListView<>();
 
     /*CLASS FIELDS*/
 
@@ -150,6 +154,8 @@ public class FXSecondaryController implements Initializable{
         } else {
             initStage1();
             initStage2();
+            initStage3();
+            initStage4();
         }
     }
 
@@ -241,9 +247,28 @@ public class FXSecondaryController implements Initializable{
     private void initStage2() {
         Client[] clientsArr = shop.getClientQueue().toClientArray();
         for (Client client : clientsArr) {
-            stage2LV.getItems().add("Client ordered list: " + Arrays.toString(client.getGames()) + " (Current time: " + client.getTime() + ")");
+            DefaultStack<Integer> stacky = new DefaultStack<>();
+            for (int code: client.getGames()) {
+                stacky.push(code);
+            }
+            stage2LV.getItems().add("Client " + client.getName() + "'s ordered list: " + stacky.toStringNoFormat() + " (Current time: " + client.getTime() + ")");
         }
         shop.getClientQueue().toQueue(clientsArr);
+    }
+
+    private void initStage3() {
+        Client[] clientsArr = shop.getClientQueue().toClientArray();
+        for (Client client: clientsArr) {
+            stage3LV.getItems().add("Client " + client.getName() + "'s basket: " + Arrays.toString(client.getGames()) + " (Current time: " + client.getTime() + ")");
+        }
+        shop.getClientQueue().toQueue(clientsArr);
+    }
+
+    private void initStage4() {
+        Client[] clientsArr = shop.getClientQueue().toClientArray();
+        for (Client client: clientsArr) {
+            stage4LV.getItems().add("Client " + client.getKey() + " exits with time " + client.getTime() + "(Games: " + Arrays.toString(client.getGames()) + ")");
+        }
     }
 
     //Constructors

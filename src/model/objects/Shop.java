@@ -93,6 +93,7 @@ public class Shop {
     public void createShelf(ArrayList<String> shelves, ArrayList<String> games) throws NumberFormatException, Exception {
         for (int i = 0; i < shelves.size(); i++) {
             String[] shelf = shelves.get(i).split(": ");
+            System.out.println(Arrays.toString(shelf) + " " + shelf.length);
             String shelfCode = shelf[0];
             String[] gameList = shelf[1].split(", ");
             int numGames = gameList.length;
